@@ -1,0 +1,75 @@
+{
+  "current_holdings": {
+    "TSM": {
+      "account": "Exness",
+      "shares_or_lots": "0.22 lot",
+      "avg_cost": 367.79,
+      "tags": ["semi", "high_beta"]
+    },
+    "IONQ": {
+      "account": "Taiwan_Brokerage",
+      "shares_or_lots": "65 shares",
+      "avg_cost": 43.38,
+      "tags": ["quantum", "high_beta", "speculative"]
+    },
+    "PLTR": {
+      "account": "Taiwan_Brokerage",
+      "shares_or_lots": "22 shares",
+      "avg_cost": 145.87,
+      "tags": ["ai_software", "high_beta"]
+    },
+    "SOFI": {
+      "account": "Taiwan_Brokerage",
+      "shares_or_lots": "219 shares",
+      "avg_cost": 26.24,
+      "tags": ["fintech", "high_risk", "muddy_waters_target"]
+    }
+  },
+  "watchlist": ["GOOGL", "NVDA", "MSFT", "AAPL", "AMZN", "META", "AVGO", "RKLB"],
+  "defensive_candidates": ["KO", "JNJ", "WMT", "VZ", "PG", "MRK"],
+  "tier_strategy": {
+    "tier_0": {
+      "vix_range": [0, 15],
+      "action": "休兵",
+      "cash_target_pct": 70,
+      "buy_list": [],
+      "sell_list": ["TSLA", "NVDA", "AMD", "high_beta_*"]
+    },
+    "tier_1": {
+      "vix_range": [15, 18],
+      "action": "警戒佈局",
+      "cash_target_pct": 60,
+      "buy_list": ["KO", "JNJ", "WMT", "VZ", "PG", "MRK"],
+      "buy_size_pct": "2-5"
+    },
+    "tier_2": {
+      "vix_range": [18, 24.6],
+      "action": "觀察",
+      "cash_target_pct": 50,
+      "buy_list": ["GOOGL", "MSFT", "AAPL", "AMZN", "META", "TSM", "AVGO", "TXN"],
+      "buy_size_pct": "3-5",
+      "note": "避開財報前 7 天的標的"
+    },
+    "tier_3": {
+      "vix_range": [24.6, 29.5],
+      "action": "分批進場",
+      "cash_target_pct": 35,
+      "buy_list": ["NVDA", "GOOGL", "MSFT", "TSM", "AAPL", "AMZN", "META", "AVGO"],
+      "buy_size_pct": "5-10"
+    },
+    "tier_4": {
+      "vix_range": [29.5, 35],
+      "action": "恐慌承接",
+      "cash_target_pct": 20,
+      "buy_list": ["NVDA", "GOOGL", "MSFT", "TSM", "AAPL", "leaps_ok"],
+      "buy_size_pct": "10-20"
+    },
+    "tier_5": {
+      "vix_range": [35, 100],
+      "action": "極端機會",
+      "cash_target_pct": 20,
+      "buy_list": ["QQQ", "SPY", "NVDA", "GOOGL", "MSFT", "AAPL", "TSM"],
+      "buy_size_pct": "重押但不要 all in"
+    }
+  }
+}

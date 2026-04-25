@@ -1,0 +1,15 @@
+yfinance>=0.2.50
+pandas>=2.2.0
+numpy>=1.26.0
+requests>=2.32.0
+pytz>=2024.2
+python-dotenv>=1.0.1
+
+# Phase 2
+anthropic>=0.40.0
+
+# Phase 3
+python-telegram-bot>=21.0
+
+# Dev
+pytest>=8.0
