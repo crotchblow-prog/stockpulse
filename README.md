@@ -116,6 +116,8 @@ Defined in `config/holdings.json` under `tier_strategy`. Six tiers, each with `v
 ## Status
 
 - [x] Repo skeleton, config, workflow, web viewer (ARIA — 2026-04-25)
-- [ ] Python pipeline: fetchers + analyzers + markdown_gen (MIRA — in progress)
-- [ ] First green cron run
+- [x] Python pipeline: fetchers + analyzers + markdown_gen (ARIA solo — 2026-04-25; bus to MIRA was offline)
+- [x] First local green run — VIX 18.71 → Tier 2, all 4 holdings populated
+- [ ] Push to GitHub + Vercel (blocked: github.com network unreachable on this Mac)
+- [ ] First cron run on GitHub Actions
 - [ ] Phase 2 features
