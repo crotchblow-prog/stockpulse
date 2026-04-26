@@ -1,158 +1,7 @@
 {
-  "accounts": {
-    "Exness": {
-      "holdings": [
-        "TSM"
-      ],
-      "tier_index": 2,
-      "total_value": null
-    },
-    "Taiwan_Brokerage": {
-      "holdings": [
-        "IONQ",
-        "PLTR",
-        "SOFI"
-      ],
-      "tier_index": 2,
-      "total_value": null
-    }
-  },
+  "accounts": {},
   "date": "2026-04-26",
-  "holdings": {
-    "IONQ": {
-      "account": "Taiwan_Brokerage",
-      "avg_cost": 43.38,
-      "change": -0.94000244140625,
-      "change_pct": -0.021544864047532718,
-      "days_to_earnings": 10,
-      "earnings_date": "2026-05-06",
-      "flags": [
-        "below_200dma",
-        "deep_drawdown"
-      ],
-      "last": 42.689998626708984,
-      "ma_200": 46.50234997749329,
-      "ma_50": 34.58320003509522,
-      "missing_from_universe": true,
-      "pct_from_52w_high": -0.47996101192412427,
-      "pct_from_52w_low": 0.6054907251497007,
-      "pct_from_ma_200": -0.08198190742251622,
-      "pct_from_ma_50": 0.23441435677979322,
-      "regime_metrics": null,
-      "rsi_14": 60.56011342395892,
-      "sensitivity_tags": [],
-      "tags": [
-        "quantum",
-        "high_beta",
-        "speculative"
-      ],
-      "tier_index": 2,
-      "vs_avg_cost": -0.015905979098455928
-    },
-    "PLTR": {
-      "account": "Taiwan_Brokerage",
-      "avg_cost": 145.87,
-      "change": 1.519989013671875,
-      "change_pct": 0.010736659850492545,
-      "days_to_earnings": 8,
-      "earnings_date": "2026-05-04",
-      "flags": [
-        "near_50dma",
-        "below_200dma",
-        "deep_drawdown"
-      ],
-      "last": 143.08999633789062,
-      "ma_200": 164.43422515869142,
-      "ma_50": 144.3518002319336,
-      "missing_from_universe": true,
-      "pct_from_52w_high": -0.3093445245853731,
-      "pct_from_52w_low": 0.3144405248541227,
-      "pct_from_ma_200": -0.12980405265510878,
-      "pct_from_ma_50": -0.008741171859412896,
-      "regime_metrics": null,
-      "rsi_14": 48.59482081303004,
-      "sensitivity_tags": [],
-      "tags": [
-        "ai_software",
-        "high_beta"
-      ],
-      "tier_index": 2,
-      "vs_avg_cost": -0.01905809050599424
-    },
-    "SOFI": {
-      "account": "Taiwan_Brokerage",
-      "avg_cost": 26.24,
-      "change": 0.12000083923339844,
-      "change_pct": 0.006550264259409413,
-      "days_to_earnings": 3,
-      "earnings_date": "2026-04-29",
-      "flags": [
-        "below_200dma",
-        "deep_drawdown",
-        "underwater",
-        "earnings_within_7d",
-        "earnings_within_3d",
-        "high_risk_tag",
-        "event_play"
-      ],
-      "last": 18.440000534057617,
-      "ma_200": 23.8669500207901,
-      "ma_50": 17.842600116729738,
-      "missing_from_universe": true,
-      "pct_from_52w_high": -0.4275069525553972,
-      "pct_from_52w_low": 0.4740207990952063,
-      "pct_from_ma_200": -0.22738345209610603,
-      "pct_from_ma_50": 0.033481690640353445,
-      "regime_metrics": null,
-      "rsi_14": 54.868927685312215,
-      "sensitivity_tags": [],
-      "tags": [
-        "fintech",
-        "high_risk",
-        "muddy_waters_target"
-      ],
-      "tier_index": 2,
-      "vs_avg_cost": -0.29725607720817004
-    },
-    "TSM": {
-      "account": "Exness",
-      "avg_cost": 367.79,
-      "change": 19.79998779296875,
-      "change_pct": 0.05174302933016285,
-      "days_to_earnings": null,
-      "earnings_date": null,
-      "flags": [
-        "near_52w_high",
-        "buy_list_member"
-      ],
-      "last": 402.4599914550781,
-      "ma_200": 301.3683000946045,
-      "ma_50": 357.0002014160156,
-      "missing_from_universe": false,
-      "pct_from_52w_high": 0.0,
-      "pct_from_52w_low": 1.4630355354238311,
-      "pct_from_ma_200": 0.3354423518622871,
-      "pct_from_ma_50": 0.12733827560530644,
-      "regime_metrics": {
-        "beta_normal": 1.441,
-        "beta_stress": 1.098,
-        "confidence": "high",
-        "vix_crush_recovery_pct": 0.81,
-        "vix_spike_decay_pct": 2.04
-      },
-      "rsi_14": 68.31647787047217,
-      "sensitivity_tags": [
-        "high_normal",
-        "mean_reverter"
-      ],
-      "tags": [
-        "semi",
-        "high_beta"
-      ],
-      "tier_index": 2,
-      "vs_avg_cost": 0.09426572624344899
-    }
-  },
+  "holdings": {},
   "regime_universe": {
     "AAPL": {
       "beta_normal": 0.997,
@@ -1017,11 +866,11 @@
   "schema_version": 2,
   "snapshot": {
     "BTC": {
-      "change": 381.7265625,
-      "change_pct": 0.00491839516634123,
+      "change": 442.15625,
+      "change_pct": 0.005697007691906597,
       "error": null,
       "label": "BTC",
-      "last": 77993.7421875,
+      "last": 78054.171875,
       "prev_close": 77612.015625,
       "symbol": "BTC-USD"
     },
@@ -1100,40 +949,40 @@
   },
   "synthesis": {
     "market": {
-      "devils_advocate": "若 VIX3M 壓縮至 19 附近，且 S&P 500 因本週大型科技股財報超預期而收復歷史高點，現行 Tier 2 姿態可能過於保守——一旦迅速重新分類至 Tier 1，當前「觀察」名單須立即晉級，現金部署速度將超出框架所能因應的節奏。",
-      "read": "VIX 報 18.71 — 明確處於 Tier 2，VIX3M 報 21.30，期限結構仍倒掛且偏謹慎。那斯達克領漲（+1.63%），道瓊幾乎持平（-0.16%），今日為成長優於價值的輪動日，而非全面風險偏好訊號。黃金報 4740，WTI 回落（-1.51%），顯示水面下宏觀避險仍在運作。維持 50% 現金，3–5% 部位紀律，僅限優質成長標的。"
+      "devils_advocate": "若本週強勁的大型科技股財報超預期，VIX3M/VIX 正價差急速壓縮至 Tier 1，50% 現金目標將開始形成機會成本——市場情緒可能比框架重新評級的速度更快切換至看漲模式。",
+      "read": "VIX 報 18.71，明確落在 Tier 2 區間——聚焦優質成長股、小倉位建倉、現金目標 50%。VIX3M 利差（21.30 對 18.71）顯示期限結構壓力仍在殘留；這不是全面解除警報的信號。那斯達克領漲（+1.63%）、道瓊落後（-0.16%），確認本輪反彈集中於大型科技股——保持選擇性，倉位控制 3–5%，規避未來 7 天內的財報地雷。"
     },
     "model": "claude-sonnet-4-6",
     "positions": [
       {
         "action": "hold",
         "confidence": "medium",
-        "rationale": "RSI 68.3，站在 52 週高點（距高點 0%），高於 50DMA 達 12.7% — 動能已過度延伸，`high_normal` 敏感性標籤警示在 Tier 2+ 不宜加碼。距平均成本已上漲 9.4%；持有放行，但此處不加碼——以當前價位新進場，報酬風險比偏差。",
+        "rationale": "RSI 68.3 且股價恰在 52 週高點（高於 200DMA +33.5%），延伸跡象明顯——`high_normal` 敏感度標籤明確指示在 Tier 2 以上不得加倉，RSI 趨近超買且接近 52 週高位，不宜追高。目前較成本上漲 9.4%；持倉觀望、給空間運行，但此位置不加碼。",
         "symbol": "TSM"
       },
       {
         "action": "watch",
         "confidence": "low",
-        "rationale": "低於 200DMA 8%，距 52 週高點下跌 48%，浮虧 1.6% — 結構性偏弱，10 天後公布財報（5 月 6 日）。`mean_reverter` 邏輯不適用（標的池缺失）；財報前 7 日禁加規則即將生效。待財報後出現乾淨型態再評估進場。",
+        "rationale": "財報在 10 天後（5 月 6 日）——剛好在 7 天減倉窗口之外，但窗口快速逼近。儘管自 50DMA 反彈 23.4%，仍低於 200DMA 8.2%，距 52 週高點下跌 48%；量子概念投機性標的，無情緒宇宙數據支撐。密切追蹤——若 5 月 1 日前無實質催化劑，開始在財報窗口前縮減倉位。",
         "symbol": "IONQ"
       },
       {
         "action": "hold",
         "confidence": "low",
-        "rationale": "低於 200DMA 13%，距 52 週高點下跌 31%，浮虧 1.9%，財報在 8 天後（5 月 4 日）— 剛好在 7 日減碼觸發門檻之外，但快速逼近。RSI 48.6 且貼近 50DMA，無技術面支撐；若 5 月 4 日進入 7 日窗口前持續下滑，重新評估是否減碼。",
+        "rationale": "財報 5 月 4 日——距今 8 天，比減倉觸發線晚一天，但實質上已進入危險區。較成本下跌 1.9%，低於 200DMA 13%，距 52 週高點下跌 31%；RSI 48.6 中性，無動能支撐。不得加倉；明日進入 7 天財報窗口時，即時標記進行減倉／退場審查。",
         "symbol": "PLTR"
       },
       {
         "action": "trim",
         "confidence": "high",
-        "rationale": "Muddy Waters 放空報告仍在效，財報 3 天後公布（4 月 29 日），浮虧 29.7%，低於 200DMA 22.7%，距 52 週高點下跌 42.8% — `earnings_within_3d` 標誌已觸發，特殊情境規則明確無誤：禁止 `add`，僅限 `trim` 或 `exit`。在二元事件前立即降低曝險。",
+        "rationale": "財報在 3 天後（4 月 29 日）、Muddy Waters 做空報告仍在發酵、虧損 29.7%、距 52 週高點下跌 42.8%、低於 200DMA 22.7%——所有旗標全數亮紅燈。依框架規則，`earnings_within_7d` + `high_risk` 僅允許持有、減倉或退場；30% 虧損加上二元事件風險，減倉是最低要求動作，退場同樣具備合理依據。",
         "symbol": "SOFI"
       }
     ],
     "usage": {
       "cache_read_input_tokens": 0,
-      "input_tokens": 3942,
-      "output_tokens": 786
+      "input_tokens": 3941,
+      "output_tokens": 778
     }
   },
   "tier": {

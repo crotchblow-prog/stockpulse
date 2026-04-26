@@ -8,26 +8,13 @@ Cash target **50%** · buy size **3-5%** · range _VIX 18–24.6_
 
 ## 📝 Today's Take
 
-**Market read.** VIX at 18.71 — squarely Tier 2, with VIX3M at 21.30 signaling the term structure is still inverted and cautious. Nasdaq leading (+1.63%) while the Dow barely budges (-0.16%) is a growth-over-value rotation day, not a broad risk-on signal. Gold at 4740 and WTI rolling over (-1.51%) suggests macro hedging is still active under the surface. Stay at 50% cash, 3–5% sizing discipline, quality growth only.
+**Market read.** VIX at 18.71 puts us squarely in Tier 2 — quality growth, small entries, 50% cash target. The VIX3M spread (21.30 vs 18.71) signals residual term-structure stress; this is not a cleared all-clear. Nasdaq leading (+1.63%) while Dow lags (-0.16%) confirms the rally is concentrated in mega-cap tech — stay selective, size 3–5%, avoid earnings landmines in the next 7 days.
 
-**Devil's advocate.** If VIX3M compresses toward 19 and the S&P 500 reclaims all-time highs on Big Tech earnings beats this week, this Tier 2 posture may prove too cautious — a rapid Tier 1 reclassification would mean current 'watch' names need to be promoted immediately and cash put to work faster than the framework allows.
-
-**Position calls:**
-- **TSM** — hold (medium). RSI 68.3, sitting exactly at 52-week high (0% from high), 12.7% above 50DMA — momentum is extended and `high_normal` sensitivity tag warns against adding in Tier 2+. Up 9.4% from avg cost; hold and let it run, but do not add here — reward/risk for a fresh entry is poor at these levels.
-- **IONQ** — watch (low). 8% below 200DMA, 48% off 52-week high, and 1.6% underwater — structurally weak with earnings in 10 days (May 6). `mean_reverter` logic does not apply (universe missing); no-add rule within 7d earnings window kicks in shortly. Monitor for a clean setup post-earnings.
-- **PLTR** — hold (low). 13% below 200DMA, 31% off 52-week high, 1.9% underwater, earnings in 8 days (May 4) — just outside the 7-day trim trigger but closing fast. RSI 48.6 and hugging the 50DMA offer no technical conviction; re-evaluate for trim if it drifts lower before May 4 enters the 7-day window.
-- **SOFI** — trim (high). Active Muddy Waters short report, earnings in 3 days (Apr 29), 29.7% underwater, 22.7% below 200DMA, and 42.8% off 52-week high — `earnings_within_3d` flag is live and the special-case rule is unambiguous: `add` is prohibited, `trim` or `exit` only. Reduce exposure now before the binary event.
+**Devil's advocate.** If the VIX3M/VIX contango compresses sharply downward into Tier 1 territory this week on strong mega-cap earnings beats, the 50% cash target starts looking like opportunity cost — the regime could snap bullish faster than the framework re-rates it.
 
 ## 🎯 Tier Action
 
-**Buy list:** `GOOGL`, `MSFT`, `AAPL`, `AMZN`, `META`, `TSM` (hold), `AVGO`, `TXN`
-
-## 🚩 Watch List
-
-- **TSM** (Tier 2 / Exness): near_52w_high, buy_list_member ⋮ high_normal
-- **IONQ** (Tier 2 / Taiwan_Brokerage): below_200dma, deep_drawdown
-- **PLTR** (Tier 2 / Taiwan_Brokerage): near_50dma, below_200dma, deep_drawdown
-- **SOFI** (Tier 2 / Taiwan_Brokerage): below_200dma, deep_drawdown, underwater, earnings_within_7d, earnings_within_3d, high_risk_tag, event_play
+**Buy list:** `GOOGL`, `MSFT`, `AAPL`, `AMZN`, `META`, `TSM`, `AVGO`, `TXN`
 
 ## 📡 Universe Scanner — Tier 2 (Watch)
 
@@ -65,15 +52,6 @@ _Tickers tagged in both 🟢 Add and 🔴 Avoid are double-edged: they amplify o
 | INTC | -0.3% | 20 | double-edged (see Add) |
 | CMCSA | -0.0% | 20 |  |
 
-## 💼 Holdings
-
-| Ticker | Last | vs avg cost | RSI(14) | vs 50DMA | vs 200DMA | vs 52w high |
-|---|---:|---:|---:|---:|---:|---:|
-| **TSM** | 402.46 | +9.43% | 68 | +12.73% | +33.54% | +0.00% |
-| **IONQ** | 42.69 | -1.59% | 61 | +23.44% | -8.20% | -48.00% |
-| **PLTR** | 143.09 | -1.91% | 49 | -0.87% | -12.98% | -30.93% |
-| **SOFI** | 18.44 | -29.73% | 55 | +3.35% | -22.74% | -42.75% |
-
 ## 🌐 Market Snapshot
 
 | Asset | Last | Δ |
@@ -84,7 +62,7 @@ _Tickers tagged in both 🟢 Add and 🔴 Avoid are double-edged: they amplify o
 | Nasdaq | 24,836.60 | +398.10 (+1.63%) |
 | Dow | 49,230.71 | -79.61 (-0.16%) |
 | USD/JPY | 159.33 | -0.16 (-0.10%) |
-| BTC | 77,993.74 | +381.73 (+0.49%) |
+| BTC | 78,054.17 | +442.16 (+0.57%) |
 | Gold | 4,740.90 | +35.80 (+0.76%) |
 | WTI | 94.40 | -1.45 (-1.51%) |
 

@@ -1,158 +1,7 @@
 {
-  "accounts": {
-    "Exness": {
-      "holdings": [
-        "TSM"
-      ],
-      "tier_index": 2,
-      "total_value": null
-    },
-    "Taiwan_Brokerage": {
-      "holdings": [
-        "IONQ",
-        "PLTR",
-        "SOFI"
-      ],
-      "tier_index": 2,
-      "total_value": null
-    }
-  },
+  "accounts": {},
   "date": "2026-04-26",
-  "holdings": {
-    "IONQ": {
-      "account": "Taiwan_Brokerage",
-      "avg_cost": 43.38,
-      "change": -0.94000244140625,
-      "change_pct": -0.021544864047532718,
-      "days_to_earnings": 10,
-      "earnings_date": "2026-05-06",
-      "flags": [
-        "below_200dma",
-        "deep_drawdown"
-      ],
-      "last": 42.689998626708984,
-      "ma_200": 46.50234997749329,
-      "ma_50": 34.58320003509522,
-      "missing_from_universe": true,
-      "pct_from_52w_high": -0.47996101192412427,
-      "pct_from_52w_low": 0.6054907251497007,
-      "pct_from_ma_200": -0.08198190742251622,
-      "pct_from_ma_50": 0.23441435677979322,
-      "regime_metrics": null,
-      "rsi_14": 60.56011342395892,
-      "sensitivity_tags": [],
-      "tags": [
-        "quantum",
-        "high_beta",
-        "speculative"
-      ],
-      "tier_index": 2,
-      "vs_avg_cost": -0.015905979098455928
-    },
-    "PLTR": {
-      "account": "Taiwan_Brokerage",
-      "avg_cost": 145.87,
-      "change": 1.519989013671875,
-      "change_pct": 0.010736659850492545,
-      "days_to_earnings": 8,
-      "earnings_date": "2026-05-04",
-      "flags": [
-        "near_50dma",
-        "below_200dma",
-        "deep_drawdown"
-      ],
-      "last": 143.08999633789062,
-      "ma_200": 164.43422515869142,
-      "ma_50": 144.3518002319336,
-      "missing_from_universe": true,
-      "pct_from_52w_high": -0.3093445245853731,
-      "pct_from_52w_low": 0.3144405248541227,
-      "pct_from_ma_200": -0.12980405265510878,
-      "pct_from_ma_50": -0.008741171859412896,
-      "regime_metrics": null,
-      "rsi_14": 48.59482081303004,
-      "sensitivity_tags": [],
-      "tags": [
-        "ai_software",
-        "high_beta"
-      ],
-      "tier_index": 2,
-      "vs_avg_cost": -0.01905809050599424
-    },
-    "SOFI": {
-      "account": "Taiwan_Brokerage",
-      "avg_cost": 26.24,
-      "change": 0.12000083923339844,
-      "change_pct": 0.006550264259409413,
-      "days_to_earnings": 3,
-      "earnings_date": "2026-04-29",
-      "flags": [
-        "below_200dma",
-        "deep_drawdown",
-        "underwater",
-        "earnings_within_7d",
-        "earnings_within_3d",
-        "high_risk_tag",
-        "event_play"
-      ],
-      "last": 18.440000534057617,
-      "ma_200": 23.8669500207901,
-      "ma_50": 17.842600116729738,
-      "missing_from_universe": true,
-      "pct_from_52w_high": -0.4275069525553972,
-      "pct_from_52w_low": 0.4740207990952063,
-      "pct_from_ma_200": -0.22738345209610603,
-      "pct_from_ma_50": 0.033481690640353445,
-      "regime_metrics": null,
-      "rsi_14": 54.868927685312215,
-      "sensitivity_tags": [],
-      "tags": [
-        "fintech",
-        "high_risk",
-        "muddy_waters_target"
-      ],
-      "tier_index": 2,
-      "vs_avg_cost": -0.29725607720817004
-    },
-    "TSM": {
-      "account": "Exness",
-      "avg_cost": 367.79,
-      "change": 19.79998779296875,
-      "change_pct": 0.05174302933016285,
-      "days_to_earnings": null,
-      "earnings_date": null,
-      "flags": [
-        "near_52w_high",
-        "buy_list_member"
-      ],
-      "last": 402.4599914550781,
-      "ma_200": 301.3683000946045,
-      "ma_50": 357.0002014160156,
-      "missing_from_universe": false,
-      "pct_from_52w_high": 0.0,
-      "pct_from_52w_low": 1.4630355354238311,
-      "pct_from_ma_200": 0.3354423518622871,
-      "pct_from_ma_50": 0.12733827560530644,
-      "regime_metrics": {
-        "beta_normal": 1.441,
-        "beta_stress": 1.098,
-        "confidence": "high",
-        "vix_crush_recovery_pct": 0.81,
-        "vix_spike_decay_pct": 2.04
-      },
-      "rsi_14": 68.31647787047217,
-      "sensitivity_tags": [
-        "high_normal",
-        "mean_reverter"
-      ],
-      "tags": [
-        "semi",
-        "high_beta"
-      ],
-      "tier_index": 2,
-      "vs_avg_cost": 0.09426572624344899
-    }
-  },
+  "holdings": {},
   "regime_universe": {
     "AAPL": {
       "beta_normal": 0.997,
@@ -1017,11 +866,11 @@
   "schema_version": 2,
   "snapshot": {
     "BTC": {
-      "change": 381.7265625,
-      "change_pct": 0.00491839516634123,
+      "change": 442.15625,
+      "change_pct": 0.005697007691906597,
       "error": null,
       "label": "BTC",
-      "last": 77993.7421875,
+      "last": 78054.171875,
       "prev_close": 77612.015625,
       "symbol": "BTC-USD"
     },
@@ -1100,40 +949,15 @@
   },
   "synthesis": {
     "market": {
-      "devils_advocate": "If VIX3M compresses toward 19 and the S&P 500 reclaims all-time highs on Big Tech earnings beats this week, this Tier 2 posture may prove too cautious — a rapid Tier 1 reclassification would mean current 'watch' names need to be promoted immediately and cash put to work faster than the framework allows.",
-      "read": "VIX at 18.71 — squarely Tier 2, with VIX3M at 21.30 signaling the term structure is still inverted and cautious. Nasdaq leading (+1.63%) while the Dow barely budges (-0.16%) is a growth-over-value rotation day, not a broad risk-on signal. Gold at 4740 and WTI rolling over (-1.51%) suggests macro hedging is still active under the surface. Stay at 50% cash, 3–5% sizing discipline, quality growth only."
+      "devils_advocate": "If the VIX3M/VIX contango compresses sharply downward into Tier 1 territory this week on strong mega-cap earnings beats, the 50% cash target starts looking like opportunity cost — the regime could snap bullish faster than the framework re-rates it.",
+      "read": "VIX at 18.71 puts us squarely in Tier 2 — quality growth, small entries, 50% cash target. The VIX3M spread (21.30 vs 18.71) signals residual term-structure stress; this is not a cleared all-clear. Nasdaq leading (+1.63%) while Dow lags (-0.16%) confirms the rally is concentrated in mega-cap tech — stay selective, size 3–5%, avoid earnings landmines in the next 7 days."
     },
     "model": "claude-sonnet-4-6",
-    "positions": [
-      {
-        "action": "hold",
-        "confidence": "medium",
-        "rationale": "RSI 68.3, sitting exactly at 52-week high (0% from high), 12.7% above 50DMA — momentum is extended and `high_normal` sensitivity tag warns against adding in Tier 2+. Up 9.4% from avg cost; hold and let it run, but do not add here — reward/risk for a fresh entry is poor at these levels.",
-        "symbol": "TSM"
-      },
-      {
-        "action": "watch",
-        "confidence": "low",
-        "rationale": "8% below 200DMA, 48% off 52-week high, and 1.6% underwater — structurally weak with earnings in 10 days (May 6). `mean_reverter` logic does not apply (universe missing); no-add rule within 7d earnings window kicks in shortly. Monitor for a clean setup post-earnings.",
-        "symbol": "IONQ"
-      },
-      {
-        "action": "hold",
-        "confidence": "low",
-        "rationale": "13% below 200DMA, 31% off 52-week high, 1.9% underwater, earnings in 8 days (May 4) — just outside the 7-day trim trigger but closing fast. RSI 48.6 and hugging the 50DMA offer no technical conviction; re-evaluate for trim if it drifts lower before May 4 enters the 7-day window.",
-        "symbol": "PLTR"
-      },
-      {
-        "action": "trim",
-        "confidence": "high",
-        "rationale": "Active Muddy Waters short report, earnings in 3 days (Apr 29), 29.7% underwater, 22.7% below 200DMA, and 42.8% off 52-week high — `earnings_within_3d` flag is live and the special-case rule is unambiguous: `add` is prohibited, `trim` or `exit` only. Reduce exposure now before the binary event.",
-        "symbol": "SOFI"
-      }
-    ],
+    "positions": [],
     "usage": {
       "cache_read_input_tokens": 0,
-      "input_tokens": 3942,
-      "output_tokens": 786
+      "input_tokens": 3941,
+      "output_tokens": 778
     }
   },
   "tier": {
