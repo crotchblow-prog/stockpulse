@@ -188,6 +188,25 @@ def test_system_prompt_includes_sofi_and_tsm_special_rules(captured):
     assert "Taiwan" in sys_text
 
 
+def test_system_prompt_includes_phase_2_5_sensitivity_tag_rules(captured):
+    """Phase 2.5: prompt must teach the model how to factor sensitivity_tags into action calls."""
+    claude_synthesis.synthesize(_sample_report())
+    sys_text = captured["system"][0]["text"]
+    # Each tag's directional rule should be present
+    for tag in ("crisis_alpha", "defensive", "mean_reverter", "high_normal", "high_stress"):
+        assert tag in sys_text, f"missing tag rule: {tag}"
+    # Explicit handling for tickers outside the regime universe (SOFI/IONQ/PLTR)
+    assert "missing_from_universe" in sys_text
+
+
+def test_user_payload_includes_sensitivity_tags_field(captured):
+    """sensitivity_tags + missing_from_universe must reach the model even when absent in input."""
+    claude_synthesis.synthesize(_sample_report())
+    user_msg = captured["messages"][0]["content"]
+    assert "sensitivity_tags" in user_msg
+    assert "missing_from_universe" in user_msg
+
+
 def test_user_payload_contains_holdings_facts_and_skips_errored_quotes(captured):
     claude_synthesis.synthesize(_sample_report())
     user_msg = captured["messages"][0]["content"]

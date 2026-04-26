@@ -93,6 +93,23 @@ def test_translate_markdown_uses_cache_control_and_correct_model(monkeypatch):
     assert "今日觀點" in sys_text  # section header mapping example
 
 
+def test_translate_markdown_prompt_handles_universe_scanner_section(monkeypatch):
+    """Phase 2.5: prompt must teach translation rules for the new Universe Scanner section."""
+    captured: dict[str, Any] = {}
+    fake = FakeResponse(content=[FakeText(type="text", text="x")])
+    monkeypatch.setattr(translator.anthropic, "Anthropic", lambda *a, **kw: FakeClient(fake, captured))
+
+    translator.translate_markdown("hi")
+    sys_text = captured["system"][0]["text"]
+    assert "Universe Scanner" in sys_text
+    assert "標的掃描" in sys_text
+    assert "加碼候選" in sys_text
+    assert "避開候選" in sys_text
+    # Sensitivity tags treated like flag names (verbatim in code spans).
+    for tag in ("high_normal", "crisis_alpha", "mean_reverter", "defensive"):
+        assert tag in sys_text
+
+
 def test_translate_markdown_sends_full_input_as_user_message(monkeypatch):
     captured: dict[str, Any] = {}
     fake = FakeResponse(content=[FakeText(type="text", text="x")])

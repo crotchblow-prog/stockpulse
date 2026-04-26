@@ -111,6 +111,18 @@ Your job: read the day's market snapshot, VIX tier classification, and per-holdi
 - SOFI is flagged `high_risk` due to active Muddy Waters short-seller report (April 2026). Treat as a binary event play around earnings. Never recommend `add` for SOFI within 7 days of earnings — `hold`, `trim`, or `exit` are the only valid actions when `earnings_within_7d` is in flags. Outside the 7d window, SOFI may be `hold` or `trim`; `add` requires an extraordinarily clear setup and at most `low` confidence.
 - TSM has standing geopolitical tail risk (Taiwan Strait). Polymarket "China invades Taiwan 2026" is monitored but only actioned if it crosses 25% (currently around 9%, not a factor for today). Treat TSM like any other Tier 2/3 buy-list semi name today.
 
+# Regime sensitivity tags (Phase 2.5 — read each position's `sensitivity_tags` if present)
+
+Each position may include `sensitivity_tags` reflecting how the ticker historically responds to VIX regime changes. When present, factor them into the action call:
+
+- `crisis_alpha` — falls hard on VIX spikes. Avoid `add` for these names during a tier transition UP into stress regimes (Tier 2→3, 3→4).
+- `defensive` — low VIX-sensitivity (KO/JNJ/PG-style). Remains a candidate for `add` even at Tier 3-4. Do not trim on Tier 2 framework bias against high-beta if the name is defensively tagged.
+- `mean_reverter` — drops then snaps back. Promote to `watch` priority on tier transitions DOWN (Tier 3→2, 4→3) — these are entry candidates as the regime relaxes.
+- `high_normal` — high vol under calm regime. Appropriate `add` target at Tier 0-2 only. Do not add at Tier 3+.
+- `high_stress` — amplifies in stress. Warning at Tier 3+; prefer `trim` over `hold` if also flagged `high_stress`.
+
+Holdings without `sensitivity_tags` (or with `missing_from_universe`) are tickers outside the regime universe (e.g., SOFI, IONQ, PLTR are not on Exness so not backtested). Reason from flags + tier alone for those.
+
 # Style
 
 - Decision-grade. No hedging boilerplate, no "consult a financial advisor" disclaimers — Carina knows.
@@ -199,6 +211,8 @@ def _build_user_payload(report: dict[str, Any]) -> str:
             "pct_from_52w_high": h.get("pct_from_52w_high"),
             "tags": h.get("tags") or [],
             "flags": h.get("flags") or [],
+            "sensitivity_tags": h.get("sensitivity_tags") or [],
+            "missing_from_universe": bool(h.get("missing_from_universe")),
             "days_to_earnings": h.get("days_to_earnings"),
             "earnings_date": h.get("earnings_date"),
             "account": h.get("account"),

@@ -46,6 +46,11 @@ You translate English daily-market reports for a Taiwanese trader (Carina) into 
   - "Daily Market" → "每日市場"
   - "Buy list" → "買進清單", "Sell list" → "賣出清單"
   - "Market read" → "市場解讀", "Devil's advocate" → "反方觀點", "Position calls" → "持倉判斷"
+  - "Universe Scanner" → "標的掃描" (Phase 2.5 section); preserve "Tier {N}" verbatim after the em-dash.
+  - "Add candidates" → "加碼候選", "Watch (transition)" → "觀察（轉換）", "Avoid candidates" → "避開候選"
+  - Inline annotations: "also in Add" → "亦在加碼清單", "also in Avoid" → "亦在避開清單", "double-edged at this tier" → "此 Tier 雙面刃"
+  - Universe Scanner table column headers: "Ticker" → "標的", "β normal" → "β normal" (verbatim — Greek letter + framework term), "Sample" → "樣本數", "Note" → "備註", "Crush recovery" → "崩潰回升" (vix_crush_recovery 的中文), "Spike decay" → "急升衰退" (vix_spike_decay 的中文)
+- **Sensitivity tags** in code spans (`high_normal`, `high_stress`, `crisis_alpha`, `mean_reverter`, `defensive`, `missing_from_universe`) stay verbatim. Same convention as flag names.
 - **Framework terms** keep English with transliteration where natural:
   - "Tier 0/1/2/…" stays as "Tier 0/1/2/…" (do not translate to "第 X 階")
   - "VIX" stays as "VIX"
