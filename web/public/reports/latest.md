@@ -1,4 +1,4 @@
-# 📊 Daily Market — 2026-04-25
+# 📊 Daily Market — 2026-04-26
 
 **VIX 18.71** → 🟠 **Tier 2 · 觀察** 
 
@@ -9,6 +9,13 @@ Cash target **50%** · buy size **3-5%** · range _VIX 18–24.6_
 ## 🎯 Tier Action
 
 **Buy list:** `GOOGL`, `MSFT`, `AAPL`, `AMZN`, `META`, `TSM`, `AVGO`, `TXN`
+
+## 🚩 Watch List
+
+- **TSM** (Tier 2 / Exness): near_52w_high, buy_list_member
+- **IONQ** (Tier 2 / Taiwan_Brokerage): below_200dma, deep_drawdown
+- **PLTR** (Tier 2 / Taiwan_Brokerage): near_50dma, below_200dma, deep_drawdown
+- **SOFI** (Tier 2 / Taiwan_Brokerage): below_200dma, deep_drawdown, underwater, high_risk_tag, event_play
 
 ## 💼 Holdings
 
@@ -29,10 +36,10 @@ Cash target **50%** · buy size **3-5%** · range _VIX 18–24.6_
 | Nasdaq | 24,836.60 | +398.10 (+1.63%) |
 | Dow | 49,230.71 | -79.61 (-0.16%) |
 | USD/JPY | 159.33 | -0.16 (-0.10%) |
-| BTC | 77,722.88 | +267.57 (+0.35%) |
+| BTC | 77,572.20 | +116.89 (+0.15%) |
 | Gold | 4,722.30 | +17.20 (+0.37%) |
 | WTI | 94.40 | -1.45 (-1.51%) |
 
 ---
 
-_Generated 2026-04-25 · Asia/Taipei · not investment advice._
+_Generated 2026-04-26 · Asia/Taipei · not investment advice._

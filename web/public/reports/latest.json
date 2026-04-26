@@ -1,0 +1,241 @@
+{
+  "accounts": {
+    "Exness": {
+      "holdings": [
+        "TSM"
+      ],
+      "tier_index": 2,
+      "total_value": null
+    },
+    "Taiwan_Brokerage": {
+      "holdings": [
+        "IONQ",
+        "PLTR",
+        "SOFI"
+      ],
+      "tier_index": 2,
+      "total_value": null
+    }
+  },
+  "date": "2026-04-26",
+  "holdings": {
+    "IONQ": {
+      "account": "Taiwan_Brokerage",
+      "avg_cost": 43.38,
+      "change": -0.94000244140625,
+      "change_pct": -0.021544864047532718,
+      "days_to_earnings": null,
+      "earnings_date": null,
+      "flags": [
+        "below_200dma",
+        "deep_drawdown"
+      ],
+      "last": 42.689998626708984,
+      "ma_200": 46.50234997749329,
+      "ma_50": 34.58320003509522,
+      "pct_from_52w_high": -0.47996101192412427,
+      "pct_from_52w_low": 0.6054907251497007,
+      "pct_from_ma_200": -0.08198190742251622,
+      "pct_from_ma_50": 0.23441435677979322,
+      "rsi_14": 60.56011342395892,
+      "tags": [
+        "quantum",
+        "high_beta",
+        "speculative"
+      ],
+      "tier_index": 2,
+      "vs_avg_cost": -0.015905979098455928
+    },
+    "PLTR": {
+      "account": "Taiwan_Brokerage",
+      "avg_cost": 145.87,
+      "change": 1.519989013671875,
+      "change_pct": 0.010736659850492545,
+      "days_to_earnings": null,
+      "earnings_date": null,
+      "flags": [
+        "near_50dma",
+        "below_200dma",
+        "deep_drawdown"
+      ],
+      "last": 143.08999633789062,
+      "ma_200": 164.43422515869142,
+      "ma_50": 144.3518002319336,
+      "pct_from_52w_high": -0.3093445245853731,
+      "pct_from_52w_low": 0.3144405248541227,
+      "pct_from_ma_200": -0.12980405265510878,
+      "pct_from_ma_50": -0.008741171859412896,
+      "rsi_14": 48.59482081303004,
+      "tags": [
+        "ai_software",
+        "high_beta"
+      ],
+      "tier_index": 2,
+      "vs_avg_cost": -0.01905809050599424
+    },
+    "SOFI": {
+      "account": "Taiwan_Brokerage",
+      "avg_cost": 26.24,
+      "change": 0.12000083923339844,
+      "change_pct": 0.006550264259409413,
+      "days_to_earnings": null,
+      "earnings_date": null,
+      "flags": [
+        "below_200dma",
+        "deep_drawdown",
+        "underwater",
+        "high_risk_tag",
+        "event_play"
+      ],
+      "last": 18.440000534057617,
+      "ma_200": 23.8669500207901,
+      "ma_50": 17.842600116729738,
+      "pct_from_52w_high": -0.4275069525553972,
+      "pct_from_52w_low": 0.4740207990952063,
+      "pct_from_ma_200": -0.22738345209610603,
+      "pct_from_ma_50": 0.033481690640353445,
+      "rsi_14": 54.868927685312215,
+      "tags": [
+        "fintech",
+        "high_risk",
+        "muddy_waters_target"
+      ],
+      "tier_index": 2,
+      "vs_avg_cost": -0.29725607720817004
+    },
+    "TSM": {
+      "account": "Exness",
+      "avg_cost": 367.79,
+      "change": 19.79998779296875,
+      "change_pct": 0.05174302933016285,
+      "days_to_earnings": null,
+      "earnings_date": null,
+      "flags": [
+        "near_52w_high",
+        "buy_list_member"
+      ],
+      "last": 402.4599914550781,
+      "ma_200": 301.3683000946045,
+      "ma_50": 357.0002014160156,
+      "pct_from_52w_high": 0.0,
+      "pct_from_52w_low": 1.4630355354238311,
+      "pct_from_ma_200": 0.3354423518622871,
+      "pct_from_ma_50": 0.12733827560530644,
+      "rsi_14": 68.31647787047217,
+      "tags": [
+        "semi",
+        "high_beta"
+      ],
+      "tier_index": 2,
+      "vs_avg_cost": 0.09426572624344899
+    }
+  },
+  "schema_version": 1,
+  "snapshot": {
+    "BTC": {
+      "change": 116.890625,
+      "change_pct": 0.0015091363165050816,
+      "error": null,
+      "label": "BTC",
+      "last": 77572.203125,
+      "prev_close": 77455.3125,
+      "symbol": "BTC-USD"
+    },
+    "Dow": {
+      "change": -79.609375,
+      "change_pct": -0.0016144566592851616,
+      "error": null,
+      "label": "Dow",
+      "last": 49230.7109375,
+      "prev_close": 49310.3203125,
+      "symbol": "^DJI"
+    },
+    "Gold": {
+      "change": 17.19970703125,
+      "change_pct": 0.0036555454027041175,
+      "error": null,
+      "label": "Gold",
+      "last": 4722.2998046875,
+      "prev_close": 4705.10009765625,
+      "symbol": "GC=F"
+    },
+    "Nasdaq": {
+      "change": 398.099609375,
+      "change_pct": 0.01628985450723244,
+      "error": null,
+      "label": "Nasdaq",
+      "last": 24836.599609375,
+      "prev_close": 24438.5,
+      "symbol": "^IXIC"
+    },
+    "S&P 500": {
+      "change": 56.68017578125,
+      "change_pct": 0.007973689797975725,
+      "error": null,
+      "label": "S&P 500",
+      "last": 7165.080078125,
+      "prev_close": 7108.39990234375,
+      "symbol": "^GSPC"
+    },
+    "USD/JPY": {
+      "change": -0.1550140380859375,
+      "change_pct": -0.0009719479313744869,
+      "error": null,
+      "label": "USD/JPY",
+      "last": 159.33299255371094,
+      "prev_close": 159.48800659179688,
+      "symbol": "JPY=X"
+    },
+    "VIX": {
+      "change": -0.6000003814697266,
+      "change_pct": -0.031072004042670482,
+      "error": null,
+      "label": "VIX",
+      "last": 18.709999084472656,
+      "prev_close": 19.309999465942383,
+      "symbol": "^VIX"
+    },
+    "VIX3M": {
+      "change": -0.18000030517578125,
+      "change_pct": -0.00837990265418046,
+      "error": null,
+      "label": "VIX3M",
+      "last": 21.299999237060547,
+      "prev_close": 21.479999542236328,
+      "symbol": "^VIX3M"
+    },
+    "WTI": {
+      "change": -1.4499969482421875,
+      "change_pct": -0.015127772262131831,
+      "error": null,
+      "label": "WTI",
+      "last": 94.4000015258789,
+      "prev_close": 95.8499984741211,
+      "symbol": "CL=F"
+    }
+  },
+  "tier": {
+    "action": "觀察",
+    "buy_list": [
+      "GOOGL",
+      "MSFT",
+      "AAPL",
+      "AMZN",
+      "META",
+      "TSM",
+      "AVGO",
+      "TXN"
+    ],
+    "buy_size_pct": "3-5",
+    "cash_target_pct": 50,
+    "index": 2,
+    "name": "tier_2",
+    "note": "避開財報前 7 天的標的",
+    "sell_list": null,
+    "vix_range": [
+      18.0,
+      24.6
+    ]
+  },
+  "vix_value": 18.709999084472656
+}
