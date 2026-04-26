@@ -186,11 +186,20 @@ def test_universe_scanner_overlap_decorates_both_rows():
                    sensitivity_tags=["high_normal", "crisis_alpha"]),
     }
     out = "\n".join(_render_universe_scanner(2, "觀察", universe))
-    add_section = out.split("🟡 Watch")[0]
-    avoid_section = out.split("🔴 Avoid")[1]
-    # Add row gets the warning, Avoid row gets the plain note.
-    assert "⚠️ also in Avoid" in add_section
-    assert "also in Add" in avoid_section
+    # The dual-legend prose now contains "🟢 Add" and "🔴 Avoid" too; split on the
+    # SECTION-marker form (** prefix) so we get the actual sub-region content.
+    add_section = out.split("**🟡 Watch")[0].split("**🟢 Add")[1]
+    avoid_section = out.split("**🔴 Avoid")[1]
+    # Add row gets the action-oriented warning, Avoid row gets the plain cross-ref.
+    # Phase 3.2: text upgraded from "⚠️ also in Avoid" / "also in Add" to
+    # "⚠️ double-edged — smaller size, trim first on Tier ↑" / "double-edged (see Add)"
+    # so a reader gets the implication without having to derive it.
+    assert "⚠️ double-edged" in add_section
+    assert "trim first on Tier" in add_section
+    assert "double-edged (see Add)" in avoid_section
+    # The dual-list explainer paragraph is rendered when overlap exists.
+    assert "double-edged" in out
+    assert "amplify on the way up" in out
     # The warning emoji must NOT appear in the Avoid section row.
     avoid_lines = [ln for ln in avoid_section.split("\n") if "TSLA" in ln]
     assert len(avoid_lines) == 1
@@ -367,11 +376,16 @@ def test_avoid_sample_column_unchanged_uses_spike_event_count():
     assert " 20 " in tsla_line  # min of {20, 25, 50, 180} = 20 (spike_count)
 
 
-def test_universe_scanner_renders_framework_legend_and_bilingual_heading():
+def test_universe_scanner_renders_framework_legend_and_english_tier_action():
+    """Phase 3.2: EN markdown uses English tier action (e.g. 'Scale in') so the
+    canonical English render doesn't mix Chinese into headings; translator
+    converts back to Chinese for the zh-TW output."""
     universe = {"KO": _u(beta_normal=0.2, sensitivity_tags=["defensive"])}
     out = "\n".join(_render_universe_scanner(3, "分批進場", universe))
-    # Bilingual heading
-    assert "## 📡 Universe Scanner — Tier 3 (分批進場)" in out
+    # English tier action in heading
+    assert "## 📡 Universe Scanner — Tier 3 (Scale in)" in out
+    # Chinese tier action should NOT leak into the EN heading
+    assert "(分批進場)" not in out
     # Framework legend present, contains all three metric terms.
     assert "β normal" in out
     assert "Crush recovery" in out

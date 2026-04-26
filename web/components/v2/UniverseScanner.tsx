@@ -91,15 +91,21 @@ export function UniverseScanner({
 
   const addSet = new Set(addEligible.map(([s]) => s));
   const avoidSet = new Set(avoidEligible.map(([s]) => s));
+  const hasOverlap = [...addSet].some((s) => avoidSet.has(s));
 
   return (
     <section data-component="universe-scanner" className="space-y-3">
       <h2 className="text-lg font-medium">
-        {t(locale, "universe_scanner")} — Tier {tierIdx} ({tierAction})
+        {t(locale, "universe_scanner")} — Tier {tierIdx} ({t(locale, `tier_action_${tierIdx}`)})
       </h2>
       <p className="text-sm italic text-[color:var(--color-muted)]">
         {t(locale, "scanner_legend")}
       </p>
+      {hasOverlap && (
+        <p className="text-sm italic text-[color:var(--color-muted)]">
+          {t(locale, "scanner_dual_legend")}
+        </p>
+      )}
 
       {/* 🟢 Add candidates */}
       <SubRegion

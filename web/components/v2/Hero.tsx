@@ -1,5 +1,6 @@
 import type { ReportPayload } from "@/lib/reports";
 import { fmtPct, fmtSignedNum } from "@/lib/formatters";
+import { t } from "@/lib/i18n";
 
 /**
  * Top-of-page hero: tier banner + giant VIX + secondary stats + 1-sentence read.
@@ -34,7 +35,7 @@ export function Hero({ payload, lang }: { payload: ReportPayload; lang: "en" | "
         >
           Tier {tier.index}
         </span>
-        <span className="text-base font-medium">{tier.action}</span>
+        <span className="text-base font-medium">{t(lang, `tier_action_${tier.index}`)}</span>
         <span className="text-xs text-[color:var(--color-muted)]">
           VIX {fmtSignedNum(tier.vix_range[0], 0)}–{fmtSignedNum(tier.vix_range[1], 1).replace("+", "")}
         </span>

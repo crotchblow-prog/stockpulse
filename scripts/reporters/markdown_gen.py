@@ -170,6 +170,20 @@ def _render_watch_list(holdings: dict[str, dict[str, Any]]) -> list[str]:
 
 # ── Universe Scanner (Phase 2.5 Commit 6) ────────────────────────────────────
 
+# English equivalents of holdings.json `tier_strategy.<tier>.action`. Used in
+# the EN canonical markdown so headings read "Tier 2 (Watch)" not
+# "Tier 2 (觀察)" for English readers. The translator naturally renders these
+# back into Chinese for the zh-TW output (the section-header rules cover it).
+TIER_ACTION_EN = {
+    0: "Rest",
+    1: "Cautious positioning",
+    2: "Watch",
+    3: "Scale in",
+    4: "Catch the panic",
+    5: "Extreme opportunity",
+}
+
+
 def _add_candidate_filter(tier_idx: int) -> tuple[str, str]:
     """Return (sensitivity_tag, human-readable filter description) for the Add column at this tier."""
     if tier_idx <= 2:
@@ -232,7 +246,7 @@ def _render_add_candidates(
             # normal_weeks here so Sample matches the metric's calculation basis.
             # Watch and Avoid sections show their own regime-matched counts.
             sample = entry.get("normal_weeks") or 0
-            note = "⚠️ also in Avoid" if sym in avoid_tickers else ""
+            note = "⚠️ double-edged — smaller size, trim first on Tier ↑" if sym in avoid_tickers else ""
             lines.append(f"| {sym} | {_fmt_beta(entry.get('beta_normal'))} | {sample} | {note} |")
     lines.append("")
     return lines
@@ -315,7 +329,7 @@ def _render_avoid_candidates(
                 entry.get("stress_weeks") or 0,
                 entry.get("normal_weeks") or 0,
             )
-            note = "also in Add" if sym in add_tickers else ""
+            note = "double-edged (see Add)" if sym in add_tickers else ""
             lines.append(
                 f"| {sym} | {_fmt_signed_pct(entry.get('vix_spike_decay_pct'))} | {sample} | {note} |"
             )
@@ -345,14 +359,24 @@ def _render_universe_scanner(
         {s for s, e in universe.items() if _eligible(e, "crisis_alpha")} if data_present else set()
     )
 
+    has_overlap = bool(add_set & avoid_set)
+    tier_action_label = TIER_ACTION_EN.get(tier_idx, tier_action)
     lines: list[str] = [
-        f"## 📡 Universe Scanner — Tier {tier_idx} ({tier_action})",
+        f"## 📡 Universe Scanner — Tier {tier_idx} ({tier_action_label})",
         "",
         "_β normal: regime-conditional beta vs SPX in calm weeks. "
         "Crush recovery: 5-day return after VIX falls ≥30%. "
         "Spike decay: 5-day return after VIX rises ≥20%._",
         "",
     ]
+    if has_overlap:
+        lines.append(
+            "_Tickers tagged in both 🟢 Add and 🔴 Avoid are double-edged: "
+            "they amplify on the way up at this Tier but historically break "
+            "first when VIX rises into stress. Buy at smaller size and trim "
+            "first if Tier transitions up._"
+        )
+        lines.append("")
     lines.extend(_render_add_candidates(tier_idx, universe, avoid_set, data_present))
     lines.extend(_render_watch_transition(universe, data_present))
     lines.extend(_render_avoid_candidates(universe, add_set, data_present))

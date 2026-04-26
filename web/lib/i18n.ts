@@ -41,8 +41,10 @@ const en: Dict = {
   scanner_th_sample: "Sample",
   scanner_th_note: "Note",
   scanner_universe_missing: "_universe data not loaded_",
-  also_in_avoid: "⚠️ also in Avoid",
-  also_in_add: "also in Add",
+  also_in_avoid: "⚠️ double-edged — smaller size, trim first on Tier ↑",
+  also_in_add: "double-edged (see Add)",
+  scanner_dual_legend:
+    "Tickers tagged in both 🟢 Add and 🔴 Avoid are double-edged: they amplify on the way up at this Tier but historically break first when VIX rises into stress. Buy at smaller size and trim first if Tier transitions up.",
   // empty states
   no_watchworthy: "Nothing watchworthy today.",
   no_holdings: "No holdings.",
@@ -67,6 +69,14 @@ const en: Dict = {
   spark_30d_high: "30d high",
   spark_30d_low: "30d low",
   spark_today: "today",
+  // tier action labels (mirror holdings.json tier_strategy.<tier>.action,
+  // localized so EN readers don't see Chinese in the headers).
+  tier_action_0: "Rest",
+  tier_action_1: "Cautious positioning",
+  tier_action_2: "Watch",
+  tier_action_3: "Scale in",
+  tier_action_4: "Catch the panic",
+  tier_action_5: "Extreme opportunity",
 };
 
 const zh: Dict = {
@@ -98,8 +108,10 @@ const zh: Dict = {
   scanner_th_sample: "樣本",
   scanner_th_note: "備註",
   scanner_universe_missing: "_標的池資料未載入_",
-  also_in_avoid: "⚠️ 同時在 Avoid 中",
-  also_in_add: "同時在 Add 中",
+  also_in_avoid: "⚠️ 雙面刃 — 規模放小，Tier 上升時優先減碼",
+  also_in_add: "雙面刃（見 Add 列）",
+  scanner_dual_legend:
+    "同時出現在 🟢 加碼候選與 🔴 避開候選的標的屬「雙面刃」：在當前 Tier 隨大盤上漲放大報酬，但歷史上 VIX 進入壓力區時也最先重挫。建議規模放小；若 Tier 向上轉換，優先減碼此類標的。",
   no_watchworthy: "今天沒有需要關注的部位。",
   no_holdings: "目前無持倉。",
   no_report: "尚無報告。每日 cron 將於 22:00 Asia/Taipei 產出。",
@@ -120,6 +132,12 @@ const zh: Dict = {
   spark_30d_high: "30 天高",
   spark_30d_low: "30 天低",
   spark_today: "今日",
+  tier_action_0: "休兵",
+  tier_action_1: "警戒佈局",
+  tier_action_2: "觀察",
+  tier_action_3: "分批進場",
+  tier_action_4: "恐慌承接",
+  tier_action_5: "極端機會",
 };
 
 const dicts: Record<Locale, Dict> = { en, zh };
