@@ -179,6 +179,29 @@ Six tiers, each with `vix_range`, `action`, `cash_target_pct`, `buy_list`. Defin
 
 Full philosophy in [`PROJECT_BRIEF.md`](./PROJECT_BRIEF.md) §2.
 
+## Regime sensitivity universe (59 tickers)
+
+The 59-ticker universe used by Phase 2.5's `regime_sensitivity.py` backtest. **Authoritative source**: `scripts/analyzers/regime_sensitivity.py:UNIVERSE`. Chinese ADRs are explicitly excluded (VIX-correlation too weak); TSM is included despite being a Taiwan ADR because its trading behavior mirrors US large-cap semis.
+
+This is the candidate pool for the 📡 Universe Scanner section in each daily report — *not* the holdings list. Current holdings live in `config/holdings.json:current_holdings`.
+
+| Sector | # | Tickers |
+|---|---:|---|
+| **Information Technology** | 13 | AAPL · ADBE · ADP · AMD · AVGO · CSCO · FTNT · IBM · INTC · INTU · MSFT · NVDA · TSM |
+| **Health Care** | 13 | ABBV · ABT · AMGN · BIIB · BMY · CVS · GILD · ISRG · JNJ · MRK · TMO · UNH · VRTX |
+| **Communication Services** | 9 | CHTR · CMCSA · EA · GOOGL · META · NFLX · T · TMUS · VZ |
+| **Consumer Discretionary** | 7 | AMZN · EBAY · F · HD · NKE · SBUX · TSLA |
+| **Financials** | 7 | BAC · C · CME · JPM · MS · V · WFC |
+| **Consumer Staples** | 3 | COST · KO · WMT |
+| **Industrials** | 3 | BA · CSX · UPS |
+| **Real Estate** | 2 | AMT · EQIX |
+| **Energy** | 1 | XOM |
+| **Materials** | 1 | LIN |
+
+**Excluded** (Chinese ADRs, sensitivity calc skipped per [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §3.2 Phase 2.5 decision): BABA, BIDU, JD, NIO, XPEV, LI, BEKE, FUTU, EDU, TAL, VIPS, YUMC, ZTO, BILI, NTES, TME.
+
+To add or remove a ticker, edit `scripts/analyzers/regime_sensitivity.py:UNIVERSE`, rerun `python scripts/analyzers/regime_sensitivity.py` to refresh `config/regime_sensitivity.json`, and commit both files. The weekly cron also keeps the JSON fresh on its own (Sundays 03:00 UTC).
+
 ## Multi-agent ownership
 
 Built collaboratively by two Claude Code instances coordinated via the [agent-bus](https://github.com/crotchblow-prog/agent-bus) (a git-backed message queue):
