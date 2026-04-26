@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  launchd plist template for the MIRA-local daily cron.
+
+  To install on MIRA:
+    1. Set REPO_PATH and HOME below to absolute values, e.g.:
+       sed "s|__REPO_PATH__|/Users/blowcrotch/Library/Mobile Documents/com~apple~CloudDocs/Projects/StockPulse|g; s|__HOME__|$HOME|g" \
+         scripts/com.stockpulse.daily.plist.template \
+         > ~/Library/LaunchAgents/com.stockpulse.daily.plist
+    2. Load:    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.stockpulse.daily.plist
+    3. Verify:  launchctl print gui/$(id -u)/com.stockpulse.daily | grep -E '(state|next)'
+    4. Force a one-shot run for testing:
+                launchctl kickstart -k gui/$(id -u)/com.stockpulse.daily
+
+  StartCalendarInterval below uses the LOCAL timezone of MIRA. Set MIRA's
+  system tz to Asia/Taipei (System Settings → Date & Time) so 10:00 here
+  fires at 10:00 Taipei = 02:00 UTC.
+
+  RunAtLoad is false: do not auto-fire on launchctl bootstrap. Use kickstart
+  for a manual run.
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.stockpulse.daily</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>__REPO_PATH__/scripts/run_daily.sh</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>__REPO_PATH__</string>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>10</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>__HOME__/.local/state/stockpulse/launchd-stdout.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>__HOME__/.local/state/stockpulse/launchd-stderr.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+</dict>
+</plist>
