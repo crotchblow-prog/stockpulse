@@ -228,12 +228,10 @@ def _render_add_candidates(
         lines.append(_empty_row(4))
     else:
         for sym, entry in top5:
-            sample = min(
-                entry.get("spike_event_count") or 0,
-                entry.get("crush_event_count") or 0,
-                entry.get("stress_weeks") or 0,
-                entry.get("normal_weeks") or 0,
-            )
+            # Add row's metric (β normal) is computed from normal-regime weeks; show
+            # normal_weeks here so Sample matches the metric's calculation basis.
+            # Watch and Avoid sections show their own regime-matched counts.
+            sample = entry.get("normal_weeks") or 0
             note = "⚠️ also in Avoid" if sym in avoid_tickers else ""
             lines.append(f"| {sym} | {_fmt_beta(entry.get('beta_normal'))} | {sample} | {note} |")
     lines.append("")
@@ -326,12 +324,15 @@ def _render_avoid_candidates(
 
 
 def _render_universe_scanner(
-    tier_idx: int, regime_universe: dict[str, dict[str, Any]] | None,
+    tier_idx: int, tier_action: str, regime_universe: dict[str, dict[str, Any]] | None,
 ) -> list[str]:
     """Render the 📡 Universe Scanner block with three always-rendered sub-regions.
 
     All three sub-regions render even when their candidate list is empty — the placeholder row
     surfaces "thresholds need tuning" as an observable state rather than hiding the question.
+
+    Heading is bilingual (`Tier 2 (觀察)`) so a Chinese-reading skim shows tier intent without
+    reading the table. `tier_action` is `tier.action` from analyzers.vix_tier (e.g. "觀察").
     """
     universe = regime_universe or {}
     data_present = bool(universe)
@@ -344,7 +345,14 @@ def _render_universe_scanner(
         {s for s, e in universe.items() if _eligible(e, "crisis_alpha")} if data_present else set()
     )
 
-    lines: list[str] = [f"## 📡 Universe Scanner — Tier {tier_idx}", ""]
+    lines: list[str] = [
+        f"## 📡 Universe Scanner — Tier {tier_idx} ({tier_action})",
+        "",
+        "_β normal: regime-conditional beta vs SPX in calm weeks. "
+        "Crush recovery: 5-day return after VIX falls ≥30%. "
+        "Spike decay: 5-day return after VIX rises ≥20%._",
+        "",
+    ]
     lines.extend(_render_add_candidates(tier_idx, universe, avoid_set, data_present))
     lines.extend(_render_watch_transition(universe, data_present))
     lines.extend(_render_avoid_candidates(universe, add_set, data_present))
@@ -402,7 +410,7 @@ def render(report: dict[str, Any]) -> str:
     lines.extend(_render_watch_list(holdings))
 
     # ── Universe Scanner (regime sensitivity) ─────────────────────────────
-    lines.extend(_render_universe_scanner(tier.index, report.get("regime_universe")))
+    lines.extend(_render_universe_scanner(tier.index, tier.action, report.get("regime_universe")))
 
     # ── Holdings ──────────────────────────────────────────────────────────
     lines.append("## 💼 Holdings")

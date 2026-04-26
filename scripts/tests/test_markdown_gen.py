@@ -118,7 +118,7 @@ def test_universe_scanner_tier_0_2_filters_for_high_normal():
         "TSLA": _u(beta_normal=2.0, sensitivity_tags=["high_normal"]),
         "KO": _u(beta_normal=0.2, sensitivity_tags=["defensive"]),
     }
-    out = "\n".join(_render_universe_scanner(2, universe))
+    out = "\n".join(_render_universe_scanner(2, "觀察", universe))
     assert "## 📡 Universe Scanner — Tier 2" in out
     assert "🟢 Add candidates" in out
     assert "high_normal" in out
@@ -133,7 +133,7 @@ def test_universe_scanner_tier_3_filters_for_defensive():
         "TSLA": _u(beta_normal=2.0, sensitivity_tags=["high_normal"]),
         "KO": _u(beta_normal=0.2, sensitivity_tags=["defensive"]),
     }
-    out = "\n".join(_render_universe_scanner(3, universe))
+    out = "\n".join(_render_universe_scanner(3, "分批進場", universe))
     add_section = out.split("🟡 Watch")[0]
     # Tier 3 → Add filter is defensive → KO appears, TSLA does not.
     assert "KO" in add_section
@@ -142,7 +142,7 @@ def test_universe_scanner_tier_3_filters_for_defensive():
 
 def test_universe_scanner_tier_5_uses_defensive_filter_like_tier_3_4():
     universe = {"KO": _u(beta_normal=0.2, sensitivity_tags=["defensive"])}
-    out = "\n".join(_render_universe_scanner(5, universe))
+    out = "\n".join(_render_universe_scanner(5, "極端機會", universe))
     assert "## 📡 Universe Scanner — Tier 5" in out
     assert "KO" in out
 
@@ -157,7 +157,7 @@ def test_universe_scanner_top_5_truncation_with_alpha_tiebreak():
         "EEE": _u(beta_normal=1.6, sensitivity_tags=["high_normal"]),
         "FFF": _u(beta_normal=1.5, sensitivity_tags=["high_normal"]),
     }
-    out = "\n".join(_render_universe_scanner(2, universe))
+    out = "\n".join(_render_universe_scanner(2, "觀察", universe))
     add_section = out.split("🟡 Watch")[0]
     # Top 5 by abs(beta_normal) descending → AAA, BBB, CCC, DDD, EEE — FFF excluded.
     assert "FFF" not in add_section
@@ -170,7 +170,7 @@ def test_universe_scanner_top_5_truncation_with_alpha_tiebreak():
 def test_universe_scanner_empty_sub_region_renders_placeholder():
     # No candidates fire any filter.
     universe = {"AAPL": _u(sensitivity_tags=[])}
-    out = "\n".join(_render_universe_scanner(2, universe))
+    out = "\n".join(_render_universe_scanner(2, "觀察", universe))
     assert "_no candidates at current thresholds_" in out
     # All three sub-region headers must still be present.
     assert "🟢 Add candidates" in out
@@ -185,7 +185,7 @@ def test_universe_scanner_overlap_decorates_both_rows():
         "TSLA": _u(beta_normal=2.0, spike_decay=-12.3,
                    sensitivity_tags=["high_normal", "crisis_alpha"]),
     }
-    out = "\n".join(_render_universe_scanner(2, universe))
+    out = "\n".join(_render_universe_scanner(2, "觀察", universe))
     add_section = out.split("🟡 Watch")[0]
     avoid_section = out.split("🔴 Avoid")[1]
     # Add row gets the warning, Avoid row gets the plain note.
@@ -202,7 +202,7 @@ def test_universe_scanner_excludes_low_confidence_tickers():
         "WEAK": _u(beta_normal=2.5, sensitivity_tags=["high_normal"], confidence="low"),
         "OK": _u(beta_normal=1.5, sensitivity_tags=["high_normal"], confidence="high"),
     }
-    out = "\n".join(_render_universe_scanner(2, universe))
+    out = "\n".join(_render_universe_scanner(2, "觀察", universe))
     add_section = out.split("🟡 Watch")[0]
     assert "OK" in add_section
     assert "WEAK" not in add_section
@@ -238,7 +238,7 @@ def test_universe_scanner_position_between_watch_list_and_holdings():
 
 
 def test_universe_scanner_missing_data_renders_graceful_placeholder():
-    out = "\n".join(_render_universe_scanner(2, None))
+    out = "\n".join(_render_universe_scanner(2, "觀察", None))
     assert "## 📡 Universe Scanner — Tier 2" in out
     assert "_universe data not loaded — run scripts/analyzers/regime_sensitivity.py_" in out
     # All three sub-region headers still present.
@@ -248,7 +248,7 @@ def test_universe_scanner_missing_data_renders_graceful_placeholder():
 
 
 def test_universe_scanner_empty_universe_renders_graceful_placeholder():
-    out = "\n".join(_render_universe_scanner(2, {}))
+    out = "\n".join(_render_universe_scanner(2, "觀察", {}))
     assert "_universe data not loaded — run scripts/analyzers/regime_sensitivity.py_" in out
 
 
@@ -258,7 +258,7 @@ def test_universe_scanner_watch_transition_sorted_by_crush_recovery_desc():
         "AAA": _u(crush_recovery=10.0, spike_decay=-7.0, sensitivity_tags=["mean_reverter"]),
         "CCC": _u(crush_recovery=6.0, spike_decay=-5.5, sensitivity_tags=["mean_reverter"]),
     }
-    out = "\n".join(_render_universe_scanner(2, universe))
+    out = "\n".join(_render_universe_scanner(2, "觀察", universe))
     watch_section = out.split("🟡 Watch")[1].split("🔴 Avoid")[0]
     # Sort: AAA (10) > BBB (8) > CCC (6).
     assert watch_section.index("AAA") < watch_section.index("BBB") < watch_section.index("CCC")
@@ -270,7 +270,7 @@ def test_universe_scanner_avoid_sorted_by_abs_spike_decay_desc():
         "WORST": _u(spike_decay=-25.3, sensitivity_tags=["crisis_alpha"]),
         "MID": _u(spike_decay=-15.0, sensitivity_tags=["crisis_alpha"]),
     }
-    out = "\n".join(_render_universe_scanner(2, universe))
+    out = "\n".join(_render_universe_scanner(2, "觀察", universe))
     avoid_section = out.split("🔴 Avoid")[1]
     # Sort: WORST (-25.3) > MID (-15.0) > MILD (-10.5).
     assert avoid_section.index("WORST") < avoid_section.index("MID") < avoid_section.index("MILD")
@@ -286,7 +286,7 @@ def test_watch_transition_empty_renders_single_axis_crush_gap():
         "BBB": _u(crush_recovery=0.3, sensitivity_tags=[]),
         "CCC": _u(crush_recovery=-0.5, sensitivity_tags=[]),
     }
-    out = "\n".join(_render_universe_scanner(2, universe))
+    out = "\n".join(_render_universe_scanner(2, "觀察", universe))
     watch_section = out.split("🟡 Watch")[1].split("🔴 Avoid")[0]
     assert "best today: +0.50%" in watch_section
     assert "no candidates fire crush > +0.6%" in watch_section
@@ -302,7 +302,7 @@ def test_avoid_empty_renders_gap_at_minus_4_threshold():
         "BBB": _u(spike_decay=-1.0, spike_decay_p25=-3.5, sensitivity_tags=[]),  # worst p25 just under -4
         "CCC": _u(spike_decay=1.5, spike_decay_p25=-1.0, sensitivity_tags=[]),
     }
-    out = "\n".join(_render_universe_scanner(2, universe))
+    out = "\n".join(_render_universe_scanner(2, "觀察", universe))
     avoid_section = out.split("🔴 Avoid")[1]
     assert "worst today: -3.50%" in avoid_section
     assert "no candidates fire p25 decay < -4%" in avoid_section
@@ -311,7 +311,7 @@ def test_avoid_empty_renders_gap_at_minus_4_threshold():
 def test_empty_regime_universe_still_shows_universe_data_not_loaded():
     # Regression check — the gap-enriched text MUST NOT clobber the
     # "universe data not loaded" message when there's no data to gap-against.
-    out = "\n".join(_render_universe_scanner(2, {}))
+    out = "\n".join(_render_universe_scanner(2, "觀察", {}))
     assert "_universe data not loaded — run scripts/analyzers/regime_sensitivity.py_" in out
     # And we never render "best today" or "worst today" without data.
     assert "best today" not in out
@@ -327,13 +327,59 @@ def test_watch_transition_gap_falls_back_when_all_tickers_low_confidence():
         "WEAK2": _u(crush_recovery=15.0, spike_decay=-30.0, spike_decay_p25=-40.0,
                     confidence="low", sensitivity_tags=[]),
     }
-    out = "\n".join(_render_universe_scanner(2, universe))
+    out = "\n".join(_render_universe_scanner(2, "觀察", universe))
     watch_section = out.split("🟡 Watch")[1].split("🔴 Avoid")[0]
     assert "no candidates fire crush > +0.6%" in watch_section
     assert "best today" not in watch_section  # no parenthetical when no valid data
     avoid_section = out.split("🔴 Avoid")[1]
     assert "no candidates fire p25 decay < -4%" in avoid_section
     assert "worst today" not in avoid_section
+
+
+# ── Commit 10.5: Sample column field swap + framework legend + bilingual heading ─
+
+def test_add_sample_column_reads_normal_weeks_not_spike_event_count():
+    # 🟢 Add row's metric is β normal (computed from normal-regime weeks). Sample
+    # column should match that calculation basis. spike_event_count is unrelated.
+    universe = {
+        "TSLA": _u(beta_normal=2.5, sensitivity_tags=["high_normal"],
+                   normal_weeks=180, spike_count=20),
+    }
+    out = "\n".join(_render_universe_scanner(2, "觀察", universe))
+    add_section = out.split("🟡 Watch")[0]
+    # Find TSLA's row and assert it shows 180 (normal_weeks) not 20 (spike_event_count).
+    tsla_line = next(line for line in add_section.split("\n") if "TSLA" in line)
+    assert " 180 " in tsla_line
+    assert " 20 " not in tsla_line.split("|")[3]  # Sample column (4th cell after leading |)
+
+
+def test_avoid_sample_column_unchanged_uses_spike_event_count():
+    # Regression: Avoid section's metric is spike decay; Sample stays on
+    # spike_event_count via the existing min() conservatism (smallest of all four).
+    universe = {
+        "TSLA": _u(beta_normal=2.5, spike_decay=-15.0, spike_decay_p25=-12.0,
+                   sensitivity_tags=["crisis_alpha"], spike_count=20,
+                   crush_count=25, stress_weeks=50, normal_weeks=180),
+    }
+    out = "\n".join(_render_universe_scanner(2, "觀察", universe))
+    avoid_section = out.split("🔴 Avoid")[1]
+    tsla_line = next(line for line in avoid_section.split("\n") if "TSLA" in line)
+    assert " 20 " in tsla_line  # min of {20, 25, 50, 180} = 20 (spike_count)
+
+
+def test_universe_scanner_renders_framework_legend_and_bilingual_heading():
+    universe = {"KO": _u(beta_normal=0.2, sensitivity_tags=["defensive"])}
+    out = "\n".join(_render_universe_scanner(3, "分批進場", universe))
+    # Bilingual heading
+    assert "## 📡 Universe Scanner — Tier 3 (分批進場)" in out
+    # Framework legend present, contains all three metric terms.
+    assert "β normal" in out
+    assert "Crush recovery" in out
+    assert "Spike decay" in out
+    # Legend is italic and lands BEFORE the first sub-region header.
+    legend_idx = out.index("β normal")
+    add_idx = out.index("🟢 Add candidates")
+    assert legend_idx < add_idx
 
 
 # ── Buy-list annotation (Phase 2.5 Commit 9) ─────────────────────────────────
