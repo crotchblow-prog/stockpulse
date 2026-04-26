@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { VixPulseLogo } from "@/components/v2/VixPulseLogo";
 
 /**
  * Layout for /learn and /zh/learn — applies the same Phase 3.0 design tokens
@@ -23,8 +24,9 @@ export default function LearnLayout({ children }: { children: React.ReactNode })
     >
       <header className="border-b" style={{ borderColor: "var(--color-border)" }}>
         <div className="mx-auto max-w-3xl px-6 py-5 flex items-center justify-between gap-3">
-          <Link href="/" className="text-base font-semibold tracking-tight font-mono">
-            📊 VIXPulse
+          <Link href="/" className="inline-flex items-center gap-2 text-base font-semibold tracking-tight font-mono">
+            <VixPulseLogo size={20} />
+            <span>VIXPULSE</span>
           </Link>
         </div>
       </header>

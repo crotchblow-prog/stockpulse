@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://vixpulse.asia"),
   title: "VIXPulse",
   description: "Daily VIX-tier US-market analysis",
+  icons: { icon: "/logo.svg" },
   alternates: { canonical: "/" },
   openGraph: {
     title: "VIXPulse",

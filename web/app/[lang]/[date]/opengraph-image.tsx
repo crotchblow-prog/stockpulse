@@ -57,7 +57,18 @@ export default async function OGImage({
         {/* Top: brand + date */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <div style={{ fontSize: 36, fontWeight: 700, letterSpacing: -0.5 }}>📊 VIXPulse</div>
+            <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+              {/* Tier-ladder logo (Satori works better with divs than inline SVG) */}
+              <div style={{ display: "flex", alignItems: "flex-end", gap: 4, height: 38 }}>
+                <div style={{ width: 6, height: 8,  background: "#3b82f6", borderRadius: 1 }} />
+                <div style={{ width: 6, height: 14, background: "#06b6d4", borderRadius: 1 }} />
+                <div style={{ width: 6, height: 20, background: "#a3a3a3", borderRadius: 1 }} />
+                <div style={{ width: 6, height: 26, background: "#f59e0b", borderRadius: 1 }} />
+                <div style={{ width: 6, height: 32, background: "#f97316", borderRadius: 1 }} />
+                <div style={{ width: 6, height: 38, background: "#ef4444", borderRadius: 1 }} />
+              </div>
+              <div style={{ fontSize: 36, fontWeight: 700, letterSpacing: 1 }}>VIXPULSE</div>
+            </div>
             <div style={{ fontSize: 22, color: "#8a93a6", marginTop: 4 }}>{date}</div>
           </div>
           <div

@@ -13,6 +13,7 @@ import { SnapshotGrid } from "@/components/v2/SnapshotGrid";
 import { V2Footer } from "@/components/v2/V2Footer";
 import { LangToggle } from "@/components/v2/LangToggle";
 import { VixSparklineLazy } from "@/components/v2/VixSparklineLazy";
+import { VixPulseLogo } from "@/components/v2/VixPulseLogo";
 
 export async function generateMetadata({
   params,
@@ -54,7 +55,10 @@ export default async function V2LangIndex({
   return (
     <div className="mx-auto max-w-3xl px-6 py-8 space-y-8">
       <header className="flex items-center justify-between gap-3">
-        <h1 className="text-base font-semibold tracking-tight font-mono">📊 VIXPulse</h1>
+        <h1 className="inline-flex items-center gap-2 text-base font-semibold tracking-tight font-mono">
+          <VixPulseLogo currentTier={payload.tier.index} size={20} />
+          <span>VIXPULSE</span>
+        </h1>
         <LangToggle current={language} pathSuffix="" />
       </header>
       <Hero payload={payload} lang={language} />
