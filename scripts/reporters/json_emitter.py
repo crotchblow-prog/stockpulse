@@ -30,10 +30,22 @@ def build_payload(report: dict[str, Any]) -> dict[str, Any]:
     return _coerce_nan(payload)
 
 
-def write(date: str, reports_dir: Path, report: dict[str, Any]) -> tuple[Path, Path]:
-    """Write {date}.json and latest.json into reports_dir; returns the two paths written."""
+def write(
+    date: str,
+    reports_dir: Path,
+    report: dict[str, Any],
+    synthesis_override: dict[str, Any] | None = None,
+) -> tuple[Path, Path]:
+    """Write {date}.json and latest.json into reports_dir; returns the two paths written.
+
+    `synthesis_override`, when provided, replaces the `synthesis` field in the payload —
+    used by the bilingual writer to emit the translated synthesis dict into the zh sidecar
+    while keeping the rest of the structured data identical to the en sidecar.
+    """
     reports_dir.mkdir(parents=True, exist_ok=True)
     payload = build_payload(report)
+    if synthesis_override is not None:
+        payload["synthesis"] = _coerce_nan(_serialize(synthesis_override))
     text = json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False)
     dated = reports_dir / f"{date}.json"
     latest = reports_dir / "latest.json"

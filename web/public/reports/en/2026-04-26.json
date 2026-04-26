@@ -1,0 +1,281 @@
+{
+  "accounts": {
+    "Exness": {
+      "holdings": [
+        "TSM"
+      ],
+      "tier_index": 2,
+      "total_value": null
+    },
+    "Taiwan_Brokerage": {
+      "holdings": [
+        "IONQ",
+        "PLTR",
+        "SOFI"
+      ],
+      "tier_index": 2,
+      "total_value": null
+    }
+  },
+  "date": "2026-04-26",
+  "holdings": {
+    "IONQ": {
+      "account": "Taiwan_Brokerage",
+      "avg_cost": 43.38,
+      "change": -0.94000244140625,
+      "change_pct": -0.021544864047532718,
+      "days_to_earnings": 10,
+      "earnings_date": "2026-05-06",
+      "flags": [
+        "below_200dma",
+        "deep_drawdown"
+      ],
+      "last": 42.689998626708984,
+      "ma_200": 46.50234997749329,
+      "ma_50": 34.58320003509522,
+      "pct_from_52w_high": -0.47996101192412427,
+      "pct_from_52w_low": 0.6054907251497007,
+      "pct_from_ma_200": -0.08198190742251622,
+      "pct_from_ma_50": 0.23441435677979322,
+      "rsi_14": 60.56011342395892,
+      "tags": [
+        "quantum",
+        "high_beta",
+        "speculative"
+      ],
+      "tier_index": 2,
+      "vs_avg_cost": -0.015905979098455928
+    },
+    "PLTR": {
+      "account": "Taiwan_Brokerage",
+      "avg_cost": 145.87,
+      "change": 1.519989013671875,
+      "change_pct": 0.010736659850492545,
+      "days_to_earnings": 8,
+      "earnings_date": "2026-05-04",
+      "flags": [
+        "near_50dma",
+        "below_200dma",
+        "deep_drawdown"
+      ],
+      "last": 143.08999633789062,
+      "ma_200": 164.43422515869142,
+      "ma_50": 144.3518002319336,
+      "pct_from_52w_high": -0.3093445245853731,
+      "pct_from_52w_low": 0.3144405248541227,
+      "pct_from_ma_200": -0.12980405265510878,
+      "pct_from_ma_50": -0.008741171859412896,
+      "rsi_14": 48.59482081303004,
+      "tags": [
+        "ai_software",
+        "high_beta"
+      ],
+      "tier_index": 2,
+      "vs_avg_cost": -0.01905809050599424
+    },
+    "SOFI": {
+      "account": "Taiwan_Brokerage",
+      "avg_cost": 26.24,
+      "change": 0.12000083923339844,
+      "change_pct": 0.006550264259409413,
+      "days_to_earnings": 3,
+      "earnings_date": "2026-04-29",
+      "flags": [
+        "below_200dma",
+        "deep_drawdown",
+        "underwater",
+        "earnings_within_7d",
+        "earnings_within_3d",
+        "high_risk_tag",
+        "event_play"
+      ],
+      "last": 18.440000534057617,
+      "ma_200": 23.8669500207901,
+      "ma_50": 17.842600116729738,
+      "pct_from_52w_high": -0.4275069525553972,
+      "pct_from_52w_low": 0.4740207990952063,
+      "pct_from_ma_200": -0.22738345209610603,
+      "pct_from_ma_50": 0.033481690640353445,
+      "rsi_14": 54.868927685312215,
+      "tags": [
+        "fintech",
+        "high_risk",
+        "muddy_waters_target"
+      ],
+      "tier_index": 2,
+      "vs_avg_cost": -0.29725607720817004
+    },
+    "TSM": {
+      "account": "Exness",
+      "avg_cost": 367.79,
+      "change": 19.79998779296875,
+      "change_pct": 0.05174302933016285,
+      "days_to_earnings": null,
+      "earnings_date": null,
+      "flags": [
+        "near_52w_high",
+        "buy_list_member"
+      ],
+      "last": 402.4599914550781,
+      "ma_200": 301.3683000946045,
+      "ma_50": 357.0002014160156,
+      "pct_from_52w_high": 0.0,
+      "pct_from_52w_low": 1.4630355354238311,
+      "pct_from_ma_200": 0.3354423518622871,
+      "pct_from_ma_50": 0.12733827560530644,
+      "rsi_14": 68.31647787047217,
+      "tags": [
+        "semi",
+        "high_beta"
+      ],
+      "tier_index": 2,
+      "vs_avg_cost": 0.09426572624344899
+    }
+  },
+  "schema_version": 1,
+  "snapshot": {
+    "BTC": {
+      "change": 576.828125,
+      "change_pct": 0.007447237721750848,
+      "error": null,
+      "label": "BTC",
+      "last": 78032.140625,
+      "prev_close": 77455.3125,
+      "symbol": "BTC-USD"
+    },
+    "Dow": {
+      "change": -79.609375,
+      "change_pct": -0.0016144566592851616,
+      "error": null,
+      "label": "Dow",
+      "last": 49230.7109375,
+      "prev_close": 49310.3203125,
+      "symbol": "^DJI"
+    },
+    "Gold": {
+      "change": 35.7998046875,
+      "change_pct": 0.007608723288444585,
+      "error": null,
+      "label": "Gold",
+      "last": 4740.89990234375,
+      "prev_close": 4705.10009765625,
+      "symbol": "GC=F"
+    },
+    "Nasdaq": {
+      "change": 398.099609375,
+      "change_pct": 0.01628985450723244,
+      "error": null,
+      "label": "Nasdaq",
+      "last": 24836.599609375,
+      "prev_close": 24438.5,
+      "symbol": "^IXIC"
+    },
+    "S&P 500": {
+      "change": 56.68017578125,
+      "change_pct": 0.007973689797975725,
+      "error": null,
+      "label": "S&P 500",
+      "last": 7165.080078125,
+      "prev_close": 7108.39990234375,
+      "symbol": "^GSPC"
+    },
+    "USD/JPY": {
+      "change": -0.1550140380859375,
+      "change_pct": -0.0009719479313744869,
+      "error": null,
+      "label": "USD/JPY",
+      "last": 159.33299255371094,
+      "prev_close": 159.48800659179688,
+      "symbol": "JPY=X"
+    },
+    "VIX": {
+      "change": -0.6000003814697266,
+      "change_pct": -0.031072004042670482,
+      "error": null,
+      "label": "VIX",
+      "last": 18.709999084472656,
+      "prev_close": 19.309999465942383,
+      "symbol": "^VIX"
+    },
+    "VIX3M": {
+      "change": -0.18000030517578125,
+      "change_pct": -0.00837990265418046,
+      "error": null,
+      "label": "VIX3M",
+      "last": 21.299999237060547,
+      "prev_close": 21.479999542236328,
+      "symbol": "^VIX3M"
+    },
+    "WTI": {
+      "change": -1.4499969482421875,
+      "change_pct": -0.015127772262131831,
+      "error": null,
+      "label": "WTI",
+      "last": 94.4000015258789,
+      "prev_close": 95.8499984741211,
+      "symbol": "CL=F"
+    }
+  },
+  "synthesis": {
+    "market": {
+      "devils_advocate": "If the VIX3M/VIX spread compresses fast (VIX3M collapses toward spot rather than spot rising), it would signal a genuine vol regime reset into Tier 1, forcing the cash target up to 60% and removing most buy-list names from consideration. A strong GDP print or Fed pivot signal this week could make today's cautious sizing look like an overshoot.",
+      "read": "VIX at 18.71 lands us squarely in Tier 2 — quality growth, small entries (3-5%), 50% cash floor. The term structure tells the real story: VIX3M at 21.30 sits well above spot, meaning the market is pricing more uncertainty ahead than today's mild green tape suggests. Nasdaq's +1.6% rip looks constructive but don't chase — this is a watch-and-size-small environment, not a deployment sprint."
+    },
+    "model": "claude-sonnet-4-6",
+    "positions": [
+      {
+        "action": "hold",
+        "confidence": "medium",
+        "rationale": "RSI at 68.3 and sitting 33.5% above the 200DMA with zero distance from its 52-week high — technically stretched. Up 9.4% from cost, no earnings catalyst imminent; let winners run but no add at these levels in Tier 2 with RSI approaching overbought.",
+        "symbol": "TSM"
+      },
+      {
+        "action": "watch",
+        "confidence": "low",
+        "rationale": "Earnings in 10 days (May 6) — just outside the 7-day trim window, but barely. Still 8.2% below 200DMA, 48% off 52-week high, and 1.6% underwater; high-beta speculative name with no technical support from moving averages. Reassess trim/exit posture if still held when the 7-day window opens on April 29.",
+        "symbol": "IONQ"
+      },
+      {
+        "action": "trim",
+        "confidence": "high",
+        "rationale": "Earnings in 8 days (May 4) — within the 7-day trim mandate by Monday. Down 1.9% from cost, 13% below 200DMA, 31% off 52-week high, RSI a tepid 48.6 with no momentum. Framework rule is explicit: trim or hedge before known earnings; execute now before the window tightens further.",
+        "symbol": "PLTR"
+      },
+      {
+        "action": "trim",
+        "confidence": "high",
+        "rationale": "Flags: earnings_within_3d (Apr 29), high_risk_tag, active Muddy Waters short report, 30% underwater, 22.7% below 200DMA, 42.8% off 52-week high. Special-case rules prohibit 'add' and make 'trim' or 'exit' the only valid calls; reducing exposure into a binary earnings event with an active short-seller overhang is non-negotiable.",
+        "symbol": "SOFI"
+      }
+    ],
+    "usage": {
+      "cache_read_input_tokens": 0,
+      "input_tokens": 3281,
+      "output_tokens": 776
+    }
+  },
+  "tier": {
+    "action": "觀察",
+    "buy_list": [
+      "GOOGL",
+      "MSFT",
+      "AAPL",
+      "AMZN",
+      "META",
+      "TSM",
+      "AVGO",
+      "TXN"
+    ],
+    "buy_size_pct": "3-5",
+    "cash_target_pct": 50,
+    "index": 2,
+    "name": "tier_2",
+    "note": "避開財報前 7 天的標的",
+    "sell_list": null,
+    "vix_range": [
+      18.0,
+      24.6
+    ]
+  },
+  "vix_value": 18.709999084472656
+}

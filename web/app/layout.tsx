@@ -31,9 +31,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="font-semibold tracking-tight">
               📊 VIXPulse
             </Link>
-            <nav className="text-sm text-[color:var(--color-muted)] flex gap-5">
+            <nav className="text-sm text-[color:var(--color-muted)] flex items-center gap-5">
               <Link href="/" className="hover:text-white">Today</Link>
               <Link href="/archive" className="hover:text-white">Archive</Link>
+              <span className="text-white/20">·</span>
+              <Link href="/" className="hover:text-white">EN</Link>
+              <Link href="/zh" className="hover:text-white">中</Link>
             </nav>
           </div>
         </header>

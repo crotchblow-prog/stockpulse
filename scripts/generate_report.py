@@ -37,7 +37,16 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Generate today's StockPulse market report.")
     p.add_argument("--dry-run", action="store_true", help="Print to stdout, don't write files.")
     p.add_argument("--date", help="Override report date (YYYY-MM-DD, Asia/Taipei).")
-    p.add_argument("--no-synthesis", action="store_true", help="Skip Claude synthesis call.")
+    p.add_argument(
+        "--no-synthesis",
+        action="store_true",
+        help="Skip Claude synthesis call. Implies --en-only (no synthesis → nothing to translate).",
+    )
+    p.add_argument(
+        "--en-only",
+        action="store_true",
+        help="Skip the zh translation step. EN report still ships normally.",
+    )
     p.add_argument("-v", "--verbose", action="store_true", help="DEBUG logging.")
     return p.parse_args()
 
@@ -173,11 +182,46 @@ def maybe_synthesize(report: dict[str, Any], skip: bool) -> dict[str, Any] | Non
         return None
 
 
-def write_markdown(date: str, markdown: str) -> tuple[Path, Path]:
-    """Write the dated Markdown report and overwrite latest.md. Returns the two paths written."""
-    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    dated = REPORTS_DIR / f"{date}.md"
-    latest = REPORTS_DIR / "latest.md"
+def maybe_translate(
+    en_markdown: str, en_synthesis: dict[str, Any] | None, skip: bool
+) -> tuple[str, dict[str, Any] | None] | None:
+    """Translate EN markdown + synthesis dict → ZH equivalents. Returns None on any failure or skip.
+
+    Translation is best-effort: any error returns None and the EN report ships alone.
+    Synthesis-dict translation is skipped when there's nothing to translate (no synthesis).
+    """
+    if skip:
+        log.info("translation skipped via --en-only")
+        return None
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        log.info("ANTHROPIC_API_KEY missing — translation skipped")
+        return None
+    try:
+        from reporters import translator  # type: ignore[import-not-found]  # noqa: E402
+    except ImportError:
+        log.info("translator not present — translation skipped")
+        return None
+    try:
+        zh_markdown = translator.translate_markdown(en_markdown)
+    except Exception as e:  # noqa: BLE001 — translation must never crash the EN report
+        log.warning("translate_markdown raised %s — zh skipped", e)
+        return None
+
+    zh_synthesis: dict[str, Any] | None = None
+    if en_synthesis is not None:
+        try:
+            zh_synthesis = translator.translate_synthesis(en_synthesis)
+        except Exception as e:  # noqa: BLE001
+            log.warning("translate_synthesis raised %s — zh JSON synthesis dropped", e)
+            zh_synthesis = None
+    return zh_markdown, zh_synthesis
+
+
+def write_markdown(reports_dir: Path, date: str, markdown: str) -> tuple[Path, Path]:
+    """Write {date}.md and latest.md into reports_dir. Returns the two paths written."""
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    dated = reports_dir / f"{date}.md"
+    latest = reports_dir / "latest.md"
     dated.write_text(markdown, encoding="utf-8")
     latest.write_text(markdown, encoding="utf-8")
     return dated, latest
@@ -230,17 +274,30 @@ def main() -> int:
     if synthesis is not None:
         report["synthesis"] = synthesis
 
-    md = markdown_gen.render(report)
+    en_md = markdown_gen.render(report)
 
     if args.dry_run:
-        sys.stdout.write(md)
-        log.info("dry-run: %d chars not written to disk", len(md))
+        sys.stdout.write(en_md)
+        log.info("dry-run: %d chars not written to disk", len(en_md))
         return 0
 
-    dated_md, latest_md = write_markdown(report_date, md)
-    log.info("wrote %s and %s", dated_md.name, latest_md.name)
-    dated_json, latest_json = json_emitter.write(report_date, REPORTS_DIR, report)
-    log.info("wrote %s and %s", dated_json.name, latest_json.name)
+    en_dir = REPORTS_DIR / "en"
+    en_dated_md, en_latest_md = write_markdown(en_dir, report_date, en_md)
+    log.info("wrote en/%s and en/%s", en_dated_md.name, en_latest_md.name)
+    en_dated_json, en_latest_json = json_emitter.write(report_date, en_dir, report)
+    log.info("wrote en/%s and en/%s", en_dated_json.name, en_latest_json.name)
+
+    # zh translation is best-effort — failure here never blocks the EN report.
+    zh = maybe_translate(en_md, synthesis, skip=(args.en_only or args.no_synthesis))
+    if zh is not None:
+        zh_md, zh_synthesis = zh
+        zh_dir = REPORTS_DIR / "zh"
+        zh_dated_md, zh_latest_md = write_markdown(zh_dir, report_date, zh_md)
+        log.info("wrote zh/%s and zh/%s", zh_dated_md.name, zh_latest_md.name)
+        zh_dated_json, zh_latest_json = json_emitter.write(
+            report_date, zh_dir, report, synthesis_override=zh_synthesis
+        )
+        log.info("wrote zh/%s and zh/%s", zh_dated_json.name, zh_latest_json.name)
     return 0
 
 

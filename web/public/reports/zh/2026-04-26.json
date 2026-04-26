@@ -135,11 +135,11 @@
   "schema_version": 1,
   "snapshot": {
     "BTC": {
-      "change": 83.96875,
-      "change_pct": 0.0010840928438575468,
+      "change": 576.828125,
+      "change_pct": 0.007447237721750848,
       "error": null,
       "label": "BTC",
-      "last": 77539.28125,
+      "last": 78032.140625,
       "prev_close": 77455.3125,
       "symbol": "BTC-USD"
     },
@@ -218,40 +218,40 @@
   },
   "synthesis": {
     "market": {
-      "devils_advocate": "VIX has compressed from deeper Tier 3/4 levels rapidly — if this is a bear-market rally and VIX mean-reverts back above 24.6, today's add signals flip into traps overnight. The Nasdaq surge could be a short-squeeze event rather than fundamental re-rating, and any macro shock (Fed speak, tariff escalation) could reprice risk sharply before the dense earnings week clears.",
-      "read": "VIX at 18.71 sits squarely in Tier 2 — elevated enough to warrant caution but not distress. VIX3M at 21.3 vs spot 18.7 shows the term structure is still in contango, meaning the market is pricing lingering uncertainty ahead rather than a clean all-clear. Nasdaq leading (+1.63%) while Dow lags (-0.16%) signals rotation into growth/tech; quality growth small entries (3-5%) are permissible, but the 50% cash target is non-negotiable. Gold at 4,740 and WTI sliding -1.5% confirms a mild risk-on-but-defensive-hedge-intact tone."
+      "devils_advocate": "若 VIX3M／VIX 利差快速收窄（VIX3M 崩落趨近即期而非即期上揚），將意味波動率體制真正重置進入 Tier 1，屆時現金目標將上調至 60%，且買入名單中大多數標的將被移除。本周若出現強勁 GDP 數據或聯準會轉鴿信號，今日謹慎的控倉規模可能反而顯得過於保守。",
+      "read": "VIX 報於 18.71，落在 Tier 2 區間——聚焦優質成長股，單筆建倉 3–5%，現金下限 50%。期限結構才是關鍵：VIX3M 報 21.30，遠高於即期 VIX，意味市場對後市不確定性的定價遠比今日溫和的上漲走勢所顯示的更高。Nasdaq 單日 +1.6% 的急漲看似建設性，但切勿追高——當前是觀望與輕倉環境，並非全力部署的時機。"
     },
     "model": "claude-sonnet-4-6",
     "positions": [
       {
         "action": "hold",
         "confidence": "medium",
-        "rationale": "RSI 68.3 is approaching overbought and price is exactly at the 52-week high with 33.5% above the 200DMA — momentum is strong but the risk/reward for adding here is poor. Hold the existing position; a 3-5% pullback toward the 50DMA would be the right re-entry for a Tier 2 add.",
+        "rationale": "RSI 報 68.3，距 200DMA 上方 33.5%，與 52 週高點零距離——技術面已明顯過伸。自成本價上漲 9.4%，近期無財報催化劑；持續讓獲利部位奔跑，但在 Tier 2 且 RSI 逼近超買之際，此位置不予加倉。",
         "symbol": "TSM"
       },
       {
         "action": "watch",
-        "confidence": "medium",
-        "rationale": "Earnings in 10 days (May 6) puts IONQ just outside the 7-day trim window, but it's 48% below its 52-week high, 8.2% below the 200DMA, and only marginally above water (-1.6% vs cost). The 23.4% extension above the 50DMA looks stretched for a speculative quantum name; no add until post-earnings clarity, and be ready to trim into any pre-earnings strength if the window tightens.",
+        "confidence": "low",
+        "rationale": "財報距今 10 天（5 月 6 日）——剛好落在 7 天減倉窗口之外，但差距極小。仍低於 200DMA 達 8.2%，距 52 週高點下跌 48%，持倉虧損 1.6%；此為高 beta 投機標的，均線對技術面毫無支撐。若 4 月 29 日 7 天窗口開啟時仍持有，立即重新評估減倉／出場立場。",
         "symbol": "IONQ"
       },
       {
         "action": "trim",
         "confidence": "high",
-        "rationale": "Earnings in 8 days (May 4) — inside the 7-day trim/hedge window per framework rules. PLTR is 31% below its 52-week high, 13% below the 200DMA, and -1.9% underwater; RSI 48.6 shows no momentum tailwind to justify holding full size into a binary event. Reduce to a core position now; re-evaluate post-print.",
+        "rationale": "財報距今 8 天（5 月 4 日）——最遲週一即進入 7 天減倉強制窗口。自成本價下跌 1.9%，低於 200DMA 達 13%，距 52 週高點下跌 31%，RSI 僅 48.6 且缺乏動能。框架規則明確：在已知財報前減倉或對沖；趁窗口進一步收窄前立即執行。",
         "symbol": "PLTR"
       },
       {
         "action": "trim",
         "confidence": "high",
-        "rationale": "Earnings in 3 days (Apr 29) with active Muddy Waters short-seller report in place — framework mandates no `add`, and the position is 29.7% underwater, 42.8% below the 52-week high, and 22.7% below the 200DMA. Binary event risk is extreme; trim now to reduce exposure ahead of the print, preserving a small position only if Carina wants optionality on an upside surprise.",
+        "rationale": "觸發旗標：earnings_within_3d（4 月 29 日）、high_risk_tag、Muddy Waters 主動放空報告，持倉虧損 30%，低於 200DMA 達 22.7%，距 52 週高點下跌 42.8%。特殊情況規則明確禁止「加倉」，僅允許「減倉」或「出場」；在二元財報事件前疊加做空機構壓力的情況下降低曝險，不容商議。",
         "symbol": "SOFI"
       }
     ],
     "usage": {
       "cache_read_input_tokens": 0,
-      "input_tokens": 3282,
-      "output_tokens": 873
+      "input_tokens": 3281,
+      "output_tokens": 776
     }
   },
   "tier": {
