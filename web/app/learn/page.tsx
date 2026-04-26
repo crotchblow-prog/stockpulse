@@ -12,7 +12,7 @@ VIXPulse is a daily decision-support tool for stock market investors. This page 
 
 VIX is **Wall Street's fear gauge**. It measures how nervous the market is *right now*, looking ahead 30 days.
 
-Mechanically, it's calculated from S&P 500 options prices. When traders pay up for crash protection, VIX rises. When they don't bother, VIX falls.
+Mechanically, it's calculated from S&P 500 options prices (options are contracts that pay out if the market crosses a price by a certain date). When traders pay up for crash protection, VIX rises. When they don't bother, VIX falls.
 
 **Important**: VIX measures *expected* volatility, not direction. A high VIX means "big moves likely" — could be up or down — but historically big VIX moves correlate with falling markets.
 
@@ -41,7 +41,7 @@ VIXPulse codifies how to act based on the current VIX. Six tiers, each with a ta
 | 2 | 18–24.6 | 觀察 (watch) | 50% | 3-5% |
 | 3 | 24.6–29.5 | 分批進場 (scale in) ⭐ | 35% | 5-10% |
 | 4 | 29.5–35 | 恐慌承接 (catch the panic) ⭐⭐ | 20% | 10-20% |
-| 5 | >35 | 極端機會 (extreme opportunity) ⭐⭐⭐ | 20% | heavy but never all-in |
+| 5 | >35 | 極端機會 (extreme opportunity) ⭐⭐⭐ | 20% | heavy, but never all-in |
 
 **The core insight**: most investors do the opposite of what the VIX recommends. They buy heavily when markets feel safe (low VIX, near tops) and sell when markets feel scary (high VIX, often near bottoms). The framework forces the reverse — light buying in calm, heavy buying in panic.
 
@@ -61,15 +61,15 @@ A two-paragraph synthesis from Claude (an AI):
 - **Market read** — a 1-3 sentence summary of today's tape through the tier-framework lens.
 - **Devil's advocate** — a 1-2 sentence contrarian view: what could invalidate the main read.
 
-Plus per-position **Position calls**: for each holding, an action (\`hold\`, \`add\`, \`trim\`, \`exit\`, \`watch\`) with confidence and rationale.
+Plus per-position **Position calls**: for each holding, an action (\`hold\`, \`add\`, \`trim\`, \`exit\`, or \`watch\` — meaning "wait for a setup, don't act yet") with confidence and rationale.
 
 ### 🚩 Watch List — *"What should I worry about in my current positions?"*
 
-Holdings that triggered closed-vocab flags — short labels like \`oversold_rsi\`, \`earnings_within_7d\`, \`deep_drawdown\`, \`near_52w_high\`. Use this as a per-position alarm system.
+Holdings that triggered any of a fixed set of standardized labels — short tags like \`oversold_rsi\`, \`earnings_within_7d\`, \`deep_drawdown\`, \`near_52w_high\`. Use this as a per-position alarm system.
 
 ### 📡 Universe Scanner — *"What could I add to / avoid right now?"*
 
-A regime-conditional list of candidates from a 59-ticker universe of US large-caps, separated into:
+A list of candidates from a 59-ticker universe of US large-caps, filtered by today's VIX tier and how each name has historically behaved across VIX regimes. Separated into:
 - 🟢 **Add candidates** — tier-appropriate names with strong historical behavior in the current regime.
 - 🟡 **Watch (transition)** — names that benefit when VIX falls; entry candidates as fear subsides.
 - 🔴 **Avoid candidates** — names that historically break under VIX spikes.
@@ -104,7 +104,7 @@ A 3% position in NVDA at the wrong moment is recoverable. A 30% position in NVDA
 
 ### 5. Earnings and special-case rules override the framework
 
-If a holding has \`earnings_within_7d\`, default to trim or hedge — even if the tier says add. Binary catalysts (earnings, FDA decisions, merger votes) destroy framework signal. The Watch List flags these so you don't have to track them by hand.
+If a holding has \`earnings_within_7d\`, default to trim or hedge — even if the tier says add. Binary catalysts (earnings, FDA decisions, merger votes) introduce a single-event risk that the framework's regime logic doesn't price. The Watch List flags these so you don't have to track them by hand.
 
 ---
 
