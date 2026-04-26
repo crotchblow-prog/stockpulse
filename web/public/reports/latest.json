@@ -24,8 +24,8 @@
       "avg_cost": 43.38,
       "change": -0.94000244140625,
       "change_pct": -0.021544864047532718,
-      "days_to_earnings": null,
-      "earnings_date": null,
+      "days_to_earnings": 10,
+      "earnings_date": "2026-05-06",
       "flags": [
         "below_200dma",
         "deep_drawdown"
@@ -51,8 +51,8 @@
       "avg_cost": 145.87,
       "change": 1.519989013671875,
       "change_pct": 0.010736659850492545,
-      "days_to_earnings": null,
-      "earnings_date": null,
+      "days_to_earnings": 8,
+      "earnings_date": "2026-05-04",
       "flags": [
         "near_50dma",
         "below_200dma",
@@ -78,12 +78,14 @@
       "avg_cost": 26.24,
       "change": 0.12000083923339844,
       "change_pct": 0.006550264259409413,
-      "days_to_earnings": null,
-      "earnings_date": null,
+      "days_to_earnings": 3,
+      "earnings_date": "2026-04-29",
       "flags": [
         "below_200dma",
         "deep_drawdown",
         "underwater",
+        "earnings_within_7d",
+        "earnings_within_3d",
         "high_risk_tag",
         "event_play"
       ],
@@ -133,11 +135,11 @@
   "schema_version": 1,
   "snapshot": {
     "BTC": {
-      "change": -104.3046875,
-      "change_pct": -0.0013466434274601888,
+      "change": 83.96875,
+      "change_pct": 0.0010840928438575468,
       "error": null,
       "label": "BTC",
-      "last": 77351.0078125,
+      "last": 77539.28125,
       "prev_close": 77455.3125,
       "symbol": "BTC-USD"
     },
@@ -151,11 +153,11 @@
       "symbol": "^DJI"
     },
     "Gold": {
-      "change": 17.19970703125,
-      "change_pct": 0.0036555454027041175,
+      "change": 35.7998046875,
+      "change_pct": 0.007608723288444585,
       "error": null,
       "label": "Gold",
-      "last": 4722.2998046875,
+      "last": 4740.89990234375,
       "prev_close": 4705.10009765625,
       "symbol": "GC=F"
     },
@@ -216,40 +218,40 @@
   },
   "synthesis": {
     "market": {
-      "devils_advocate": "VIX3M at 21.30 sitting well above spot VIX is the hidden warning — if that spread compresses via spot VIX spiking rather than VIX3M falling, today's green Nasdaq print flips into a headfake and every high-beta name in the book gets repriced hard.",
-      "read": "VIX at 18.71 (Tier 2) with VIX3M at 21.30 confirms a modest term-structure contango — the market is pricing more uncertainty ahead than today's calm suggests. Nasdaq leading (+1.63%) while Dow slightly red is a risk-on-but-selective tape. Tier 2 posture: 50% cash, 3–5% entries in quality growth only, avoid anything with earnings in the next 7 days."
+      "devils_advocate": "VIX has compressed from deeper Tier 3/4 levels rapidly — if this is a bear-market rally and VIX mean-reverts back above 24.6, today's add signals flip into traps overnight. The Nasdaq surge could be a short-squeeze event rather than fundamental re-rating, and any macro shock (Fed speak, tariff escalation) could reprice risk sharply before the dense earnings week clears.",
+      "read": "VIX at 18.71 sits squarely in Tier 2 — elevated enough to warrant caution but not distress. VIX3M at 21.3 vs spot 18.7 shows the term structure is still in contango, meaning the market is pricing lingering uncertainty ahead rather than a clean all-clear. Nasdaq leading (+1.63%) while Dow lags (-0.16%) signals rotation into growth/tech; quality growth small entries (3-5%) are permissible, but the 50% cash target is non-negotiable. Gold at 4,740 and WTI sliding -1.5% confirms a mild risk-on-but-defensive-hedge-intact tone."
     },
     "model": "claude-sonnet-4-6",
     "positions": [
       {
         "action": "hold",
         "confidence": "medium",
-        "rationale": "RSI 68.3 and sitting at the 52-week high (0% from it), 33.5% above 200DMA — momentum is real but the name is extended and technically overbought. Tier 2 doesn't justify chasing a new add at these levels; hold what's already +9.4% above cost and let it breathe.",
+        "rationale": "RSI 68.3 is approaching overbought and price is exactly at the 52-week high with 33.5% above the 200DMA — momentum is strong but the risk/reward for adding here is poor. Hold the existing position; a 3-5% pullback toward the 50DMA would be the right re-entry for a Tier 2 add.",
         "symbol": "TSM"
       },
       {
         "action": "watch",
-        "confidence": "low",
-        "rationale": "8.2% below 200DMA with a deep_drawdown flag and still ~1.6% underwater on cost — the 23% extension above 50DMA looks like a dead-cat bounce rather than a structural turn. No earnings date to anchor a catalyst; keep on watch and require a 200DMA reclaim before any re-engagement.",
+        "confidence": "medium",
+        "rationale": "Earnings in 10 days (May 6) puts IONQ just outside the 7-day trim window, but it's 48% below its 52-week high, 8.2% below the 200DMA, and only marginally above water (-1.6% vs cost). The 23.4% extension above the 50DMA looks stretched for a speculative quantum name; no add until post-earnings clarity, and be ready to trim into any pre-earnings strength if the window tightens.",
         "symbol": "IONQ"
       },
       {
-        "action": "hold",
-        "confidence": "low",
-        "rationale": "RSI 48.6 hugging the 50DMA (-0.87%), but 13% below 200DMA and 31% off 52-week high with a deep_drawdown flag — still in structural downtrend. At -1.9% below cost, no averaging down per framework rules; hold the line and re-evaluate on a confirmed 200DMA reclaim.",
+        "action": "trim",
+        "confidence": "high",
+        "rationale": "Earnings in 8 days (May 4) — inside the 7-day trim/hedge window per framework rules. PLTR is 31% below its 52-week high, 13% below the 200DMA, and -1.9% underwater; RSI 48.6 shows no momentum tailwind to justify holding full size into a binary event. Reduce to a core position now; re-evaluate post-print.",
         "symbol": "PLTR"
       },
       {
         "action": "trim",
-        "confidence": "medium",
-        "rationale": "30% underwater, 22.7% below 200DMA, 42.8% off 52-week high, and carrying active Muddy Waters short-seller risk (high_risk_tag + event_play flags) — the risk/reward is structurally impaired. No earnings_within_7d flag today so trim (not exit) is valid, but size reduction is warranted; do not add under any circumstances given the binary event setup.",
+        "confidence": "high",
+        "rationale": "Earnings in 3 days (Apr 29) with active Muddy Waters short-seller report in place — framework mandates no `add`, and the position is 29.7% underwater, 42.8% below the 52-week high, and 22.7% below the 200DMA. Binary event risk is extreme; trim now to reduce exposure ahead of the print, preserving a small position only if Carina wants optionality on an upside surprise.",
         "symbol": "SOFI"
       }
     ],
     "usage": {
       "cache_read_input_tokens": 0,
-      "input_tokens": 3243,
-      "output_tokens": 686
+      "input_tokens": 3282,
+      "output_tokens": 873
     }
   },
   "tier": {
