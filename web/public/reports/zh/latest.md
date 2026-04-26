@@ -8,40 +8,42 @@
 
 ## 📝 今日觀點
 
-**市場解讀。** VIX 報 18.71，明確落於 Tier 2——壓力自四月急升後已退卻，但 VIX3M 為 21.3，期限結構維持逆價差，顯示市場尚未完全消化殘餘焦慮。那斯達克領漲（+1.6%）而道指落後（-0.16%），確認市場偏向風險性成長資產，但此刻適合精選優質成長、小規模進場，而非追漲。維持 50% 現金目標；任何新進場僅限 3-5%，且須在 Tier 2 買進清單之內。
+**市場解讀。** VIX 於 18.71 將我們穩穩置於 Tier 2——過渡區間，真實機會開始浮現，但謹慎態度仍主導全局。VIX3M 於 21.3 確認期限結構仍處於溫和逆價差，意味市場尚未定價乾淨的全面解除警報；納斯達克今日 +1.6% 具建設性，但不構成機制轉換。現金目標維持 50%，優質成長進場規模僅 3-5%，Tier 2 買進清單（GOOGL、MSFT、AAPL、AMZN、META、TSM、AVGO、TXN）為獵場。
 
-**反方觀點。** 若 VIX3M 逆價差以向上修正方式化解——即現貨 VIX 追升至 21+ 而非 VIX3M 壓縮——重新進入 Tier 3 將迫使高 Beta 標的在最糟時機削倉，把今日的「觀察」姿態變成被動賣出。
+**反方觀點。** VIX 於 18.71 僅勉強進入 Tier 2——本週任何一個不利的總經數據或 Mag-7 財報衝擊，均可將其彈回 20 以上、進入 Tier 2 上緣警戒區間，令今日任何新建倉位失效。USD/JPY 於 159.33 亦警示殘餘套息交易平倉風險，歷史上此類風險可快速推升 VIX。
 
 **持倉判斷：**
-- **TSM** — hold（medium）。位於 52 週高點、RSI 68.3、高於 200DMA 達 33.5%——動能完整但佈局已過度延伸。敏感度標籤為 `high_normal` + `mean_reverter`：`high_normal` 意味 Tier 2 是加碼天花板，但 RSI 超買加上距 52 週高點為零，此時新開 3-5% 倉位風險報酬不佳；持有現有部位，靜待喘息空間。
-- **IONQ** — watch（low）。未納入制度宇宙（尚未回測），距 52 週高點低 48%、低於 200DMA 8.2%，且距財報僅 10 天（5 月 6 日）——剛好在 7 天削倉窗口外但快速逼近。Tier 2 不加碼如此遠離高點的投機量子標的；標記於 4 月 29 日前進行削倉複審。
-- **PLTR** — hold（low）。距財報 8 天（5 月 4 日）——距強制削倉窗口僅差一個日曆天，但低於 200DMA 13%、低於 52 週高點 31%，且成本已虧損 -1.9% 且無正面催化劑。不加碼；明日進入 7 天財報窗口時重新評估是否削倉。
-- **SOFI** — trim（high）。距財報 3 天（4 月 29 日）、Muddy Waters 放空壓力未除、成本虧損 30%、低於 52 週高點 42.8%、低於 200DMA 22.7%——所有訊號指向同一方向。框架要求在財報前 7 天內對 `high_risk` / `muddy_waters_target` 二元事件 event_play 執行 trim 或 exit；在二元事件解決前立即減少曝險。
+- **TSM** — hold（medium）。RSI 於 68.3、價格在 200DMA 上方 33.5% 且恰好位於 52 週高點，顯示已過度延伸——此為「持有現有部位、不加碼」的設置。敏感度標籤 `high_normal` 明確警示不宜在 Tier 2+ 加碼，因此儘管具備 `buy_list_member` 身份，在 RSI 冷卻或回檔提供更佳進場點之前，新增規模不在考慮之列。
+- **IONQ** — hold（low）。財報距今 10 天（5 月 6 日），今日尚在 7 天減碼窗口之外，但距 52 週高點 48% 以下、低於 200DMA 8.2%，且具備投機/高 Beta 標籤，意味進入財報前風險呈不對稱格局。目前 hold，但標記於 4 月 29 日進入 7 天窗口時進行減碼複審。
+- **PLTR** — watch（low）。財報距今 8 天（5 月 4 日）——距 7 天減碼觸發點僅差一天，但距 52 週高點 30.9% 以下、低於 200DMA 13%、幾乎水下（相對均攤成本 -1.9%），RSI 於中性的 48.6。在 Tier 2 且臨近財報事件下不加碼；標記明日當其進入 7 天窗口時重新評估是否減碼。
+- **SOFI** — trim（high）。財報距今 3 天（4 月 29 日）、Muddy Waters 放空報告仍有效、水下 30%、距 52 週高點 42.8% 以下——特殊情況規則毫不含糊：7 天內禁止 `add`，且 `earnings_within_3d` + `high_risk_tag` + `event_play` 標籤組合使 `trim` 成為優於 `hold` 的正確操作，以在財報前降低二元事件曝險。
 
 ## 🎯 Tier 行動
 
-**買進清單：** `GOOGL`, `MSFT`, `AAPL`, `AMZN`, `META`, `TSM`（hold）, `AVGO`, `TXN`
+**買進清單：** `GOOGL`、`MSFT`、`AAPL`、`AMZN`、`META`、`TSM`（hold）、`AVGO`、`TXN`
 
 ## 🚩 關注名單
 
-- **TSM**（Tier 2 / Exness）：near_52w_high, buy_list_member ⋮ high_normal
-- **IONQ**（Tier 2 / Taiwan_Brokerage）：below_200dma, deep_drawdown
-- **PLTR**（Tier 2 / Taiwan_Brokerage）：near_50dma, below_200dma, deep_drawdown
-- **SOFI**（Tier 2 / Taiwan_Brokerage）：below_200dma, deep_drawdown, underwater, earnings_within_7d, earnings_within_3d, high_risk_tag, event_play
+- **TSM**（Tier 2 / Exness）：`near_52w_high`、`buy_list_member` ⋮ `high_normal`
+- **IONQ**（Tier 2 / Taiwan_Brokerage）：`below_200dma`、`deep_drawdown`
+- **PLTR**（Tier 2 / Taiwan_Brokerage）：`near_50dma`、`below_200dma`、`deep_drawdown`
+- **SOFI**（Tier 2 / Taiwan_Brokerage）：`below_200dma`、`deep_drawdown`、`underwater`、`earnings_within_7d`、`earnings_within_3d`、`high_risk_tag`、`event_play`
 
-## 📡 標的掃描 — Tier 2
+## 📡 標的掃描 — Tier 2（觀察）
 
-**🟢 加碼候選** _（high_normal，樣本數 ≥ 8）_
+_β normal：平靜週內相對 SPX 的機制條件 Beta。崩潰回升：VIX 下跌 ≥30% 後 5 日報酬。急升衰退：VIX 上漲 ≥20% 後 5 日報酬。_
+
+**🟢 加碼候選** _（`high_normal`，樣本數 ≥ 8）_
 
 | 標的 | β normal | 樣本數 | 備註 |
 |---|---:|---:|---|
-| TSLA | 2.48 | 20 | ⚠️ 亦在避開清單 |
-| AVGO | 2.43 | 20 |  |
-| NVDA | 2.26 | 20 |  |
-| AMD | 2.16 | 20 |  |
-| INTC | 1.90 | 20 | ⚠️ 亦在避開清單 |
+| TSLA | 2.48 | 165 | ⚠️ 亦在避開清單 |
+| AVGO | 2.43 | 165 |  |
+| NVDA | 2.26 | 165 |  |
+| AMD | 2.16 | 165 |  |
+| INTC | 1.90 | 165 | ⚠️ 亦在避開清單 |
 
-**🟡 觀察（轉換）** _（mean_reverter，樣本數 ≥ 8）_
+**🟡 觀察（轉換）** _（`mean_reverter`，樣本數 ≥ 8）_
 
 | 標的 | 崩潰回升 | 急升衰退 | 備註 |
 |---|---:|---:|---|
@@ -51,7 +53,7 @@
 | TSM | +0.8% | +2.0% |  |
 | GOOGL | +0.7% | +1.5% |  |
 
-**🔴 避開候選** _（crisis_alpha，樣本數 ≥ 8）_
+**🔴 避開候選** _（`crisis_alpha`，樣本數 ≥ 8）_
 
 | 標的 | 急升衰退 | 樣本數 | 備註 |
 |---|---:|---:|---|
@@ -63,7 +65,7 @@
 
 ## 💼 持倉
 
-| 標的 | 最新價 | 相對成本 | RSI(14) | 相對 50DMA | 相對 200DMA | 相對 52 週高點 |
+| 標的 | 最新價 | 相對均攤成本 | RSI(14) | 相對 50DMA | 相對 200DMA | 相對 52 週高點 |
 |---|---:|---:|---:|---:|---:|---:|
 | **TSM** | 402.46 | +9.43% | 68 | +12.73% | +33.54% | +0.00% |
 | **IONQ** | 42.69 | -1.59% | 61 | +23.44% | -8.20% | -48.00% |
@@ -80,7 +82,7 @@
 | Nasdaq | 24,836.60 | +398.10 (+1.63%) |
 | Dow | 49,230.71 | -79.61 (-0.16%) |
 | USD/JPY | 159.33 | -0.16 (-0.10%) |
-| BTC | 78,152.57 | +540.55 (+0.70%) |
+| BTC | 78,109.92 | +497.91 (+0.64%) |
 | Gold | 4,740.90 | +35.80 (+0.76%) |
 | WTI | 94.40 | -1.45 (-1.51%) |
 
