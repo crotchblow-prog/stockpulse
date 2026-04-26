@@ -1,12 +1,32 @@
 @import "tailwindcss";
 
 @theme {
+  /* Phase 1 colors (existing routes — do not modify, /v2 has its own surfaces). */
   --color-bg: #0b0e14;
   --color-fg: #e6e8ee;
   --color-muted: #8a93a6;
   --color-accent: #4ade80;
   --color-warn: #facc15;
   --color-danger: #ef4444;
+
+  /* Phase 3.0 / Brief B M1 — design tokens for /v2/* (科技冷光感). */
+  /* Surfaces */
+  --color-bg-base: #0a0a0b;          /* deep slate (NOT pure black) */
+  --color-bg-surface: #111114;       /* card background */
+  --color-bg-elevated: #16161a;      /* hovered card / modal */
+  --color-border: #2a2a30;           /* 1px borders, no shadow */
+
+  /* Tier color ramp (locked) — apply as 1px borders + accents, never large fills. */
+  --color-tier-0: #3b82f6;           /* Tier 0 (休兵) — cobalt blue */
+  --color-tier-1: #06b6d4;           /* Tier 1 (警戒佈局) — cyan */
+  --color-tier-2: #a3a3a3;           /* Tier 2 (觀察) — neutral gray (most days) */
+  --color-tier-3: #f59e0b;           /* Tier 3 (分批進場) — amber */
+  --color-tier-4: #f97316;           /* Tier 4 (恐慌承接) — orange-red */
+  --color-tier-5: #ef4444;           /* Tier 5 (極端機會) — alert red */
+
+  /* Self-hosted fonts via next/font (set in layout.tsx). */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SF Mono", monospace;
 }
 
 html, body {
@@ -14,6 +34,19 @@ html, body {
   color: var(--color-fg);
   font-feature-settings: "ss01", "cv11";
 }
+
+/* /v2/* surfaces — `--tier-current` is set by data-tier on the parent. */
+[data-v2-root] {
+  background: var(--color-bg-base);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+}
+[data-v2-root] [data-tier="0"] { --tier-current: var(--color-tier-0); }
+[data-v2-root] [data-tier="1"] { --tier-current: var(--color-tier-1); }
+[data-v2-root] [data-tier="2"] { --tier-current: var(--color-tier-2); }
+[data-v2-root] [data-tier="3"] { --tier-current: var(--color-tier-3); }
+[data-v2-root] [data-tier="4"] { --tier-current: var(--color-tier-4); }
+[data-v2-root] [data-tier="5"] { --tier-current: var(--color-tier-5); }
 
 /* Markdown rendering polish */
 .report-prose h1 { @apply text-2xl font-semibold mt-0 mb-4; }

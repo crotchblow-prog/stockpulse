@@ -1,7 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { SiteNav } from "@/components/SiteNav";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jetbrains-mono",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vixpulse.asia"),
@@ -25,7 +38,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-Hant">
+    <html lang="zh-Hant" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="min-h-dvh">
         <header className="border-b border-white/10">
           <div className="mx-auto max-w-3xl px-6 py-5 flex items-center justify-between">
