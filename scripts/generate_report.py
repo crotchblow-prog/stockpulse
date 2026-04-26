@@ -27,6 +27,7 @@ from reporters import json_emitter, markdown_gen  # noqa: E402
 
 REPO_ROOT = SCRIPTS_DIR.parent
 HOLDINGS_PATH = REPO_ROOT / "config" / "holdings.json"
+REGIME_SENSITIVITY_PATH = REPO_ROOT / "config" / "regime_sensitivity.json"
 REPORTS_DIR = REPO_ROOT / "web" / "public" / "reports"
 TAIPEI = pytz.timezone("Asia/Taipei")
 
@@ -62,6 +63,43 @@ def load_holdings() -> dict:
         return json.load(f)
 
 
+def load_regime_sensitivity() -> dict[str, dict[str, Any]]:
+    """Load config/regime_sensitivity.json's `tickers` map. Empty dict if missing or unreadable."""
+    if not REGIME_SENSITIVITY_PATH.exists():
+        log.info("regime_sensitivity.json not present yet — sensitivity_tags skipped")
+        return {}
+    try:
+        with REGIME_SENSITIVITY_PATH.open(encoding="utf-8") as f:
+            return json.load(f).get("tickers", {})
+    except (OSError, ValueError) as e:
+        log.warning("regime_sensitivity.json unreadable (%s) — sensitivity_tags skipped", e)
+        return {}
+
+
+def attach_regime_fields(holding: dict[str, Any], symbol: str, regime: dict[str, dict[str, Any]]) -> None:
+    """Mutate `holding` in place to attach regime_metrics, sensitivity_tags, missing_from_universe."""
+    entry = regime.get(symbol)
+    if entry is None:
+        holding["regime_metrics"] = None
+        holding["sensitivity_tags"] = []
+        holding["missing_from_universe"] = True
+        return
+
+    metrics = {
+        "beta_normal": entry.get("beta_normal"),
+        "beta_stress": entry.get("beta_stress"),
+        "vix_spike_decay_pct": entry.get("vix_spike_decay_pct"),
+        "vix_crush_recovery_pct": entry.get("vix_crush_recovery_pct"),
+        "confidence": entry.get("confidence"),
+    }
+    holding["regime_metrics"] = metrics
+    holding["missing_from_universe"] = False
+    if entry.get("confidence") == "low":
+        holding["sensitivity_tags"] = []
+    else:
+        holding["sensitivity_tags"] = list(entry.get("sensitivity_tags") or [])
+
+
 def parse_avg_cost(holding_meta: dict) -> float | None:
     """Pluck avg_cost from a holding entry; tolerate missing or non-numeric."""
     v = holding_meta.get("avg_cost")
@@ -77,11 +115,13 @@ def build_holdings_data(
     snapshot: dict[str, Any],
     earnings_map: dict[str, Any],
     tier: TierResult,
+    regime: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, dict]:
     """Combine history + technicals + cost + flags + earnings into the dict markdown_gen expects."""
     out: dict[str, dict] = {}
     tier_buy = tuple(tier.buy_list or ())
     tier_sell = tuple(tier.sell_list or ())
+    regime = regime or {}
     for symbol, meta in holdings_cfg["current_holdings"].items():
         account = meta.get("account")
         tags = list(meta.get("tags") or [])
@@ -89,7 +129,7 @@ def build_holdings_data(
 
         h = history_map.get(symbol)
         if h is None or h.error:
-            out[symbol] = {
+            err_holding = {
                 "error": h.error if h else "no history",
                 "account": account,
                 "tags": tags,
@@ -98,6 +138,8 @@ def build_holdings_data(
                 "earnings_date": None,
                 "days_to_earnings": None,
             }
+            attach_regime_fields(err_holding, symbol, regime)
+            out[symbol] = err_holding
             continue
         tech = technical.compute(h.closes)
         vs_avg = ((h.last - avg_cost) / avg_cost) if (avg_cost and h.last) else None
@@ -123,7 +165,7 @@ def build_holdings_data(
             )
         )
 
-        out[symbol] = {
+        holding = {
             "last": h.last,
             "change": h.change,
             "change_pct": h.change_pct,
@@ -143,6 +185,8 @@ def build_holdings_data(
             "days_to_earnings": days_to_earnings,
             "flags": flags,
         }
+        attach_regime_fields(holding, symbol, regime)
+        out[symbol] = holding
     return out
 
 
@@ -258,7 +302,10 @@ def main() -> int:
     log.info("fetching earnings calendar (degrades if no FINNHUB_API_KEY)…")
     earnings_map = earnings_fetcher.fetch_calendar(holding_symbols, as_of_date=report_date)
 
-    holdings_data = build_holdings_data(holdings_cfg, history_map, snapshot, earnings_map, tier)
+    regime = load_regime_sensitivity()
+    holdings_data = build_holdings_data(
+        holdings_cfg, history_map, snapshot, earnings_map, tier, regime
+    )
     accounts = build_accounts_summary(holdings_data)
 
     report: dict[str, Any] = {

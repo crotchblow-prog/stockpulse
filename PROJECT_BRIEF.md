@@ -167,7 +167,16 @@ GitHub Actions (cron 02:00 UTC)
 | **`yfinance`** for Phase 1 | Free, no auth, sufficient quality for daily timeframe | Polygon/IEX — overkill for daily, requires keys |
 | **`claude-sonnet-4-6` for synthesis** | Best price/intelligence ratio for narrative generation | GPT-4o — higher cost, weaker on long-context structured input |
 
-### 4.4 Multi-agent execution (ARIA + MIRA via agent-bus)
+### 4.4 Synthesis sidecar contract (`schema_version`)
+
+The JSON sidecar at `web/public/reports/{en,zh}/<date>.json` is a versioned contract between the pipeline and any downstream consumer (the web viewer, future Telegram bot, third-party dashboards). The top-level `schema_version` integer governs compatibility.
+
+- **`schema_version: 1`** — initial Phase 2 shape. Per-holding fields: `last`, `flags`, technicals, earnings.
+- **`schema_version: 2`** — Phase 2.5 additive bump. Per-holding fields gain `regime_metrics` (`beta_normal`, `beta_stress`, `vix_spike_decay_pct`, `vix_crush_recovery_pct`, `confidence`), `sensitivity_tags` (list, possibly empty), and `missing_from_universe` (bool). Existing v1 fields are unchanged.
+
+**Compatibility rule:** consumers MUST tolerate unknown fields gracefully. Adding a field is always permitted within a major version; renaming or removing one bumps the version. The `schema_version` is never decremented. When an old viewer reads a newer payload, it should ignore unknown keys; when a new viewer reads an older payload, it should treat the missing v2 fields as `None` / `[]` / `False` respectively.
+
+### 4.5 Multi-agent execution (ARIA + MIRA via agent-bus)
 
 - **ARIA** (Claude Code on MacBook Air) is the *architect*: receives requirements from Carina (often relayed from her conversations with Claude on claude.ai), decides architecture, decomposes work, delegates concrete tasks to MIRA via agent-bus. Persona: exploratory, proposes options first.
 - **MIRA** (Claude Code on Mac Mini, always-on) is the *worker*: receives well-scoped tasks, implements, tests, reports back. Persona: precise, terse, asks before acting.

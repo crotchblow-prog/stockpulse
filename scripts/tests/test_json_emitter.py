@@ -57,7 +57,7 @@ def _sample_report(date: str = "2026-04-26") -> dict:
 
 def test_payload_has_schema_version_and_top_level_fields():
     payload = json_emitter.build_payload(_sample_report())
-    assert payload["schema_version"] == 1
+    assert payload["schema_version"] == 2
     for key in ("date", "vix_value", "tier", "snapshot", "holdings", "accounts"):
         assert key in payload
     assert "synthesis" not in payload  # absent when not provided
@@ -113,7 +113,7 @@ def test_write_creates_dated_and_latest(tmp_path: Path):
     assert latest.name == "latest.json"
     parsed = json.loads(latest.read_text(encoding="utf-8"))
     assert parsed == json.loads(dated.read_text(encoding="utf-8"))
-    assert parsed["schema_version"] == 1
+    assert parsed["schema_version"] == 2
     assert parsed["tier"]["name"] == "tier_2"
 
 
@@ -125,3 +125,42 @@ def test_write_round_trip_is_strict_json(tmp_path: Path):
     parsed = json.loads(text)  # would fail if NaN/Inf weren't coerced
     assert parsed["holdings"]["BadFloats"]["x"] is None
     assert parsed["holdings"]["BadFloats"]["y"] is None
+
+
+# ── Schema v2: regime_metrics + sensitivity_tags + missing_from_universe ─────
+
+def test_schema_v2_passes_regime_fields_through_per_holding():
+    report = _sample_report()
+    report["holdings"]["TSLA"] = {
+        "last": 250.0,
+        "flags": ["buy_list_member"],
+        "regime_metrics": {
+            "beta_normal": 1.82, "beta_stress": 2.45,
+            "vix_spike_decay_pct": -8.3, "vix_crush_recovery_pct": 6.1,
+            "confidence": "high",
+        },
+        "sensitivity_tags": ["high_normal", "high_stress"],
+        "missing_from_universe": False,
+    }
+    payload = json_emitter.build_payload(report)
+    tsla = payload["holdings"]["TSLA"]
+    assert tsla["regime_metrics"]["beta_normal"] == 1.82
+    assert tsla["regime_metrics"]["confidence"] == "high"
+    assert tsla["sensitivity_tags"] == ["high_normal", "high_stress"]
+    assert tsla["missing_from_universe"] is False
+
+
+def test_schema_v2_holding_outside_universe_serializes_cleanly():
+    report = _sample_report()
+    report["holdings"]["SOFI"] = {
+        "last": 18.44,
+        "flags": ["below_200dma"],
+        "regime_metrics": None,
+        "sensitivity_tags": [],
+        "missing_from_universe": True,
+    }
+    payload = json_emitter.build_payload(report)
+    sofi = payload["holdings"]["SOFI"]
+    assert sofi["regime_metrics"] is None
+    assert sofi["sensitivity_tags"] == []
+    assert sofi["missing_from_universe"] is True

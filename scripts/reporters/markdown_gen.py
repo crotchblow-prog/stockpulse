@@ -84,6 +84,31 @@ def _render_todays_take(synthesis: dict[str, Any] | None) -> list[str]:
     return lines
 
 
+def _tier_relevant_sensitivity_tags(tier_idx: int | None, sensitivity_tags: list[str]) -> list[str]:
+    """Filter sensitivity_tags to those relevant for the row's tier_index.
+
+    Rules (from Phase 2.5 brief):
+    - Tier 0-2: surface `high_normal`.
+    - Tier 3+: surface `high_stress`, `crisis_alpha`.
+    - Always surface `defensive` regardless of tier (tier-agnostic safe).
+
+    `mean_reverter` is intentionally not surfaced here — it's a transition-trigger tag,
+    surfaced via the synthesis prompt rather than the static Watch List.
+    """
+    if not sensitivity_tags:
+        return []
+    out: list[str] = []
+    if tier_idx is not None and tier_idx <= 2 and "high_normal" in sensitivity_tags:
+        out.append("high_normal")
+    if tier_idx is not None and tier_idx >= 3:
+        for tag in ("high_stress", "crisis_alpha"):
+            if tag in sensitivity_tags:
+                out.append(tag)
+    if "defensive" in sensitivity_tags:
+        out.append("defensive")
+    return out
+
+
 def _render_watch_list(holdings: dict[str, dict[str, Any]]) -> list[str]:
     """Render 🚩 Watch List for holdings whose flags are watchworthy. Skips section if no rows."""
     rows: list[str] = []
@@ -95,7 +120,9 @@ def _render_watch_list(holdings: dict[str, dict[str, Any]]) -> list[str]:
         tier_idx = h.get("tier_index")
         tier_str = f"Tier {tier_idx}" if tier_idx is not None else "—"
         flag_str = ", ".join(flags) if flags else "_no flags_"
-        rows.append(f"- **{symbol}** ({tier_str} / {account}): {flag_str}")
+        sens_tags = _tier_relevant_sensitivity_tags(tier_idx, h.get("sensitivity_tags") or [])
+        sens_str = f" ⋮ {' '.join(sens_tags)}" if sens_tags else ""
+        rows.append(f"- **{symbol}** ({tier_str} / {account}): {flag_str}{sens_str}")
     if not rows:
         return []
     return ["## 🚩 Watch List", "", *rows, ""]

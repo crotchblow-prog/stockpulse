@@ -11,11 +11,11 @@ from typing import Any
 
 log = logging.getLogger(__name__)
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 
 def build_payload(report: dict[str, Any]) -> dict[str, Any]:
-    """Shape the in-memory report dict into the canonical JSON payload (schema_version=1)."""
+    """Shape the in-memory report dict into the canonical JSON payload (schema_version=2)."""
     payload: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "date": report["date"],

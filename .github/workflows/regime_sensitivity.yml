@@ -1,0 +1,54 @@
+name: Regime Sensitivity Recompute
+
+on:
+  # Weekly cron: Sundays 03:00 UTC. Beta values shift slowly week-to-week —
+  # daily compute would waste API quota and produce noise.
+  schedule:
+    - cron: "0 3 * * 0"
+  # Manual trigger for ARIA / MIRA when a recompute is needed off-cycle
+  # (e.g., after a universe change or to validate a logic fix).
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: regime-sensitivity
+  cancel-in-progress: false
+
+jobs:
+  recompute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15  # 51-ticker yfinance batch + compute is well under this
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: scripts/requirements.txt
+
+      - name: Install deps
+        run: pip install -r scripts/requirements.txt
+
+      - name: Run regime sensitivity analyzer
+        run: python scripts/analyzers/regime_sensitivity.py
+
+      - name: Commit + push if regime_sensitivity.json changed
+        run: |
+          git config user.name "stockpulse-bot"
+          git config user.email "stockpulse-bot@users.noreply.github.com"
+          git add config/regime_sensitivity.json
+          if git diff --staged --quiet; then
+            echo "No changes — beta drift below noise floor this week."
+            exit 0
+          fi
+          DATE=$(date -u +%Y-%m-%d)
+          git commit -m "chore(regime): weekly recompute ${DATE}"
+          git push
