@@ -2,9 +2,9 @@ import { ReportViewer } from "@/components/ReportViewer";
 
 export const dynamic = "force-static";
 
-const CONTENT = `# 📊 VIXPulse — 新手入門指南
+const CONTENT = `# 📊 VIX Pulse — 新手入門指南
 
-VIXPulse 是給股市投資人的每日決策輔助工具。本頁說明 VIX 是什麼、每日報告的各個區塊在看什麼、以及如何用這套框架以紀律取代情緒做出投資決策。
+VIX Pulse 是給股市投資人的每日決策輔助工具。本頁說明 VIX 是什麼、每日報告的各個區塊在看什麼、以及如何用這套框架以紀律取代情緒做出投資決策。
 
 ---
 
@@ -30,9 +30,9 @@ VIX 在歷史上約 85% 的時間落在 25 以下。35 以上的時期罕見且�
 
 ---
 
-## VIXPulse 框架 — 六個 Tier
+## VIX Pulse 框架 — 六個 Tier
 
-VIXPulse 把「現在 VIX 在哪裡 → 應該怎麼做」對應到六個 Tier。每個 Tier 都有：建議的現金比例、單筆進場規模、以及該 Tier 適合的買進清單。
+VIX Pulse 把「現在 VIX 在哪裡 → 應該怎麼做」對應到六個 Tier。每個 Tier 都有：建議的現金比例、單筆進場規模、以及該 Tier 適合的買進清單。
 
 | Tier | VIX | 動作 | 現金目標 | 進場規模 |
 |---|---|---|---|---|
@@ -84,7 +84,7 @@ VIX、VIX3M（前向預期）、S&P 500、Nasdaq、Dow、USD/JPY、BTC、黃金�
 
 ---
 
-## 用 VIXPulse 投資得更好的五條原則
+## 用 VIX Pulse 投資得更好的五條原則
 
 ### 1. 把現金目標當錨，不要當命令
 
@@ -96,7 +96,7 @@ VIX、VIX3M（前向預期）、S&P 500、Nasdaq、Dow、USD/JPY、BTC、黃金�
 
 ### 3. 相信框架勝於相信頭條
 
-當新聞在喊「史上最大危機」而 VIXPulse 在 Tier 4 時，框架是在告訴你買進。**在恐懼當下買進的不適感，正是優勢的來源** — 多數投資人會凍結、錯過機會。
+當新聞在喊「史上最大危機」而 VIX Pulse 在 Tier 4 時，框架是在告訴你買進。**在恐懼當下買進的不適感，正是優勢的來源** — 多數投資人會凍結、錯過機會。
 
 ### 4. 部位大小比擇時更重要
 
@@ -108,7 +108,7 @@ NVDA 3% 部位在錯的時點 — 可以恢復。NVDA 30% 部位在對的時點 
 
 ---
 
-## VIXPulse **不是**什麼
+## VIX Pulse **不是**什麼
 
 - ❌ **不是投資建議。** 每份報告底部都會寫「非投資建議」。框架是其中一個輸入 — 最終決策還是你的判斷。
 - ❌ **不是自動交易。** 不會自動下單。所有動作都是手動執行。
@@ -129,7 +129,7 @@ NVDA 3% 部位在錯的時點 — 可以恢復。NVDA 30% 部位在對的時點 
 
 ## 原始碼
 
-VIXPulse 是開源專案：[github.com/crotchblow-prog/stockpulse](https://github.com/crotchblow-prog/stockpulse)。框架本體在 \`config/holdings.json:tier_strategy\`。59 檔標的池在 \`scripts/analyzers/regime_sensitivity.py:UNIVERSE\`。每日報告 commit 到 \`web/public/reports/\`。
+VIX Pulse 是開源專案：[github.com/crotchblow-prog/stockpulse](https://github.com/crotchblow-prog/stockpulse)。框架本體在 \`config/holdings.json:tier_strategy\`。59 檔標的池在 \`scripts/analyzers/regime_sensitivity.py:UNIVERSE\`。每日報告 commit 到 \`web/public/reports/\`。
 
 ---
 

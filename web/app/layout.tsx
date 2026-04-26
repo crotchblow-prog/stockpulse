@@ -16,21 +16,21 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vixpulse.asia"),
-  title: "VIXPulse",
+  title: "VIX Pulse",
   description: "Daily VIX-tier US-market analysis",
   icons: { icon: "/logo.svg" },
   alternates: { canonical: "/" },
   openGraph: {
-    title: "VIXPulse",
+    title: "VIX Pulse",
     description: "Daily VIX-tier US-market analysis",
     url: "https://vixpulse.asia",
-    siteName: "VIXPulse",
+    siteName: "VIX Pulse",
     locale: "zh_Hant",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "VIXPulse",
+    title: "VIX Pulse",
     description: "Daily VIX-tier US-market analysis",
   },
 };

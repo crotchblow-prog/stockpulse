@@ -26,7 +26,7 @@ export default function LearnLayout({ children }: { children: React.ReactNode })
         <div className="mx-auto max-w-3xl px-6 py-5 flex items-center justify-between gap-3">
           <Link href="/" className="inline-flex items-center gap-2 text-base font-semibold tracking-tight font-mono">
             <VixPulseLogo size={20} />
-            <span>VIXPULSE</span>
+            <span>VIX Pulse</span>
           </Link>
         </div>
       </header>

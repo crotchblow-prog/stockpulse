@@ -26,7 +26,7 @@ MAX_TOKENS_SYNTHESIS = 1536  # mirrors claude_synthesis output budget + slack
 # ── Markdown translation ─────────────────────────────────────────────────────
 
 MARKDOWN_SYSTEM_PROMPT = """\
-You translate English daily-market reports for a Taiwanese trader (Carina) into Traditional Chinese (zh-TW). The source is rendered Markdown for the StockPulse / VIXPulse decision-support tool.
+You translate English daily-market reports for a Taiwanese trader (Carina) into Traditional Chinese (zh-TW). The source is rendered Markdown for the StockPulse / VIX Pulse decision-support tool.
 
 # Translation rules — non-negotiable
 
@@ -132,7 +132,7 @@ SYNTHESIS_TRANSLATE_TOOL: dict[str, Any] = {
 }
 
 SYNTHESIS_SYSTEM_PROMPT = """\
-You translate the text fields in a StockPulse / VIXPulse synthesis payload from English to Traditional Chinese (zh-TW), preserving the JSON structure exactly.
+You translate the text fields in a StockPulse / VIX Pulse synthesis payload from English to Traditional Chinese (zh-TW), preserving the JSON structure exactly.
 
 Translate ONLY these fields:
 - market.read

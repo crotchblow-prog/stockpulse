@@ -19,7 +19,7 @@ export default function LegacyLayout({ children }: { children: React.ReactNode }
       <header className="border-b border-white/10">
         <div className="mx-auto max-w-3xl px-6 py-5 flex items-center justify-between">
           <Link href="/legacy" className="font-semibold tracking-tight">
-            📊 VIXPulse <span className="text-xs text-[color:var(--color-muted)]">(legacy)</span>
+            📊 VIX Pulse <span className="text-xs text-[color:var(--color-muted)]">(legacy)</span>
           </Link>
           <SiteNav />
         </div>

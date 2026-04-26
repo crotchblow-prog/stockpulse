@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { readReportJsonByDate } from "@/lib/reports";
 
 export const runtime = "nodejs";
-export const alt = "VIXPulse — daily VIX-tier US-market analysis";
+export const alt = "VIX Pulse — daily VIX-tier US-market analysis";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -67,7 +67,7 @@ export default async function OGImage({
                 <div style={{ width: 6, height: 32, background: "#f97316", borderRadius: 1 }} />
                 <div style={{ width: 6, height: 38, background: "#ef4444", borderRadius: 1 }} />
               </div>
-              <div style={{ fontSize: 36, fontWeight: 700, letterSpacing: 1 }}>VIXPULSE</div>
+              <div style={{ fontSize: 36, fontWeight: 700, letterSpacing: 1 }}>VIX Pulse</div>
             </div>
             <div style={{ fontSize: 22, color: "#8a93a6", marginTop: 4 }}>{date}</div>
           </div>

@@ -1,4 +1,4 @@
-# StockPulse — Daily VIX-Tier US Market Analysis (Live as VIXPulse)
+# StockPulse — Daily VIX-Tier US Market Analysis (Live as VIX Pulse)
 
 A daily decision-support report for a single-user US-equity portfolio, driven by VIX-tier classification + Anthropic synthesis + regime-sensitivity backtesting. Runs automatically on a Mac Mini's launchd cron at 22:00 Asia/Taipei (10 AM EDT, 30 min post-NYSE-open), commits the Markdown + JSON sidecar to git, and pushes via Vercel deploy hook.
 
@@ -18,7 +18,7 @@ A daily decision-support report for a single-user US-equity portfolio, driven by
 Four sequential commits delivered the synthesis layer:
 1. **Deterministic enrichment** — 17-flag closed vocabulary (`flags.py`), Finnhub earnings calendar (24h cached, per-symbol fetch), JSON sidecar contract (`schema_version: 1`).
 2. **Rendering + wiring** — Today's Take + Watch List markdown sections, `--no-synthesis` CLI flag for offline iteration.
-3. **Synthesis layer** — Single Anthropic call per report (`claude-sonnet-4-6`, `tool_use` for strict JSON), §2.4 SOFI/TSM special-case rules in the system prompt. Display rebrand StockPulse → VIXPulse on `vixpulse.asia` + OpenGraph meta.
+3. **Synthesis layer** — Single Anthropic call per report (`claude-sonnet-4-6`, `tool_use` for strict JSON), §2.4 SOFI/TSM special-case rules in the system prompt. Display rebrand StockPulse → VIX Pulse on `vixpulse.asia` + OpenGraph meta.
 4. **i18n dual output** — English canonical + zh-TW translation via separate Anthropic call. Reports land at `web/public/reports/{en,zh}/<date>.{md,json}`. Site has `/` (EN) + `/zh` routes with EN | 中 toggle.
 
 ### Phase 2.5 — Regime sensitivity + Universe Scanner ✅ (shipped 2026-04-26)

@@ -59,7 +59,7 @@ export default async function V2DatedReport({
       <header className="flex items-center justify-between gap-3">
         <h1 className="inline-flex items-center gap-2 text-base font-semibold tracking-tight font-mono">
           <VixPulseLogo currentTier={payload.tier.index} size={20} />
-          <span>VIXPULSE</span>
+          <span>VIX Pulse</span>
         </h1>
         <LangToggle current={language} pathSuffix={`/${date}`} />
       </header>

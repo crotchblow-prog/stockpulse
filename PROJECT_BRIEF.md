@@ -104,7 +104,7 @@ It solves a specific psychological failure mode: **buying high (low VIX = market
 |---|---|---|
 | 1 | Deterministic enrichment — `analyzers/flags.py` (17-flag closed vocab), `fetchers/earnings.py` (Finnhub, 24h cached), `reporters/json_emitter.py` (schema_version=1) | `caeeced` |
 | 2 | Rendering + wiring — `markdown_gen.py` "📝 Today's Take" + "🚩 Watch List" sections, `generate_report.py` rewiring + `--no-synthesis` flag | `552c21d` |
-| 3 | Synthesis layer — `claude_synthesis.py` single Anthropic call via `tool_use` (strict JSON contract), §2.4 SOFI/TSM rules in system prompt; display rebrand StockPulse → VIXPulse + OG meta tags | `aacd6b4` + `e8436e1` |
+| 3 | Synthesis layer — `claude_synthesis.py` single Anthropic call via `tool_use` (strict JSON contract), §2.4 SOFI/TSM rules in system prompt; display rebrand StockPulse → VIX Pulse + OG meta tags | `aacd6b4` + `e8436e1` |
 | 4 | i18n dual output — `translator.py`, `web/public/reports/{en,zh}/<date>.{md,json}` paths, /zh routes, EN \| 中 toggle | `87c7a90` |
 
 Polymarket integration was **deferred to Phase 2.5+** pending production data. Cross-account view (Exness + LEAPS positions) is partially in via `build_accounts_summary` but full sync waits on §6.7 MetaApi Track A.

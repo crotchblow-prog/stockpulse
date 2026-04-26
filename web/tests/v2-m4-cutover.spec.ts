@@ -16,7 +16,7 @@ test("/legacy/ renders Phase 1 markdown view", async ({ page }) => {
   await expect(page.locator("[data-legacy-root]")).toBeVisible();
   // The Phase 1 chrome contains the SiteNav link to /zh
   const text = await page.locator("body").innerText();
-  expect(text).toContain("VIXPulse");
+  expect(text).toContain("VIX Pulse");
 });
 
 test("/legacy/zh renders Phase 1 zh markdown view", async ({ page }) => {
@@ -30,14 +30,14 @@ test("/learn still serves the explainer", async ({ page }) => {
   await expect(page.locator("[data-v2-root][data-area='learn']")).toBeVisible();
   // Some content from the proofread:
   const text = await page.locator("body").innerText();
-  expect(text).toMatch(/VIXPulse|Wall Street/);
+  expect(text).toMatch(/VIX Pulse|Wall Street/);
 });
 
 test("/zh/learn still serves the Chinese explainer", async ({ page }) => {
   await page.goto("/zh/learn");
   await expect(page.locator("[data-v2-root][data-area='learn']")).toBeVisible();
   const text = await page.locator("body").innerText();
-  expect(text).toMatch(/(華爾街|VIXPulse)/);
+  expect(text).toMatch(/(華爾街|VIX Pulse)/);
 });
 
 test("/archive permanent-redirects to /legacy/archive", async ({ page }) => {

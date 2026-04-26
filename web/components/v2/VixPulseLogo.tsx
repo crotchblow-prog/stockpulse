@@ -1,5 +1,5 @@
 /**
- * VIXPulse logo — six tier-colored bars in ascending height.
+ * VIX Pulse logo — six tier-colored bars in ascending height.
  *
  * Variants:
  *  - `currentTier == null` (default): all six bars at full opacity. Used for
@@ -36,7 +36,7 @@ export function VixPulseLogo({
       height={size}
       className={className}
       role="img"
-      aria-label="VIXPulse"
+      aria-label="VIX Pulse"
     >
       {TIERS.map((t, i) => (
         <rect

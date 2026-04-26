@@ -2,9 +2,9 @@ import { ReportViewer } from "@/components/ReportViewer";
 
 export const dynamic = "force-static";
 
-const CONTENT = `# 📊 VIXPulse — A Beginner's Guide
+const CONTENT = `# 📊 VIX Pulse — A Beginner's Guide
 
-VIXPulse is a daily decision-support tool for stock market investors. This page explains what VIX is, what each section of the daily report shows, and how to use the framework to invest with discipline rather than emotion.
+VIX Pulse is a daily decision-support tool for stock market investors. This page explains what VIX is, what each section of the daily report shows, and how to use the framework to invest with discipline rather than emotion.
 
 ---
 
@@ -30,9 +30,9 @@ The VIX has spent ~85% of its history below 25. Periods above 35 are rare and sh
 
 ---
 
-## The VIXPulse framework — six tiers
+## The VIX Pulse framework — six tiers
 
-VIXPulse codifies how to act based on the current VIX. Six tiers, each with a target cash percentage to keep on the sidelines, a target buy size per new position, and a buy list appropriate for that level of fear.
+VIX Pulse codifies how to act based on the current VIX. Six tiers, each with a target cash percentage to keep on the sidelines, a target buy size per new position, and a buy list appropriate for that level of fear.
 
 | Tier | VIX | Action | Cash Target | Buy Size |
 |---|---|---|---|---|
@@ -84,7 +84,7 @@ VIX itself, VIX3M (forward expectation), S&P 500, Nasdaq, Dow, USD/JPY, BTC, gol
 
 ---
 
-## Five rules for using VIXPulse to invest better
+## Five rules for using VIX Pulse to invest better
 
 ### 1. Use cash targets as anchors, not commands
 
@@ -96,7 +96,7 @@ When VIX moves into Tier 3-5, it's tempting to wait for "the absolute bottom." D
 
 ### 3. Trust the framework over the headline
 
-When the news is screaming "WORST CRISIS EVER" and VIXPulse is in Tier 4, the framework is telling you to buy. The discomfort of buying *during* fear is precisely the edge — most investors freeze and miss it.
+When the news is screaming "WORST CRISIS EVER" and VIX Pulse is in Tier 4, the framework is telling you to buy. The discomfort of buying *during* fear is precisely the edge — most investors freeze and miss it.
 
 ### 4. Position sizing matters more than timing
 
@@ -108,7 +108,7 @@ If a holding has \`earnings_within_7d\`, default to trim or hedge — even if th
 
 ---
 
-## What VIXPulse is NOT
+## What VIX Pulse is NOT
 
 - ❌ **Not financial advice.** Every report ends with "not investment advice." The framework is one input — your judgment is the final call.
 - ❌ **Not auto-trading.** No orders are sent. Every action is manual.
@@ -129,7 +129,7 @@ If a holding has \`earnings_within_7d\`, default to trim or hedge — even if th
 
 ## Open source
 
-VIXPulse is open-source: [github.com/crotchblow-prog/stockpulse](https://github.com/crotchblow-prog/stockpulse). The framework lives in \`config/holdings.json:tier_strategy\`. The 59-ticker universe lives in \`scripts/analyzers/regime_sensitivity.py:UNIVERSE\`. Daily reports are committed to \`web/public/reports/\`.
+VIX Pulse is open-source: [github.com/crotchblow-prog/stockpulse](https://github.com/crotchblow-prog/stockpulse). The framework lives in \`config/holdings.json:tier_strategy\`. The 59-ticker universe lives in \`scripts/analyzers/regime_sensitivity.py:UNIVERSE\`. Daily reports are committed to \`web/public/reports/\`.
 
 ---
 

@@ -102,8 +102,8 @@ test("/learn renders under v2 chrome with [data-v2-root]", async ({ page }) => {
   await page.goto("/learn");
   const root = page.locator("[data-v2-root][data-area='learn']");
   await expect(root).toBeVisible();
-  // VIXPulse brand link in the v2-style header.
-  const brand = page.getByRole("link", { name: /VIXPulse/ });
+  // VIX Pulse brand link in the v2-style header.
+  const brand = page.getByRole("link", { name: /VIX Pulse/ });
   expect(await brand.count()).toBeGreaterThan(0);
 });
 
