@@ -96,64 +96,91 @@ It solves a specific psychological failure mode: **buying high (low VIX = market
 - Holdings table with RSI, MA distances, 52-week-high distance
 - Markdown report committed by GitHub Actions, rendered on Vercel
 
-**Live at**: https://stockpulse-indol.vercel.app
+**Live at**: https://vixpulse.asia (rebranded 2026-04-26 from `stockpulse-indol.vercel.app`)
 
-#### **Phase 2 — Decision support layer** 🚧 (next)
-The single biggest jump in usefulness. Phase 1 shows numbers; Phase 2 tells Carina what to *do* with them.
+#### **Phase 2 — Decision support layer** ✅ (shipped 2026-04-26, four commits)
 
-**Required additions** (proposed priority order, owner to confirm):
-1. **Claude API synthesis** — `claude-sonnet-4-6` reads the full snapshot + holdings + tier and produces a "Today's Take" section: market read, per-holding action signal, today's recommended actions
-2. **Earnings calendar** — N-day countdown for each holding (red flag if < 7 days)
-3. **Polymarket integration** — Fed rate odds, Iran/Hormuz, Taiwan, recession probability — *leading indicators VIX can't capture*
-4. **Technical signals** — explicit buy/hold/trim/stop signals derived from RSI, MA crosses, support/resistance
-5. **Cross-account view** — currently only 4 holdings shown; expand schema to cover Exness + LEAPS positions
+| # | What | Commit |
+|---|---|---|
+| 1 | Deterministic enrichment — `analyzers/flags.py` (17-flag closed vocab), `fetchers/earnings.py` (Finnhub, 24h cached), `reporters/json_emitter.py` (schema_version=1) | `caeeced` |
+| 2 | Rendering + wiring — `markdown_gen.py` "📝 Today's Take" + "🚩 Watch List" sections, `generate_report.py` rewiring + `--no-synthesis` flag | `552c21d` |
+| 3 | Synthesis layer — `claude_synthesis.py` single Anthropic call via `tool_use` (strict JSON contract), §2.4 SOFI/TSM rules in system prompt; display rebrand StockPulse → VIXPulse + OG meta tags | `aacd6b4` + `e8436e1` |
+| 4 | i18n dual output — `translator.py`, `web/public/reports/{en,zh}/<date>.{md,json}` paths, /zh routes, EN \| 中 toggle | `87c7a90` |
 
-#### **Phase 3 — Notification + History + Live broker integration**
-- Telegram bot push (morning summary, intraday alerts on threshold breach)
-- Searchable archive UI (currently `/archive` exists but minimal)
-- Supabase archive of structured data for backtesting and analytics
-- **MetaApi integration for live Exness position sync** (see §6.7 for plan and constraints)
+Polymarket integration was **deferred to Phase 2.5+** pending production data. Cross-account view (Exness + LEAPS positions) is partially in via `build_accounts_summary` but full sync waits on §6.7 MetaApi Track A.
+
+#### **Phase 2.5 — Regime sensitivity + Universe Scanner** ✅ (shipped 2026-04-26, four commits)
+
+Adds a regime-conditional layer on top of single-axis VIX tier classification: each ticker in a 59-symbol Exness-tradable universe gets backtested over 5 years to compute `beta_normal`, `beta_stress`, `vix_spike_decay_pct`, `vix_crush_recovery_pct`, then assigned to one of `high_normal` / `high_stress` / `crisis_alpha` / `mean_reverter` / `defensive` (or none). Holdings inherit their ticker's tags; the report surfaces a Universe Scanner section listing tier-appropriate Add / Watch / Avoid candidates from the full universe (not just current holdings).
+
+| # | What | Commit |
+|---|---|---|
+| 5 | Regime sensitivity calc + holdings integration — `analyzers/regime_sensitivity.py`, weekly GH Actions cron (Sundays 03:00 UTC), `config/regime_sensitivity.json`, schema_version 1→2, Watch List `⋮ <tags>` divider | `30412f4` |
+| 6 | Universe Scanner UI region — three sub-regions (🟢 Add / 🟡 Watch / 🔴 Avoid), top-5 each, overlap indicator | `454d716` |
+| 6.5 | Empty-placeholder enriched with threshold gap (`_no candidates fire decay < -10% (worst today: -2.04%)_`) | `8110990` |
+| 7 | Synthesis payload normalization — defense against tool_use shape drift; system prompt hardened with explicit shape contract; structured warning logs for drift tracking | `b0bf66f` |
+
+#### **Phase 3 — Notification + History + Live broker integration** 📅 (planned, no firm dates)
+
+| Component | Status | Why it matters | Estimated effort |
+|---|---|---|---|
+| **Threshold tuning for `crisis_alpha` / `mean_reverter`** (Phase 2.5 follow-up) | Open Carina-decision | Both tags fired ZERO across 5y of weekly data — current thresholds (-10% spike decay, +5% crush recovery) are too strict. Either relax or change methodology (log returns / longer windows) | <1 day, requires Carina to pick approach |
+| **Brief B — Frontend redesign** | DEFERRED to June | Replace the thin react-markdown wrapper with a real Next.js 15 + Tailwind + shadcn/ui design system. 4 milestones, ~4 weeks. Brief locked. | 4 weeks |
+| **Telegram bot push** | Not started | Morning summary + intraday alerts on tier transitions or watchworthy flag changes | 1-2 weeks |
+| **Searchable archive UI** | Skeleton exists at `/archive` | Currently a flat list; needs date-range filter + flag-filter + full-text search | 1 week |
+| **Supabase archive** | Not started | Structured DB of all daily reports for backtesting + analytics. Markdown remains canonical artifact (per §6.4) | 1-2 weeks |
+| **MetaApi Track A** (auto-sync Exness holdings) | Not started, plan in §6.7 | Replace manual `holdings.json` Exness edits with daily auto-sync via `metaapi-cloud-sdk`. ~$5/mo with auto-undeploy | 1 week |
+| **MetaApi Track B** (interactive Exness queries) | Not started, plan in §6.7 | Claude Desktop MCP for "what's my Exness account looking like?" — read-only, order tools disabled | 3-5 days |
+
+**Suggested ordering** (Carina to confirm):
+
+1. **May 2026** — Carina back from US trip 5/8. First two weeks of real Phase 2 + 2.5 production data inform threshold tuning. No engineering.
+2. **June 2026** — Brief B (frontend redesign), 4-week project. ARIA-owned. Cron + reports keep shipping during build.
+3. **July 2026** — Telegram bot push (Phase 3.1). MIRA-suggested.
+4. **August 2026** — Supabase archive + searchable archive UI (Phase 3.2). Both can land together since they share the data path.
+5. **September 2026** — MetaApi Track A (live Exness sync, Phase 3.3 critical path).
+6. **Q4 2026** — MetaApi Track B (interactive, nice-to-have).
+
+These are estimates, not commitments. Phase 2 + 2.5 took one day of intensive ARIA + MIRA collaboration; Phase 3 components are individually smaller but each one introduces a new external integration that will surface its own surprises.
 
 ---
 
 ## 4. Architecture
 
-### 4.1 Current shape (Phase 1)
+### 4.1 Current shape (Phase 2 + 2.5, as of 2026-04-26)
 
 ```
-GitHub Actions (cron 02:00 UTC = 10:00 Asia/Taipei)
+MIRA's launchd cron (StartCalendarInterval: 22:00 Asia/Taipei = 10 AM EDT, 30 min post-NYSE-open)
         │
-        └─▶ python scripts/generate_report.py
-                    │
-                    ├─ fetchers/    ← yfinance only (Phase 1)
-                    ├─ analyzers/   ← VIX tier + technicals
-                    └─ reporters/   ← writes web/public/reports/{YYYY-MM-DD,latest}.md
-                                          │
-                                          └─▶ git commit + push → Vercel auto-redeploy
-```
-
-### 4.2 Target shape (Phase 2 complete)
-
-```
-GitHub Actions (cron 02:00 UTC)
-        │
-        └─▶ python scripts/generate_report.py
+        └─▶ scripts/run_daily.sh
+              │
+              ├─ git pull --rebase --autostash
+              ├─ source .env.local  (ANTHROPIC_API_KEY, FINNHUB_API_KEY, VERCEL_DEPLOY_HOOK)
+              └─ python scripts/generate_report.py
                     │
                     ├─ fetchers/
-                    │     ├─ market_data.py      (yfinance)
-                    │     ├─ polymarket.py       (REST API)
-                    │     ├─ earnings.py         (Finnhub free tier)
-                    │     └─ news.py             (NewsAPI free tier, headlines only)
+                    │     ├─ market_data.py       (yfinance — VIX, indices, FX, holdings)
+                    │     └─ earnings.py          (Finnhub per-symbol, 24h cached)
                     ├─ analyzers/
-                    │     ├─ vix_tier.py
-                    │     ├─ technical.py        (RSI, MA, S/R)
-                    │     └─ event_calendar.py   (earnings countdown)
+                    │     ├─ vix_tier.py          (6-tier classification)
+                    │     ├─ technical.py         (RSI, MA, 52w high/low)
+                    │     ├─ flags.py             (17-flag closed vocab, Phase 2)
+                    │     └─ regime_sensitivity.py (5y backtest, 59-ticker universe, weekly cron — Phase 2.5)
                     ├─ reporters/
-                    │     ├─ claude_synthesis.py (Anthropic API)
-                    │     └─ markdown_gen.py
+                    │     ├─ claude_synthesis.py  (Anthropic tool_use, strict JSON, normalized payload)
+                    │     ├─ markdown_gen.py      (Today's Take + Watch List + Universe Scanner sections)
+                    │     ├─ translator.py        (Anthropic → zh-TW, Phase 2 Commit 4)
+                    │     └─ json_emitter.py      (sidecar contract, schema_version=2)
                     │
-                    └─▶ web/public/reports/ + git push
+                    └─▶ web/public/reports/{en,zh}/{YYYY-MM-DD,latest}.{md,json}
+                          │
+                          ├─ git commit + push origin main
+                          └─ curl POST $VERCEL_DEPLOY_HOOK → vixpulse.asia rebuilds in ~30s
 ```
+
+**Weekly side-job** (separate GH Actions cron, Sundays 03:00 UTC): `python scripts/analyzers/regime_sensitivity.py` rebuilds `config/regime_sensitivity.json` (59 tickers × 5y weekly backtest); commits if changed.
+
+**Manual fallback** for the daily cron: `gh workflow run daily-report.yml` from the GitHub UI — `daily-report.yml` keeps the workflow_dispatch trigger as a backup if MIRA's launchd is down.
 
 ### 4.3 Technology choices and *why*
 

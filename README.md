@@ -1,123 +1,195 @@
-# StockPulse — Daily US Market Analysis
+# StockPulse — Daily VIX-Tier US Market Analysis (Live as VIXPulse)
 
-Automated, VIX-tier-driven daily report for a personal US-equity portfolio. Runs every weekday at 10:00 Asia/Taipei via GitHub Actions, commits a Markdown report, and Vercel auto-redeploys the static site.
+A daily decision-support report for a single-user US-equity portfolio, driven by VIX-tier classification + Anthropic synthesis + regime-sensitivity backtesting. Runs automatically on a Mac Mini's launchd cron at 22:00 Asia/Taipei (10 AM EDT, 30 min post-NYSE-open), commits the Markdown + JSON sidecar to git, and pushes via Vercel deploy hook.
 
-> Phase 1 (this repo) = data + tier classification + Markdown report + Next.js viewer.
-> Phase 2 = RSI/MA technicals, earnings, Polymarket, Claude synthesis.
-> Phase 3 = Telegram push, history page, Supabase archive.
+**Live**: <https://vixpulse.asia> · EN at `/`, 中文 at `/zh`
+
+> The canonical strategic context lives in [`PROJECT_BRIEF.md`](./PROJECT_BRIEF.md) — read that first if you're trying to understand WHY this project exists. This README covers WHAT was built and HOW to run it.
+
+## What's implemented (as of 2026-04-26)
+
+### Phase 1 — Data + Tier classification ✅ (shipped 2026-04-25)
+- yfinance market snapshot (VIX, VIX3M, indices, FX, BTC, gold, oil)
+- VIX 6-tier auto-classification driven by `config/holdings.json`
+- Holdings table with RSI, MA distances, 52-week range
+- Markdown report committed to git, served by a Next.js viewer on Vercel
+
+### Phase 2 — Decision support layer ✅ (shipped 2026-04-26)
+Four sequential commits delivered the synthesis layer:
+1. **Deterministic enrichment** — 17-flag closed vocabulary (`flags.py`), Finnhub earnings calendar (24h cached, per-symbol fetch), JSON sidecar contract (`schema_version: 1`).
+2. **Rendering + wiring** — Today's Take + Watch List markdown sections, `--no-synthesis` CLI flag for offline iteration.
+3. **Synthesis layer** — Single Anthropic call per report (`claude-sonnet-4-6`, `tool_use` for strict JSON), §2.4 SOFI/TSM special-case rules in the system prompt. Display rebrand StockPulse → VIXPulse on `vixpulse.asia` + OpenGraph meta.
+4. **i18n dual output** — English canonical + zh-TW translation via separate Anthropic call. Reports land at `web/public/reports/{en,zh}/<date>.{md,json}`. Site has `/` (EN) + `/zh` routes with EN | 中 toggle.
+
+### Phase 2.5 — Regime sensitivity + Universe Scanner ✅ (shipped 2026-04-26)
+1. **Commit 5** — `regime_sensitivity.py` 5-year weekly backtest over a 59-ticker Exness-tradable universe. Computes `beta_normal`, `beta_stress`, `vix_spike_decay_pct`, `vix_crush_recovery_pct`. Assigns `high_normal` / `high_stress` / `crisis_alpha` / `mean_reverter` / `defensive` tags. Schema bumped to `schema_version: 2`. Weekly GH Actions cron (Sundays 03:00 UTC).
+2. **Commit 6** — Universe Scanner UI region with three sub-regions (🟢 Add / 🟡 Watch / 🔴 Avoid), top-5 by relevant metric, overlap indicator (`⚠️ also in Avoid`).
+3. **Commit 6.5** — Empty-placeholder enriched with threshold-gap text (`_no candidates fire decay < -10% (worst today: -2.04%)_`) so the threshold-tuning conversation is grounded in data.
+4. **Commit 7** — Synthesis payload normalization: defense against `tool_use` shape drift (Anthropic's input_schema is a guide, not a server-side validator). System prompt hardened with explicit shape contract.
+
+161 tests pass. Daily run cost: ~$0.08 bilingual (~$2.40/month, well under the $5–10 cap in [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §5.1).
+
+## What's left
+
+| Area | Status | When |
+|---|---|---|
+| Threshold tuning for `crisis_alpha` / `mean_reverter` | Open Carina-decision (both tags fired zero across 5y data, thresholds too strict) | After 1-2 weeks of production data — May 2026 |
+| Brief B — Frontend redesign (Next.js 15 + Tailwind + shadcn/ui + recharts + Playwright) | Brief locked, **DEFERRED to June** | June 2026, ~4 weeks |
+| Telegram bot push (Phase 3) | Not started | July 2026 |
+| Searchable archive UI + Supabase archive (Phase 3) | Skeleton at `/archive`; Supabase not wired | August 2026 |
+| MetaApi Track A — auto-sync Exness holdings (Phase 3) | Not started; plan in [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §6.7 | September 2026 |
+| MetaApi Track B — interactive Exness via Claude Desktop MCP (Phase 3) | Not started; plan in §6.7 | Q4 2026 |
+
+These are estimates, not commitments. Owner-confirm before any of these become firm.
 
 ## Architecture
 
 ```
-GitHub Actions (cron 02:00 UTC = 10:00 Taipei)
+MIRA's launchd cron (22:00 Asia/Taipei = 10 AM EDT, 30 min post-NYSE-open)
         │
-        └─▶ python scripts/generate_report.py
+        └─▶ scripts/run_daily.sh
+              │
+              ├─ git pull --rebase --autostash
+              ├─ source .env.local  (ANTHROPIC_API_KEY, FINNHUB_API_KEY, VERCEL_DEPLOY_HOOK)
+              └─ python scripts/generate_report.py
                     │
-                    ├─ fetchers/    ← yfinance + (later) news/Polymarket
-                    ├─ analyzers/   ← VIX tier + technicals
-                    └─ reporters/   ← writes web/public/reports/{YYYY-MM-DD,latest}.md
-                                          │
-                                          └─▶ git commit + push → Vercel redeploy
+                    ├─ fetchers/
+                    │     ├─ market_data.py        (yfinance — VIX, indices, FX, holdings)
+                    │     └─ earnings.py           (Finnhub per-symbol, 24h cached, graceful degrade)
+                    ├─ analyzers/
+                    │     ├─ vix_tier.py           (6-tier classification)
+                    │     ├─ technical.py          (RSI, MA, 52w high/low)
+                    │     ├─ flags.py              (17-flag closed vocab — Phase 2)
+                    │     └─ regime_sensitivity.py (5y backtest, 59-ticker universe — Phase 2.5)
+                    ├─ reporters/
+                    │     ├─ claude_synthesis.py   (Anthropic tool_use → normalized payload)
+                    │     ├─ translator.py         (Anthropic → zh-TW, separate call)
+                    │     ├─ markdown_gen.py       (Today's Take + Watch List + Universe Scanner)
+                    │     └─ json_emitter.py       (sidecar contract, schema_version=2)
+                    │
+                    └─▶ web/public/reports/{en,zh}/{YYYY-MM-DD,latest}.{md,json}
+                          │
+                          ├─ git add + commit + push origin main
+                          └─ curl POST $VERCEL_DEPLOY_HOOK → vixpulse.asia rebuilds (~30s)
 ```
+
+**Side-job**: `regime_sensitivity.py` reruns weekly via separate GitHub Actions cron (Sundays 03:00 UTC) and commits an updated `config/regime_sensitivity.json`.
+
+**Fallback**: `gh workflow run daily-report.yml` triggers the same pipeline from GitHub Actions if MIRA's launchd is down.
 
 ## Repo layout
 
 ```
 StockPulse/
-├── config/holdings.json              # holdings + tier strategy (single source of truth)
-├── scripts/                          # Python pipeline (owned by MIRA)
-│   ├── generate_report.py
-│   ├── fetchers/   analyzers/   reporters/
+├── PROJECT_BRIEF.md                      # canonical strategic context — read first
+├── config/
+│   ├── holdings.json                     # holdings + tier strategy (single source of truth)
+│   └── regime_sensitivity.json           # 5y backtest output (regenerated weekly, committed)
+├── scripts/                              # Python pipeline
+│   ├── generate_report.py                # orchestrator
+│   ├── run_daily.sh                      # MIRA's launchd wrapper
+│   ├── com.stockpulse.daily.plist.template  # launchd plist template
+│   ├── fetchers/    analyzers/    reporters/
+│   ├── tests/                            # 161 tests as of 2026-04-26
 │   └── requirements.txt
-├── web/                              # Next.js 14 App Router viewer
-│   ├── app/page.tsx                  # latest report
-│   ├── app/archive/                  # history list + per-date page
-│   └── public/reports/               # *.md committed by the cron job
-├── .github/workflows/daily-report.yml
+├── web/                                  # Next.js 15 viewer (App Router)
+│   ├── app/
+│   │   ├── page.tsx                      # /  → en/latest.md
+│   │   ├── archive/                      # /archive + /archive/[date]
+│   │   └── zh/                           # /zh, /zh/archive, /zh/archive/[date]
+│   ├── lib/reports.ts                    # Lang-aware report reader
+│   └── public/reports/{en,zh}/           # markdown + JSON committed by the cron
+├── .github/workflows/
+│   ├── daily-report.yml                  # workflow_dispatch fallback (schedule disabled)
+│   └── regime_sensitivity.yml            # weekly Sundays 03:00 UTC
 ├── .env.example
 └── README.md
 ```
 
 ## Local development
 
-### Backend
+### Backend (Python)
 
 ```bash
-cd scripts
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-python generate_report.py            # writes web/public/reports/latest.md
-python generate_report.py --dry-run  # logs what it *would* write
+python3.12 -m venv .venv
+source .venv/bin/activate
+pip install -r scripts/requirements.txt
+
+# Generate today's report (requires .env.local with ANTHROPIC_API_KEY)
+python scripts/generate_report.py
+
+# Useful flags
+python scripts/generate_report.py --dry-run         # logs what it'd write, no disk
+python scripts/generate_report.py --no-synthesis    # skip Anthropic call (also implies --en-only)
+python scripts/generate_report.py --en-only         # ship EN, skip zh translation
+python scripts/generate_report.py --date 2026-04-26 # backfill specific date
+
+# Rerun the regime sensitivity backtest (heavy: 5y × 59 tickers via yfinance)
+python scripts/analyzers/regime_sensitivity.py
+
+# Tests
+pytest scripts/tests/ -q
 ```
 
-### Frontend
+### Frontend (Next.js 15)
 
 ```bash
 cd web
-pnpm install     # or npm/yarn
-pnpm dev         # http://localhost:3000
+npm install
+npm run dev    # http://localhost:3000
+npm run build  # static + dynamic routes
 ```
 
-The viewer reads `web/public/reports/latest.md` at request time. A placeholder is committed so the site renders before the first cron run.
+The viewer reads `web/public/reports/<lang>/latest.md` at request time. EN is the default; `/zh` switches.
+
+## Secrets
+
+All live in `.env.local` (gitignored). The MIRA-local cron sources this file via `scripts/run_daily.sh`.
+
+| Secret | Phase | Purpose |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | 2 | Claude synthesis + zh translation |
+| `FINNHUB_API_KEY` | 2 | Earnings calendar (free tier — degrades to no countdown if missing) |
+| `VERCEL_DEPLOY_HOOK` | 2 | Triggers Vercel production rebuild after each cron commit |
+| `TELEGRAM_BOT_TOKEN` + `_CHAT_ID` | 3 | Push notifications (not yet wired) |
+| `SUPABASE_URL` + `_SERVICE_KEY` | 3 | Backtest archive (not yet wired) |
+| `METAAPI_TOKEN` | 3 | Live Exness sync (not yet wired) — see [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §6.7 |
 
 ## Deploying
 
-1. **Create a GitHub repo** and push this directory.
-2. **Vercel:** Import the repo. When asked for the project root, choose `web/`. Framework auto-detects as Next.js. No env vars needed for Phase 1.
-3. **GitHub Actions:** No setup beyond pushing — the workflow runs on cron and uses `GITHUB_TOKEN` to commit reports back. To trigger manually: Actions tab → "Daily Market Report" → "Run workflow".
+The site lives on Vercel at `vixpulse.asia`. Deployments happen two ways:
 
-### Secrets (when needed)
+1. **Daily cron-triggered** — `scripts/run_daily.sh` POSTs to `$VERCEL_DEPLOY_HOOK` after each successful `git push`. Vercel rebuilds in ~30s.
+2. **Manual** — `cd web && vercel --prod --yes` from any FDA-granted Terminal session.
 
-| Secret | Phase | Where |
-|---|---|---|
-| `ANTHROPIC_API_KEY` | 2 | GitHub repo Secrets |
-| `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | 3 | GitHub repo Secrets |
-| `SUPABASE_URL`, `SUPABASE_SERVICE_KEY` | 3 | GitHub repo Secrets |
-
-Phase 1 runs with **no secrets** — yfinance is public.
-
-## Expected output
-
-Each run produces a `web/public/reports/YYYY-MM-DD.md` like:
-
-```markdown
-# 📊 Daily Market — 2026-04-25
-
-**VIX:** 17.2 → **Tier 1** 警戒佈局 · cash target 60% · buy size 2–5%
-
-## Snapshot
-| Asset | Last | Change |
-|---|---|---|
-| ^VIX | 17.2 | +0.4 |
-| S&P 500 | 5,712 | -0.3% |
-| ...
-
-## Holdings
-| Ticker | Last | vs avg cost | RSI(14) | 50DMA |
-| TSM | 372.1 | +1.2% | 58 | +3.4% |
-| ...
-```
-
-The Next.js viewer renders this with `react-markdown`.
+The Vercel project is configured with **Root Directory = `web`** (set via REST API on 2026-04-26). Don't change this — without it, builds fail looking for `pages/` or `app/` at the repo root.
 
 ## VIX Tier system
 
-Defined in `config/holdings.json` under `tier_strategy`. Six tiers, each with `vix_range`, `action`, `cash_target_pct`, and a context-specific `buy_list`. Edit that JSON to retune — no code changes needed.
+Six tiers, each with `vix_range`, `action`, `cash_target_pct`, `buy_list`. Defined in `config/holdings.json` under `tier_strategy`. Edit JSON to retune — no code changes.
 
-| Tier | VIX | Action |
-|---|---|---|
-| 0 | <15 | 休兵 |
-| 1 | 15–18 | 警戒佈局 |
-| 2 | 18–24.6 | 觀察 |
-| 3 | 24.6–29.5 | 分批進場 ⭐ |
-| 4 | 29.5–35 | 恐慌承接 ⭐⭐ |
-| 5 | >35 | 極端機會 ⭐⭐⭐ |
+| Tier | VIX | Action | Cash | Buy size |
+|---|---|---|---|---|
+| 0 | <15 | 休兵 | 70% | 0% |
+| 1 | 15–18 | 警戒佈局 | 60% | 2-5% |
+| 2 | 18–24.6 | 觀察 | 50% | 3-5% |
+| 3 | 24.6–29.5 | 分批進場 ⭐ | 35% | 5-10% |
+| 4 | 29.5–35 | 恐慌承接 ⭐⭐ | 20% | 10-20% |
+| 5 | >35 | 極端機會 ⭐⭐⭐ | 20% | 重押但不 all in |
 
-## Status
+Full philosophy in [`PROJECT_BRIEF.md`](./PROJECT_BRIEF.md) §2.
 
-- [x] Repo skeleton, config, workflow, web viewer (ARIA — 2026-04-25)
-- [x] Python pipeline: fetchers + analyzers + markdown_gen (ARIA solo — 2026-04-25; bus to MIRA was offline)
-- [x] First local green run — VIX 18.71 → Tier 2, all 4 holdings populated
-- [ ] Push to GitHub + Vercel (blocked: github.com network unreachable on this Mac)
-- [ ] First cron run on GitHub Actions
-- [ ] Phase 2 features
+## Multi-agent ownership
+
+Built collaboratively by two Claude Code instances coordinated via the [agent-bus](https://github.com/crotchblow-prog/agent-bus) (a git-backed message queue):
+
+- **ARIA** (Mac Air, interactive) — architect; owns frontend/UX, prompt design, brief decomposition.
+- **MIRA** (Mac Mini, always-on) — worker; owns headless Python, scheduled cron, backtest computation.
+
+Each commit message tagged `[bus:<msg-id>]` traces back to the originating bus task. Phase 2 + 2.5 (8 commits) shipped in one day with this split.
+
+See [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §4.5 for the full multi-agent invariants.
+
+## License
+
+Personal use. Not for redistribution. Output is a decision-support tool, **not investment advice** — see footer of every report.
