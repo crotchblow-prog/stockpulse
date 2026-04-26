@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SiteNav } from "@/components/SiteNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -31,13 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="font-semibold tracking-tight">
               📊 VIXPulse
             </Link>
-            <nav className="text-sm text-[color:var(--color-muted)] flex items-center gap-5">
-              <Link href="/" className="hover:text-white">Today</Link>
-              <Link href="/archive" className="hover:text-white">Archive</Link>
-              <span className="text-white/20">·</span>
-              <Link href="/" className="hover:text-white">EN</Link>
-              <Link href="/zh" className="hover:text-white">中</Link>
-            </nav>
+            <SiteNav />
           </div>
         </header>
         <main className="mx-auto max-w-3xl px-6 py-8">{children}</main>
