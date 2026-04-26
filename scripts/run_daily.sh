@@ -35,7 +35,10 @@ cd "$REPO_DIR"
     exit 1
   fi
 
-  ./.venv/bin/python scripts/generate_report.py
+  # --public strips personal-portfolio data (holdings, accounts, synthesis
+  # positions) before render. Vercel-deployed output never sees Carina's
+  # positions. Run without --public locally for the full personal view.
+  ./.venv/bin/python scripts/generate_report.py --public
 
   if [[ -n "$(git status --porcelain web/public/reports/)" ]]; then
     git add web/public/reports/

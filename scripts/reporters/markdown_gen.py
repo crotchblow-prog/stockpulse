@@ -437,13 +437,16 @@ def render(report: dict[str, Any]) -> str:
     lines.extend(_render_universe_scanner(tier.index, tier.action, report.get("regime_universe")))
 
     # ── Holdings ──────────────────────────────────────────────────────────
-    lines.append("## 💼 Holdings")
-    lines.append("")
-    lines.append("| Ticker | Last | vs avg cost | RSI(14) | vs 50DMA | vs 200DMA | vs 52w high |")
-    lines.append("|---|---:|---:|---:|---:|---:|---:|")
-    for symbol, h in holdings.items():
-        lines.append(_holding_row(symbol, h))
-    lines.append("")
+    # Skip the entire section when holdings is empty (e.g. --public mode strips
+    # personal-portfolio data). Avoids rendering an empty table that reads as broken.
+    if holdings:
+        lines.append("## 💼 Holdings")
+        lines.append("")
+        lines.append("| Ticker | Last | vs avg cost | RSI(14) | vs 50DMA | vs 200DMA | vs 52w high |")
+        lines.append("|---|---:|---:|---:|---:|---:|---:|")
+        for symbol, h in holdings.items():
+            lines.append(_holding_row(symbol, h))
+        lines.append("")
 
     # ── Snapshot ──────────────────────────────────────────────────────────
     lines.append("## 🌐 Market Snapshot")

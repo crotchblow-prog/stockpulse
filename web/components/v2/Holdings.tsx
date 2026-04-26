@@ -10,19 +10,9 @@ export function Holdings({
 }) {
   const entries = Object.entries(holdings).sort(([a], [b]) => a.localeCompare(b));
 
-  if (entries.length === 0) {
-    return (
-      <section className="space-y-3">
-        <h2 className="text-lg font-medium">{lang === "zh" ? "💼 持倉" : "💼 Holdings"}</h2>
-        <div
-          className="rounded-lg border p-4 text-sm text-[color:var(--color-muted)]"
-          style={{ borderColor: "var(--color-border)" }}
-        >
-          {lang === "zh" ? "目前無持倉。" : "No holdings."}
-        </div>
-      </section>
-    );
-  }
+  // --public mode strips holdings; render nothing (no header, no placeholder)
+  // so the public site doesn't leak a "No holdings" placeholder card.
+  if (entries.length === 0) return null;
 
   return (
     <section className="space-y-3" data-component="holdings">

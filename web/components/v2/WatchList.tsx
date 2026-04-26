@@ -44,23 +44,9 @@ export function WatchList({
 }) {
   const classified = classifyAndSort(holdings);
 
-  if (classified.length === 0) {
-    return (
-      <section className="space-y-3">
-        <h2 className="text-lg font-medium">
-          {lang === "zh" ? "🚩 關注名單" : "🚩 Watch List"}
-        </h2>
-        <div
-          className="rounded-lg border p-4 text-sm text-[color:var(--color-muted)]"
-          style={{ borderColor: "var(--color-border)" }}
-        >
-          {lang === "zh"
-            ? "今天沒有需要關注的部位。"
-            : "Nothing watchworthy today."}
-        </div>
-      </section>
-    );
-  }
+  // --public mode strips holdings; the Watch List has nothing to render so
+  // skip the section entirely (no header, no placeholder).
+  if (classified.length === 0) return null;
 
   return (
     <section className="space-y-3">

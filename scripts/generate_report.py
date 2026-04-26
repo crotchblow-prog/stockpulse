@@ -48,6 +48,17 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Skip the zh translation step. EN report still ships normally.",
     )
+    p.add_argument(
+        "--public",
+        action="store_true",
+        help=(
+            "Strip personal-portfolio data from the output: empties holdings + accounts + "
+            "synthesis.positions + Tier Action annotations. Keeps tier/VIX/snapshot/"
+            "Universe Scanner/synthesis market read + devil's advocate. Used by the daily "
+            "cron — public site never sees Carina's positions. Run without this flag for "
+            "the full personal view."
+        ),
+    )
     p.add_argument("-v", "--verbose", action="store_true", help="DEBUG logging.")
     return p.parse_args()
 
@@ -321,6 +332,19 @@ def main() -> int:
     synthesis = maybe_synthesize(report, skip=args.no_synthesis)
     if synthesis is not None:
         report["synthesis"] = synthesis
+
+    if args.public:
+        # Strip personal-portfolio data BEFORE rendering, so neither markdown
+        # nor JSON sidecar leak holdings, account groupings, or per-position
+        # action calls. Keeps tier/VIX/snapshot/Universe Scanner intact, plus
+        # the synthesis market read + devil's advocate (general commentary).
+        report["holdings"] = {}
+        report["accounts"] = {}
+        if isinstance(report.get("synthesis"), dict):
+            stripped = dict(report["synthesis"])
+            stripped["positions"] = []
+            report["synthesis"] = stripped
+        log.info("--public: stripped holdings + accounts + synthesis.positions for deploy")
 
     en_md = markdown_gen.render(report)
 
