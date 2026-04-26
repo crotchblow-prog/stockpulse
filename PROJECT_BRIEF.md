@@ -406,6 +406,55 @@ These need owner input before significant work happens:
 
 ---
 
+## 11. Frontend architecture
+
+Phase 3.0 (the frontend redesign) ships at `vixpulse.asia/` after the M4 cutover. Phase 1's markdown viewer is preserved at `/legacy/*` as an escape hatch.
+
+### Routing table
+
+| URL | Layout | Render |
+|---|---|---|
+| `/` | minimal root | redirect → `/en` |
+| `/en`, `/zh` | `[lang]/layout.tsx` (Phase 3.0 chrome) | hero + sparkline + watch list + holdings + snapshot grid |
+| `/en/<date>`, `/zh/<date>` | same | dated report |
+| `/en/<date>/opengraph-image` | (Next.js OG convention) | dynamic 1200×630 typography card |
+| `/learn`, `/zh/learn` | `(default)/layout.tsx` | bilingual VIX-101 explainer (markdown via ReportViewer) |
+| `/legacy/`, `/legacy/zh/` | `legacy/layout.tsx` (Phase 1 chrome) | Phase 1 markdown viewer |
+| `/legacy/archive`, `/legacy/zh/archive` | same | archive index |
+| `/archive`, `/zh/archive`, `/archive/<date>`, `/zh/archive/<date>` | (308) | redirect to `/legacy/...` (next.config.ts) |
+
+### Layout isolation
+
+The root layout (`web/app/layout.tsx`) is intentionally minimal — html + body + font CSS variables only. Each area provides its own chrome:
+
+- `[lang]/layout.tsx` wraps in `[data-v2-root]` with `--bg-base` (`#0a0a0b`), font-sans default, overflow-x-hidden.
+- `legacy/layout.tsx` reproduces Phase 1's header (SiteNav with brand + "(legacy)" suffix) + Phase 1 footer.
+- `(default)/layout.tsx` (URL-invisible route group) gives `/learn` and `/zh/learn` a minimal brand-only header.
+
+This isolation keeps Phase 3.0's design tokens scoped to `[data-v2-root]` so any future routes (e.g. an admin page) start from a clean slate.
+
+### Design system
+
+Tokens live in `web/app/globals.css` under Tailwind v4's `@theme` block. The tier color ramp (cobalt / cyan / gray / amber / orange-red / alert red) is referenced by `--color-tier-N` and surfaces by `--color-bg-base / -surface / -elevated`. `--tier-current` is set per-element via the `[data-tier="N"]` attribute on parent containers, picked up by descendant CSS via `var(--tier-current)`.
+
+Typography: Inter for prose, JetBrains Mono for numerics (both via `next/font`, self-hosted). All numeric columns use `tabular-nums` for digit-glyph alignment.
+
+shadcn primitives (Button / Card / Badge / Separator) live in `web/components/ui/` — added manually rather than via shadcn-CLI because Tailwind v4's CSS-first config conflicts with the CLI's `tailwind.config.ts`-writing init flow.
+
+### Phase 3.0 milestones
+
+Brief B was delivered across four atomic milestones, each landing as one commit per ARIA's discipline:
+
+| # | What | Commit |
+|---|---|---|
+| M1 | Foundation — Next.js 15 + Tailwind v4 + shadcn primitives + design tokens + `/v2/*` routes (gated behind basic-auth) + Playwright smoke | `6e56ba8` |
+| M2 | Core redesign — Hero / WatchList (severity-classified) / Holdings (desktop table + mobile cards) / SnapshotGrid / V2Footer | `ee91fa5` |
+| M3 | VIX sparkline (recharts, lazy-loaded) + custom i18n (en/zh dictionary + EN \| 中 toggle) + dynamic OG card | `85d37dd` |
+| M4 cutover | `/v2/*` → `/`, Phase 1 → `/legacy/*`, basic-auth middleware dropped | `1f2660b` |
+| M4 hardening | Visual regression CI workflow + `/archive` redirects + this brief section | `[this commit]` |
+
+---
+
 ## 10. Commit message conventions
 
 Different prefixes signal different intent for grep / log review:

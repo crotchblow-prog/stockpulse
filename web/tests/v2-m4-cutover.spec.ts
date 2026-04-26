@@ -39,3 +39,13 @@ test("/zh/learn still serves the Chinese explainer", async ({ page }) => {
   const text = await page.locator("body").innerText();
   expect(text).toMatch(/(華爾街|VIXPulse)/);
 });
+
+test("/archive permanent-redirects to /legacy/archive", async ({ page }) => {
+  await page.goto("/archive");
+  await expect(page).toHaveURL(/\/legacy\/archive\/?$/);
+});
+
+test("/zh/archive permanent-redirects to /legacy/zh/archive", async ({ page }) => {
+  await page.goto("/zh/archive");
+  await expect(page).toHaveURL(/\/legacy\/zh\/archive\/?$/);
+});

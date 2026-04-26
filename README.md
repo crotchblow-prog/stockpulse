@@ -24,19 +24,34 @@ Four sequential commits delivered the synthesis layer:
 ### Phase 2.5 — Regime sensitivity + Universe Scanner ✅ (shipped 2026-04-26)
 1. **Commit 5** — `regime_sensitivity.py` 5-year weekly backtest over a 59-ticker Exness-tradable universe. Computes `beta_normal`, `beta_stress`, `vix_spike_decay_pct`, `vix_crush_recovery_pct`. Assigns `high_normal` / `high_stress` / `crisis_alpha` / `mean_reverter` / `defensive` tags. Schema bumped to `schema_version: 2`. Weekly GH Actions cron (Sundays 03:00 UTC).
 2. **Commit 6** — Universe Scanner UI region with three sub-regions (🟢 Add / 🟡 Watch / 🔴 Avoid), top-5 by relevant metric, overlap indicator (`⚠️ also in Avoid`).
-3. **Commit 6.5** — Empty-placeholder enriched with threshold-gap text (`_no candidates fire decay < -10% (worst today: -2.04%)_`) so the threshold-tuning conversation is grounded in data.
+3. **Commit 6.5** — Empty-placeholder enriched with threshold-gap text so the threshold-tuning conversation is grounded in data.
 4. **Commit 7** — Synthesis payload normalization: defense against `tool_use` shape drift (Anthropic's input_schema is a guide, not a server-side validator). System prompt hardened with explicit shape contract.
+5. **Commit 8** — `vix_spike_decay_p25_pct` (25th-percentile post-spike 5d return) added; `crisis_alpha` switches to p25 methodology to capture asymmetric tail behavior the median washes out.
+6. **Commit 10** — Threshold redefinition tuned to natural breaks in the 2021-2026 universe: `crisis_alpha p25 < -4%` (5/59 names fire), `mean_reverter` becomes single-axis `crush_recovery > +0.6%` (9/59 names fire) — the "drops then snaps back" pattern doesn't manifest in the data; top-recovery names rally OFF spikes.
+7. **Commit 10.5** — Universe Scanner readability pass: Sample column reads `normal_weeks` for 🟢 Add (matches `β normal`'s calculation basis), framework legend under section heading, bilingual tier action in the heading (`📡 Universe Scanner — Tier 2 (觀察)`).
 
-161 tests pass. Daily run cost: ~$0.08 bilingual (~$2.40/month, well under the $5–10 cap in [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §5.1).
+178 tests pass. Daily run cost: ~$0.08 bilingual (~$2.40/month, well under the $5–10 cap in [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §5.1).
+
+### Phase 3.0 — Frontend redesign ✅ (shipped 2026-04-26)
+Next.js 15 + Tailwind v4 + shadcn primitives + recharts + Playwright. New design lives at `vixpulse.asia/` (`/en` and `/zh`), Phase 1 markdown viewer preserved at `/legacy/*` as escape hatch. See [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §11 for the routing table and design system.
+
+| # | What | Commit |
+|---|---|---|
+| M1 | Foundation — design tokens, `/v2/*` routes (basic-auth gated), Playwright smoke | `6e56ba8` |
+| M2 | Core redesign — Hero, severity-classified WatchList, responsive Holdings, SnapshotGrid, V2Footer | `ee91fa5` |
+| M3 | VIX sparkline (recharts, lazy), custom i18n, dynamic OG card | `85d37dd` |
+| M4 cutover | `/v2/*` → `/`, Phase 1 → `/legacy/*`, basic-auth dropped | `1f2660b` |
+| M4 hardening | Visual regression CI workflow, defensive `/archive` redirects, doc updates | `[this commit]` |
 
 ## What's left
 
 | Area | Status | When |
 |---|---|---|
-| Threshold tuning for `crisis_alpha` / `mean_reverter` | Open Carina-decision (both tags fired zero across 5y data, thresholds too strict) | After 1-2 weeks of production data — May 2026 |
-| Brief B — Frontend redesign (Next.js 15 + Tailwind + shadcn/ui + recharts + Playwright) | Brief locked, **DEFERRED to June** | June 2026, ~4 weeks |
+| Threshold tuning revisit for `crisis_alpha` / `mean_reverter` | Tuned in Commit 10 (5/59 + 9/59 fire counts). Revisit if the universe regime changes meaningfully (true crisis return). | 2027 or post-incident |
+| Visual regression baseline screenshots | M4-hardening shipped the CI workflow; baselines themselves need a known-good deployed state to capture from | Next session |
+| Lighthouse mobile + desktop audit | Deferred from M4-hardening; needs deployed URL or local production-build run | Next session |
 | Telegram bot push (Phase 3) | Not started | July 2026 |
-| Searchable archive UI + Supabase archive (Phase 3) | Skeleton at `/archive`; Supabase not wired | August 2026 |
+| Searchable archive UI + Supabase archive (Phase 3) | Phase 1 archive at `/legacy/archive`; Supabase not wired | August 2026 |
 | MetaApi Track A — auto-sync Exness holdings (Phase 3) | Not started; plan in [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §6.7 | September 2026 |
 | MetaApi Track B — interactive Exness via Claude Desktop MCP (Phase 3) | Not started; plan in §6.7 | Q4 2026 |
 
