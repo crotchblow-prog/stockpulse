@@ -153,14 +153,875 @@
       "vs_avg_cost": 0.09426572624344899
     }
   },
+  "regime_universe": {
+    "AAPL": {
+      "beta_normal": 0.997,
+      "beta_stress": 1.193,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.38,
+      "vix_spike_decay_p25_pct": -1.31,
+      "vix_spike_decay_pct": 1.59
+    },
+    "ABBV": {
+      "beta_normal": 0.082,
+      "beta_stress": 0.525,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.38,
+      "vix_spike_decay_p25_pct": 0.33,
+      "vix_spike_decay_pct": 1.42
+    },
+    "ABT": {
+      "beta_normal": 0.44,
+      "beta_stress": 0.624,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.44,
+      "vix_spike_decay_p25_pct": -2.82,
+      "vix_spike_decay_pct": -1.31
+    },
+    "ADBE": {
+      "beta_normal": 1.322,
+      "beta_stress": 1.43,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.14,
+      "vix_spike_decay_p25_pct": -3.03,
+      "vix_spike_decay_pct": -0.81
+    },
+    "ADP": {
+      "beta_normal": 0.614,
+      "beta_stress": 0.841,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.33,
+      "vix_spike_decay_p25_pct": -0.73,
+      "vix_spike_decay_pct": 0.55
+    },
+    "AMD": {
+      "beta_normal": 2.163,
+      "beta_stress": 1.728,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "high_normal"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.13,
+      "vix_spike_decay_p25_pct": -1.76,
+      "vix_spike_decay_pct": 0.56
+    },
+    "AMGN": {
+      "beta_normal": 0.24,
+      "beta_stress": 0.523,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.01,
+      "vix_spike_decay_p25_pct": -1.68,
+      "vix_spike_decay_pct": -0.57
+    },
+    "AMT": {
+      "beta_normal": 0.734,
+      "beta_stress": 0.63,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": -0.11,
+      "vix_spike_decay_p25_pct": -3.89,
+      "vix_spike_decay_pct": -0.32
+    },
+    "AMZN": {
+      "beta_normal": 1.395,
+      "beta_stress": 1.412,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.02,
+      "vix_spike_decay_p25_pct": -2.66,
+      "vix_spike_decay_pct": 1.53
+    },
+    "AVGO": {
+      "beta_normal": 2.428,
+      "beta_stress": 1.501,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "high_normal",
+        "mean_reverter"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 1.12,
+      "vix_spike_decay_p25_pct": -1.22,
+      "vix_spike_decay_pct": 2.93
+    },
+    "BA": {
+      "beta_normal": 0.935,
+      "beta_stress": 1.432,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.5,
+      "vix_spike_decay_p25_pct": -0.74,
+      "vix_spike_decay_pct": 1.35
+    },
+    "BAC": {
+      "beta_normal": 1.024,
+      "beta_stress": 1.195,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.4,
+      "vix_spike_decay_p25_pct": -3.67,
+      "vix_spike_decay_pct": 1.31
+    },
+    "BIIB": {
+      "beta_normal": 0.562,
+      "beta_stress": 0.508,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": -0.21,
+      "vix_spike_decay_p25_pct": -3.55,
+      "vix_spike_decay_pct": -1.64
+    },
+    "BMY": {
+      "beta_normal": 0.031,
+      "beta_stress": 0.343,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": -0.16,
+      "vix_spike_decay_p25_pct": -1.32,
+      "vix_spike_decay_pct": -0.43
+    },
+    "C": {
+      "beta_normal": 1.068,
+      "beta_stress": 1.185,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.55,
+      "vix_spike_decay_p25_pct": -1.42,
+      "vix_spike_decay_pct": 1.7
+    },
+    "CHTR": {
+      "beta_normal": 0.704,
+      "beta_stress": 1.081,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "crisis_alpha"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.07,
+      "vix_spike_decay_p25_pct": -4.32,
+      "vix_spike_decay_pct": -2.08
+    },
+    "CMCSA": {
+      "beta_normal": 0.473,
+      "beta_stress": 0.671,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "crisis_alpha",
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.1,
+      "vix_spike_decay_p25_pct": -4.22,
+      "vix_spike_decay_pct": -0.04
+    },
+    "CME": {
+      "beta_normal": 0.004,
+      "beta_stress": 0.559,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.16,
+      "vix_spike_decay_p25_pct": -1.1,
+      "vix_spike_decay_pct": 1.13
+    },
+    "COST": {
+      "beta_normal": 0.662,
+      "beta_stress": 0.921,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "mean_reverter",
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.68,
+      "vix_spike_decay_p25_pct": -0.44,
+      "vix_spike_decay_pct": 1.08
+    },
+    "CSCO": {
+      "beta_normal": 0.791,
+      "beta_stress": 0.801,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.39,
+      "vix_spike_decay_p25_pct": -1.31,
+      "vix_spike_decay_pct": 1.88
+    },
+    "CSX": {
+      "beta_normal": 0.819,
+      "beta_stress": 0.843,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.22,
+      "vix_spike_decay_p25_pct": -1.36,
+      "vix_spike_decay_pct": -0.37
+    },
+    "CVS": {
+      "beta_normal": 0.447,
+      "beta_stress": 0.611,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.07,
+      "vix_spike_decay_p25_pct": -2.31,
+      "vix_spike_decay_pct": -0.58
+    },
+    "EA": {
+      "beta_normal": 0.453,
+      "beta_stress": 0.518,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.14,
+      "vix_spike_decay_p25_pct": -0.57,
+      "vix_spike_decay_pct": 0.87
+    },
+    "EBAY": {
+      "beta_normal": 0.753,
+      "beta_stress": 1.179,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.04,
+      "vix_spike_decay_p25_pct": -1.57,
+      "vix_spike_decay_pct": 0.83
+    },
+    "EQIX": {
+      "beta_normal": 0.861,
+      "beta_stress": 0.863,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.34,
+      "vix_spike_decay_p25_pct": -1.5,
+      "vix_spike_decay_pct": 1.05
+    },
+    "F": {
+      "beta_normal": 1.327,
+      "beta_stress": 1.272,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "high_normal",
+        "crisis_alpha"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.51,
+      "vix_spike_decay_p25_pct": -4.32,
+      "vix_spike_decay_pct": 0.58
+    },
+    "FTNT": {
+      "beta_normal": 1.183,
+      "beta_stress": 1.533,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "high_stress",
+        "mean_reverter"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.87,
+      "vix_spike_decay_p25_pct": -0.55,
+      "vix_spike_decay_pct": 3.08
+    },
+    "GILD": {
+      "beta_normal": 0.472,
+      "beta_stress": 0.446,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "mean_reverter",
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.6,
+      "vix_spike_decay_p25_pct": -0.83,
+      "vix_spike_decay_pct": 1.7
+    },
+    "GOOGL": {
+      "beta_normal": 1.108,
+      "beta_stress": 1.171,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "mean_reverter"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.74,
+      "vix_spike_decay_p25_pct": -0.75,
+      "vix_spike_decay_pct": 1.54
+    },
+    "HD": {
+      "beta_normal": 1.176,
+      "beta_stress": 0.769,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.3,
+      "vix_spike_decay_p25_pct": -1.45,
+      "vix_spike_decay_pct": 0.37
+    },
+    "IBM": {
+      "beta_normal": 0.707,
+      "beta_stress": 0.682,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "mean_reverter",
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.68,
+      "vix_spike_decay_p25_pct": -0.05,
+      "vix_spike_decay_pct": 2.02
+    },
+    "INTC": {
+      "beta_normal": 1.895,
+      "beta_stress": 1.197,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "high_normal",
+        "crisis_alpha"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": -0.32,
+      "vix_spike_decay_p25_pct": -4.98,
+      "vix_spike_decay_pct": -0.35
+    },
+    "INTU": {
+      "beta_normal": 0.989,
+      "beta_stress": 1.325,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.41,
+      "vix_spike_decay_p25_pct": -2.97,
+      "vix_spike_decay_pct": 1.19
+    },
+    "ISRG": {
+      "beta_normal": 1.192,
+      "beta_stress": 1.443,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.17,
+      "vix_spike_decay_p25_pct": -2.13,
+      "vix_spike_decay_pct": -0.28
+    },
+    "JNJ": {
+      "beta_normal": 0.023,
+      "beta_stress": 0.343,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.25,
+      "vix_spike_decay_p25_pct": -0.61,
+      "vix_spike_decay_pct": 0.52
+    },
+    "JPM": {
+      "beta_normal": 0.813,
+      "beta_stress": 1.18,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.58,
+      "vix_spike_decay_p25_pct": -1.35,
+      "vix_spike_decay_pct": 0.14
+    },
+    "KO": {
+      "beta_normal": 0.18,
+      "beta_stress": 0.484,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.21,
+      "vix_spike_decay_p25_pct": -0.82,
+      "vix_spike_decay_pct": 0.12
+    },
+    "LIN": {
+      "beta_normal": 0.577,
+      "beta_stress": 0.658,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.32,
+      "vix_spike_decay_p25_pct": -0.74,
+      "vix_spike_decay_pct": 0.72
+    },
+    "META": {
+      "beta_normal": 1.506,
+      "beta_stress": 1.181,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "high_normal"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.39,
+      "vix_spike_decay_p25_pct": -2.79,
+      "vix_spike_decay_pct": 2.11
+    },
+    "MRK": {
+      "beta_normal": 0.121,
+      "beta_stress": 0.33,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.33,
+      "vix_spike_decay_p25_pct": -1.15,
+      "vix_spike_decay_pct": 0.41
+    },
+    "MS": {
+      "beta_normal": 1.248,
+      "beta_stress": 1.189,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.58,
+      "vix_spike_decay_p25_pct": -1.61,
+      "vix_spike_decay_pct": 0.67
+    },
+    "MSFT": {
+      "beta_normal": 1.233,
+      "beta_stress": 1.093,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.41,
+      "vix_spike_decay_p25_pct": -2.13,
+      "vix_spike_decay_pct": 0.34
+    },
+    "NFLX": {
+      "beta_normal": 1.18,
+      "beta_stress": 1.554,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "high_stress"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.59,
+      "vix_spike_decay_p25_pct": -2.19,
+      "vix_spike_decay_pct": 0.51
+    },
+    "NKE": {
+      "beta_normal": 1.243,
+      "beta_stress": 0.955,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": -0.22,
+      "vix_spike_decay_p25_pct": -2.44,
+      "vix_spike_decay_pct": -0.14
+    },
+    "NVDA": {
+      "beta_normal": 2.258,
+      "beta_stress": 1.97,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "high_normal",
+        "mean_reverter"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 1.41,
+      "vix_spike_decay_p25_pct": -1.7,
+      "vix_spike_decay_pct": 1.8
+    },
+    "SBUX": {
+      "beta_normal": 1.215,
+      "beta_stress": 0.984,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": -0.13,
+      "vix_spike_decay_p25_pct": -0.84,
+      "vix_spike_decay_pct": 0.35
+    },
+    "T": {
+      "beta_normal": 0.096,
+      "beta_stress": 0.443,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.24,
+      "vix_spike_decay_p25_pct": -2.22,
+      "vix_spike_decay_pct": 0.46
+    },
+    "TMO": {
+      "beta_normal": 0.775,
+      "beta_stress": 0.857,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.06,
+      "vix_spike_decay_p25_pct": -0.97,
+      "vix_spike_decay_pct": 0.43
+    },
+    "TMUS": {
+      "beta_normal": 0.46,
+      "beta_stress": 0.613,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.23,
+      "vix_spike_decay_p25_pct": -1.73,
+      "vix_spike_decay_pct": 0.24
+    },
+    "TSLA": {
+      "beta_normal": 2.48,
+      "beta_stress": 1.536,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "high_normal",
+        "crisis_alpha"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": -0.18,
+      "vix_spike_decay_p25_pct": -4.4,
+      "vix_spike_decay_pct": 1.08
+    },
+    "TSM": {
+      "beta_normal": 1.441,
+      "beta_stress": 1.098,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "high_normal",
+        "mean_reverter"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.81,
+      "vix_spike_decay_p25_pct": 0.15,
+      "vix_spike_decay_pct": 2.04
+    },
+    "UNH": {
+      "beta_normal": 0.094,
+      "beta_stress": 0.504,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": -0.14,
+      "vix_spike_decay_p25_pct": -1.94,
+      "vix_spike_decay_pct": 0.59
+    },
+    "UPS": {
+      "beta_normal": 0.956,
+      "beta_stress": 0.959,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.24,
+      "vix_spike_decay_p25_pct": -2.56,
+      "vix_spike_decay_pct": -0.55
+    },
+    "V": {
+      "beta_normal": 0.703,
+      "beta_stress": 0.962,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.35,
+      "vix_spike_decay_p25_pct": -0.69,
+      "vix_spike_decay_pct": 0.76
+    },
+    "VRTX": {
+      "beta_normal": 0.633,
+      "beta_stress": 0.529,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.33,
+      "vix_spike_decay_p25_pct": -1.95,
+      "vix_spike_decay_pct": 0.82
+    },
+    "VZ": {
+      "beta_normal": 0.249,
+      "beta_stress": 0.306,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.12,
+      "vix_spike_decay_p25_pct": -0.79,
+      "vix_spike_decay_pct": 0.42
+    },
+    "WFC": {
+      "beta_normal": 0.662,
+      "beta_stress": 1.174,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.33,
+      "vix_spike_decay_p25_pct": -2.03,
+      "vix_spike_decay_pct": 0.47
+    },
+    "WMT": {
+      "beta_normal": 0.465,
+      "beta_stress": 0.707,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "mean_reverter",
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.61,
+      "vix_spike_decay_p25_pct": -1.74,
+      "vix_spike_decay_pct": 0.45
+    },
+    "XOM": {
+      "beta_normal": 0.068,
+      "beta_stress": 0.545,
+      "confidence": "high",
+      "crush_event_count": 152,
+      "normal_weeks": 165,
+      "sensitivity_tags": [
+        "defensive"
+      ],
+      "spike_event_count": 20,
+      "stress_weeks": 93,
+      "vix_crush_recovery_pct": 0.15,
+      "vix_spike_decay_p25_pct": -2.64,
+      "vix_spike_decay_pct": 0.75
+    }
+  },
   "schema_version": 2,
   "snapshot": {
     "BTC": {
-      "change": 497.90625,
-      "change_pct": 0.006415324302434647,
+      "change": 377.9765625,
+      "change_pct": 0.0048700779055433786,
       "error": null,
       "label": "BTC",
-      "last": 78109.921875,
+      "last": 77989.9921875,
       "prev_close": 77612.015625,
       "symbol": "BTC-USD"
     },
@@ -239,40 +1100,40 @@
   },
   "synthesis": {
     "market": {
-      "devils_advocate": "VIX 18.71 僅勉強踏入 Tier 2 下緣——本週任何一個惡化的宏觀數據或 Mag-7 財報衝擊，均可瞬間將其推回 20 以上、重回 Tier 2 高位警戒區，令今日所有新增部位失效。USD/JPY 報 159.33，亦警示殘存的 carry unwind 風險，歷史上此類風險往往快速引爆 VIX。",
-      "read": "VIX 報於 18.71，我們穩處 Tier 2 過渡區——真實機會開始浮現，但謹慎仍為主基調。VIX3M 報 21.3，確認期限結構仍處溫和 backwardation，市場尚未定價全面解除警報；Nasdaq 今日 +1.6% 具建設性，但不構成機制轉換。現金目標維持 50%，優質成長建倉每次僅限 3-5%，Tier 2 買入清單（GOOGL、MSFT、AAPL、AMZN、META、TSM、AVGO、TXN）為現階段獵場。"
+      "devils_advocate": "VIX3M 報 21.30，高出現貨 2.6 個點——若此差距因 VIX 急升而收斂，而非 VIX3M 下滑，則將迅速重新定價至 Tier 3，而那斯達克今日的強勢表現，可能正是情緒反轉前的最後一口氣。",
+      "read": "VIX 報 18.71，落於 Tier 2 區間——期限結構（VIX3M 報 21.30）確認殘餘壓力高於現貨，顯示當前環境並非乾淨的平靜態勢。那斯達克領漲（+1.63%），S&P +0.80%，道指落後（-0.16%），訊號為風險偏好傾向偏多，但整體仍處謹慎框架內。Tier 2 操作姿態：現金保留 50%，單倉 3–5% 上限，僅限優質成長股——禁止追高，禁止向虧損倉位加碼。"
     },
     "model": "claude-sonnet-4-6",
     "positions": [
       {
         "action": "hold",
         "confidence": "medium",
-        "rationale": "RSI 報 68.3，股價較 200DMA 高出 33.5% 且恰於 52 週高點，訊號顯示已過度延伸——此為「守住現有部位、不加碼」格局。敏感度標籤 `high_normal` 明確警示在 Tier 2+ 禁止加碼，因此儘管具 buy_list_member 身份，在 RSI 降溫或回調提供更佳進場點之前，新增規模一律不予考慮。",
+        "rationale": "RSI 68.3，恰好停在 52 週高點，較 50DMA 高出 +12.7%，已屬過度延伸——基本面仍強（較成本 +9.4%，較 200DMA +33.5%），但此位置毫無安全邊際可言。`high_normal` 敏感度標籤意味著 Tier 2 即為加倉上限，當前延伸幅度下，新進場的風險報酬比極差；持有現有倉位，讓其自行呼吸。",
         "symbol": "TSM"
       },
       {
         "action": "hold",
         "confidence": "low",
-        "rationale": "財報距今 10 天（5 月 6 日），今日尚在 7 天減碼窗口之外，但股價較 52 週高點低 48%、較 200DMA 低 8.2%，加上投機/高 beta 標籤，意味著進入財報前風險呈不對稱分佈。目前持有，但於 4 月 29 日進入 7 天窗口時，標記列入減碼審查。",
+        "rationale": "財報在 10 天後（5 月 6 日），暫不觸發 7 天減倉規則，但股價較 52 週高點低 48%，低於 200DMA 8.2%，目前虧損 1.6%——無正面催化劑可供加倉。不在當前 Regime 候選名單內；僅持有，現有倉位於 Tier 2 下已屬過度投機，不得加碼。",
         "symbol": "IONQ"
       },
       {
-        "action": "watch",
-        "confidence": "low",
-        "rationale": "財報距今 8 天（5 月 4 日）——距 7 天減碼觸發點僅差一天，但股價較 52 週高點低 30.9%、較 200DMA 低 13%，且幾乎陷入虧損（較均價 -1.9%），RSI 報中性 48.6。在 Tier 2 環境下不於財報前加碼；明日當進入 7 天窗口時，標記重新評估是否減碼。",
+        "action": "trim",
+        "confidence": "high",
+        "rationale": "財報在 8 天後（5 月 4 日）——已進入框架的財報前減倉窗口。目前虧損 1.9%，低於 200DMA 13.0%，低於 52 週高點 30.9%，RSI 中性報 48.6；在如此深套的情況下，以滿倉持有至財報二元事件，不對稱性方向錯誤。",
         "symbol": "PLTR"
       },
       {
         "action": "trim",
         "confidence": "high",
-        "rationale": "財報距今 3 天（4 月 29 日）、Muddy Waters 放空報告仍有效、帳面虧損 30%、較 52 週高點低 42.8%——特殊情境規則毫無模糊空間：7 天內禁止 `add`，`earnings_within_3d` + `high_risk_tag` + `event_play` 三重標籤疊加，使 `trim` 明確優於 `hold`，應於財報前降低二元事件敞口。",
+        "rationale": "財報在 3 天後（4 月 29 日），`earnings_within_7d` 與 `earnings_within_3d` 標誌同時觸發——Muddy Waters 做空報告仍有效，虧損 29.7%，低於 200DMA 22.7%，低於 52 週高點 42.8%。框架硬性規則：財報前 7 天內 `add` 絕不成立；對 `high_risk_tag` 標的在如此接近二元事件前，`trim` 或 `exit` 是唯一可辯護的行動。",
         "symbol": "SOFI"
       }
     ],
     "usage": {
       "cache_read_input_tokens": 0,
-      "input_tokens": 3941,
-      "output_tokens": 855
+      "input_tokens": 3943,
+      "output_tokens": 824
     }
   },
   "tier": {
