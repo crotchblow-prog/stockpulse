@@ -30,7 +30,7 @@ export default function LearnLayout({ children }: { children: React.ReactNode })
           </Link>
         </div>
       </header>
-      <main className="mx-auto max-w-3xl px-6 py-8 report-prose">{children}</main>
+      <main className="mx-auto max-w-3xl px-6 py-8">{children}</main>
       <footer
         className="mx-auto max-w-3xl px-6 py-10 text-xs text-[color:var(--color-muted)] border-t mt-12"
         style={{ borderColor: "var(--color-border)" }}
