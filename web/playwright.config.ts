@@ -5,7 +5,11 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  // Workers: 1 even locally — two synthesis-missing tests mutate
+  // web/public/reports/en/latest.json and race with parallel tests on /en
+  // that read it. Easier to serialize than to refactor tests to use
+  // page.route() interception of server-side fs.readFile calls.
+  workers: 1,
   reporter: process.env.CI ? "list" : [["list"], ["html", { open: "never" }]],
   use: {
     baseURL: "http://localhost:3000",

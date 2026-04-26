@@ -4,6 +4,9 @@ import { readReportJsonByDate } from "@/lib/reports";
 import { loadVixHistory } from "@/lib/vix-history";
 import { isLocale, t, type Locale } from "@/lib/i18n";
 import { Hero } from "@/components/v2/Hero";
+import { TodaysTake } from "@/components/v2/TodaysTake";
+import { TierAction } from "@/components/v2/TierAction";
+import { UniverseScanner } from "@/components/v2/UniverseScanner";
 import { WatchList } from "@/components/v2/WatchList";
 import { Holdings } from "@/components/v2/Holdings";
 import { SnapshotGrid } from "@/components/v2/SnapshotGrid";
@@ -58,6 +61,14 @@ export default async function V2LangIndex({
       <VixSparklineLazy
         data={history}
         currentTier={payload.tier.index}
+        locale={language}
+      />
+      <TodaysTake synthesis={payload.synthesis} locale={language} />
+      <TierAction tier={payload.tier} synthesis={payload.synthesis} locale={language} />
+      <UniverseScanner
+        universe={payload.regime_universe}
+        tierIdx={payload.tier.index}
+        tierAction={payload.tier.action}
         locale={language}
       />
       <WatchList holdings={payload.holdings} lang={language} />

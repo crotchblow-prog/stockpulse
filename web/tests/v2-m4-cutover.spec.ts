@@ -26,8 +26,8 @@ test("/legacy/zh renders Phase 1 zh markdown view", async ({ page }) => {
 
 test("/learn still serves the explainer", async ({ page }) => {
   await page.goto("/learn");
-  // (default) chrome marker
-  await expect(page.locator("[data-default-root]")).toBeVisible();
+  // (learn) route group chrome — Phase 3.1 picks up v2 design tokens.
+  await expect(page.locator("[data-v2-root][data-area='learn']")).toBeVisible();
   // Some content from the proofread:
   const text = await page.locator("body").innerText();
   expect(text).toMatch(/VIXPulse|Wall Street/);
@@ -35,7 +35,7 @@ test("/learn still serves the explainer", async ({ page }) => {
 
 test("/zh/learn still serves the Chinese explainer", async ({ page }) => {
   await page.goto("/zh/learn");
-  await expect(page.locator("[data-default-root]")).toBeVisible();
+  await expect(page.locator("[data-v2-root][data-area='learn']")).toBeVisible();
   const text = await page.locator("body").innerText();
   expect(text).toMatch(/(華爾街|VIXPulse)/);
 });

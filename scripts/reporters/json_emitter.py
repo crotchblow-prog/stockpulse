@@ -27,6 +27,11 @@ def build_payload(report: dict[str, Any]) -> dict[str, Any]:
     }
     if "synthesis" in report:
         payload["synthesis"] = _serialize(report["synthesis"])
+    # Phase 3.1 — surface the full 59-ticker regime universe so the v2 frontend's
+    # Universe Scanner can render without re-reading config/regime_sensitivity.json.
+    # Additive within v2 (PROJECT_BRIEF §4.4); schema_version unchanged.
+    if "regime_universe" in report:
+        payload["regime_universe"] = _serialize(report["regime_universe"])
     return _coerce_nan(payload)
 
 

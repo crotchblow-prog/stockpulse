@@ -164,3 +164,36 @@ def test_schema_v2_holding_outside_universe_serializes_cleanly():
     assert sofi["regime_metrics"] is None
     assert sofi["sensitivity_tags"] == []
     assert sofi["missing_from_universe"] is True
+
+
+# ── Phase 3.1: regime_universe round-trip ────────────────────────────────────
+
+def test_regime_universe_round_trips_when_present():
+    """The full 59-ticker regime universe is surfaced into the sidecar so the
+    v2 frontend's Universe Scanner can render without re-reading config/."""
+    report = _sample_report()
+    report["regime_universe"] = {
+        "TSLA": {
+            "beta_normal": 2.48,
+            "beta_stress": 1.54,
+            "vix_spike_decay_pct": 1.08,
+            "vix_spike_decay_p25_pct": -4.40,
+            "vix_crush_recovery_pct": -0.18,
+            "spike_event_count": 20,
+            "crush_event_count": 152,
+            "stress_weeks": 93,
+            "normal_weeks": 165,
+            "confidence": "high",
+            "sensitivity_tags": ["high_normal"],
+        },
+    }
+    payload = json_emitter.build_payload(report)
+    assert "regime_universe" in payload
+    assert payload["regime_universe"]["TSLA"]["beta_normal"] == 2.48
+    assert payload["regime_universe"]["TSLA"]["sensitivity_tags"] == ["high_normal"]
+
+
+def test_regime_universe_omitted_when_absent():
+    """Sidecar is clean (no `regime_universe` key) when the in-memory report dict doesn't have one."""
+    payload = json_emitter.build_payload(_sample_report())
+    assert "regime_universe" not in payload

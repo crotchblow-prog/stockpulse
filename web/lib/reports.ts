@@ -113,6 +113,20 @@ export type Tier = {
   sell_list?: string[] | null;
 };
 
+export type RegimeUniverseEntry = {
+  beta_normal: number | null;
+  beta_stress: number | null;
+  vix_spike_decay_pct: number | null;
+  vix_spike_decay_p25_pct: number | null;
+  vix_crush_recovery_pct: number | null;
+  spike_event_count: number;
+  crush_event_count: number;
+  stress_weeks: number;
+  normal_weeks: number;
+  confidence: "high" | "low";
+  sensitivity_tags: string[];
+};
+
 export type ReportPayload = {
   schema_version: number;
   date: string;
@@ -122,6 +136,7 @@ export type ReportPayload = {
   holdings: Record<string, Holding>;
   synthesis?: Synthesis | null;
   accounts?: Record<string, { holdings: string[]; tier_index: number; total_value: number | null }>;
+  regime_universe?: Record<string, RegimeUniverseEntry>;
 };
 
 export async function readReportJsonByDate(

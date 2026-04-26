@@ -2,6 +2,11 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs/promises";
 import path from "node:path";
 
+// All tests in this file mutate web/public/reports/en/latest.json — force
+// serial mode so they don't race with parallel tests on /en that depend
+// on synthesis being present.
+test.describe.configure({ mode: "serial" });
+
 /**
  * Graceful degrade test: the JSON sidecar's `synthesis` field can be absent
  * (Phase 2 Commit 7 normalization). The hero must render without crashing
@@ -41,6 +46,29 @@ test("synthesis-missing case renders without crashing", async ({ page }) => {
     // sentence with "VIX at" — the synthesis prose marker.
     const heroText = await page.locator("[data-tier]").first().innerText();
     expect(heroText).not.toMatch(/VIX at \d/);
+  } finally {
+    await fs.copyFile(backup, latest);
+    await fs.unlink(backup);
+  }
+});
+
+test("TodaysTake renders empty-state when synthesis is missing", async ({ page }) => {
+  const reportsDir = path.resolve("public/reports/en");
+  const latest = path.join(reportsDir, "latest.json");
+  const backup = path.join(reportsDir, "latest.json.test-backup-3-1");
+
+  const original = await fs.readFile(latest, "utf8");
+  await fs.writeFile(backup, original);
+
+  try {
+    const parsed = JSON.parse(original);
+    delete parsed.synthesis;
+    await fs.writeFile(latest, JSON.stringify(parsed, null, 2));
+
+    await page.goto("/en", { waitUntil: "networkidle" });
+    const tt = page.locator("[data-component='todays-take']");
+    await expect(tt).toBeVisible();
+    expect(await tt.innerText()).toMatch(/Today's synthesis is unavailable/i);
   } finally {
     await fs.copyFile(backup, latest);
     await fs.unlink(backup);
