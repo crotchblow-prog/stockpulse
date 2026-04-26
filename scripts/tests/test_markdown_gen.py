@@ -93,13 +93,16 @@ def test_watch_list_section_skipped_when_no_watchworthy_rows():
 
 from reporters.markdown_gen import _render_universe_scanner, render  # noqa: E402
 
-def _u(beta_normal=1.0, beta_stress=1.0, spike_decay=0.0, crush_recovery=0.0,
-       sensitivity_tags=None, confidence="high",
+def _u(beta_normal=1.0, beta_stress=1.0, spike_decay=0.0, spike_decay_p25=None,
+       crush_recovery=0.0, sensitivity_tags=None, confidence="high",
        spike_count=20, crush_count=20, stress_weeks=50, normal_weeks=200):
+    # spike_decay_p25 defaults to median when caller doesn't differentiate — the test
+    # only exercises one regime at a time. Commit 8 added p25 as a separate field.
     return {
         "beta_normal": beta_normal,
         "beta_stress": beta_stress,
         "vix_spike_decay_pct": spike_decay,
+        "vix_spike_decay_p25_pct": spike_decay if spike_decay_p25 is None else spike_decay_p25,
         "vix_crush_recovery_pct": crush_recovery,
         "spike_event_count": spike_count,
         "crush_event_count": crush_count,
@@ -276,30 +279,32 @@ def test_universe_scanner_avoid_sorted_by_abs_spike_decay_desc():
 # ── Commit 6.5: enriched empty-placeholder text with threshold gap ───────────
 
 def test_watch_transition_empty_renders_gap_with_best_recovery_and_best_decay():
-    # Three tickers, none qualify as mean_reverter (recovery ≤ 5 OR decay ≥ -5),
-    # but their actual best values should surface in the gap text.
+    # Three tickers, none qualify as mean_reverter at the relaxed ±2% bar (recovery ≤ 2
+    # OR decay ≥ -2), but their actual best values should surface in the gap text.
     universe = {
-        "AAA": _u(crush_recovery=4.5, spike_decay=-4.0, sensitivity_tags=[]),
-        "BBB": _u(crush_recovery=2.0, spike_decay=-2.5, sensitivity_tags=[]),
+        "AAA": _u(crush_recovery=1.5, spike_decay=-1.0, sensitivity_tags=[]),
+        "BBB": _u(crush_recovery=0.5, spike_decay=-1.8, sensitivity_tags=[]),
         "CCC": _u(crush_recovery=-1.0, spike_decay=1.0, sensitivity_tags=[]),
     }
     out = "\n".join(_render_universe_scanner(2, universe))
     watch_section = out.split("🟡 Watch")[1].split("🔴 Avoid")[0]
-    # best_recovery = max(4.5, 2.0, -1.0) = 4.5 ; best_decay = min(-4.0, -2.5, 1.0) = -4.0
-    assert "best today: crush=+4.50%, decay=-4.00%" in watch_section
-    assert "no candidates fire crush > +5% AND decay < -5%" in watch_section
+    # best_recovery = max(1.5, 0.5, -1.0) = 1.5 ; best_decay = min(-1.0, -1.8, 1.0) = -1.8
+    assert "best today: crush=+1.50%, decay=-1.80%" in watch_section
+    assert "no candidates fire crush > +2% AND decay < -2%" in watch_section
 
 
-def test_avoid_empty_renders_gap_with_worst_decay():
+def test_avoid_empty_renders_gap_with_worst_p25_decay():
+    # Commit 8: empty placeholder uses vix_spike_decay_p25_pct, not the median.
+    # Median values are deliberately mild to verify the placeholder ignores them.
     universe = {
-        "AAA": _u(spike_decay=-2.0, sensitivity_tags=[]),
-        "BBB": _u(spike_decay=-7.5, sensitivity_tags=[]),  # worst — closest to -10
-        "CCC": _u(spike_decay=1.5, sensitivity_tags=[]),
+        "AAA": _u(spike_decay=-2.0, spike_decay_p25=-4.0, sensitivity_tags=[]),
+        "BBB": _u(spike_decay=-1.0, spike_decay_p25=-7.5, sensitivity_tags=[]),  # worst p25
+        "CCC": _u(spike_decay=1.5, spike_decay_p25=-1.0, sensitivity_tags=[]),
     }
     out = "\n".join(_render_universe_scanner(2, universe))
     avoid_section = out.split("🔴 Avoid")[1]
     assert "worst today: -7.50%" in avoid_section
-    assert "no candidates fire decay < -10%" in avoid_section
+    assert "no candidates fire p25 decay < -10%" in avoid_section
 
 
 def test_empty_regime_universe_still_shows_universe_data_not_loaded():
@@ -316,13 +321,15 @@ def test_watch_transition_gap_falls_back_when_all_tickers_low_confidence():
     # All confidence == "low" → exclude from gap math. Render simple
     # threshold-only string with no parenthetical.
     universe = {
-        "WEAK1": _u(crush_recovery=20.0, spike_decay=-50.0, confidence="low", sensitivity_tags=[]),
-        "WEAK2": _u(crush_recovery=15.0, spike_decay=-30.0, confidence="low", sensitivity_tags=[]),
+        "WEAK1": _u(crush_recovery=20.0, spike_decay=-50.0, spike_decay_p25=-60.0,
+                    confidence="low", sensitivity_tags=[]),
+        "WEAK2": _u(crush_recovery=15.0, spike_decay=-30.0, spike_decay_p25=-40.0,
+                    confidence="low", sensitivity_tags=[]),
     }
     out = "\n".join(_render_universe_scanner(2, universe))
     watch_section = out.split("🟡 Watch")[1].split("🔴 Avoid")[0]
-    assert "no candidates fire crush > +5% AND decay < -5%" in watch_section
+    assert "no candidates fire crush > +2% AND decay < -2%" in watch_section
     assert "best today" not in watch_section  # no parenthetical when no valid data
     avoid_section = out.split("🔴 Avoid")[1]
-    assert "no candidates fire decay < -10%" in avoid_section
+    assert "no candidates fire p25 decay < -10%" in avoid_section
     assert "worst today" not in avoid_section

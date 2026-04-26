@@ -199,7 +199,7 @@ MIRA's launchd cron (StartCalendarInterval: 22:00 Asia/Taipei = 10 AM EDT, 30 mi
 The JSON sidecar at `web/public/reports/{en,zh}/<date>.json` is a versioned contract between the pipeline and any downstream consumer (the web viewer, future Telegram bot, third-party dashboards). The top-level `schema_version` integer governs compatibility.
 
 - **`schema_version: 1`** — initial Phase 2 shape. Per-holding fields: `last`, `flags`, technicals, earnings.
-- **`schema_version: 2`** — Phase 2.5 additive bump. Per-holding fields gain `regime_metrics` (`beta_normal`, `beta_stress`, `vix_spike_decay_pct`, `vix_crush_recovery_pct`, `confidence`), `sensitivity_tags` (list, possibly empty), and `missing_from_universe` (bool). Existing v1 fields are unchanged.
+- **`schema_version: 2`** — Phase 2.5 additive bump. Per-holding fields gain `regime_metrics` (`beta_normal`, `beta_stress`, `vix_spike_decay_pct`, `vix_crush_recovery_pct`, `confidence`), `sensitivity_tags` (list, possibly empty), and `missing_from_universe` (bool). Commit 8 (2026-04-26) adds `vix_spike_decay_p25_pct` inside `regime_metrics` — 25th-percentile of post-spike 5-day cumulative returns, used as the basis for `crisis_alpha` tag assignment to capture asymmetric tail behavior that the median washes out. Existing v1 fields are unchanged; the v2 additive guarantee holds.
 
 **Compatibility rule:** consumers MUST tolerate unknown fields gracefully. Adding a field is always permitted within a major version; renaming or removing one bumps the version. The `schema_version` is never decremented. When an old viewer reads a newer payload, it should ignore unknown keys; when a new viewer reads an older payload, it should treat the missing v2 fields as `None` / `[]` / `False` respectively.
 

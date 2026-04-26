@@ -21,7 +21,8 @@ def _m(**kw) -> TickerMetrics:
     """Build a TickerMetrics with all sample counts safely above MIN_SAMPLE_SIZE."""
     defaults = dict(
         beta_normal=1.0, beta_stress=1.0,
-        vix_spike_decay_pct=0.0, vix_crush_recovery_pct=0.0,
+        vix_spike_decay_pct=0.0, vix_spike_decay_p25_pct=0.0,
+        vix_crush_recovery_pct=0.0,
         spike_event_count=20, crush_event_count=20,
         stress_weeks=50, normal_weeks=200,
     )
@@ -49,24 +50,50 @@ def test_high_stress_not_assigned_at_boundary_1_5():
     assert "high_stress" not in assign_tags(_m(beta_normal=1.0, beta_stress=1.5))
 
 
-def test_crisis_alpha_assigned_when_spike_decay_lt_minus_10():
-    assert "crisis_alpha" in assign_tags(_m(vix_spike_decay_pct=-10.01))
+def test_crisis_alpha_assigned_when_p25_decay_lt_minus_10():
+    # Commit 8: p25 is the basis, not median.
+    assert "crisis_alpha" in assign_tags(_m(vix_spike_decay_p25_pct=-10.01))
 
 
-def test_crisis_alpha_not_at_boundary_minus_10():
-    assert "crisis_alpha" not in assign_tags(_m(vix_spike_decay_pct=-10.0))
+def test_crisis_alpha_not_at_boundary_minus_10_p25():
+    assert "crisis_alpha" not in assign_tags(_m(vix_spike_decay_p25_pct=-10.0))
 
 
-def test_mean_reverter_requires_both_clauses():
-    # Recovery > 5 AND spike_decay < -5
+def test_crisis_alpha_fires_when_median_mild_but_p25_extreme():
+    # Asymmetric tail: median = -2% (would NOT have fired under old methodology)
+    # but p25 = -12% (the bottom-quartile reaction is severe). Must fire under Commit 8.
+    tags = assign_tags(_m(vix_spike_decay_pct=-2.0, vix_spike_decay_p25_pct=-12.0))
+    assert "crisis_alpha" in tags
+
+
+def test_crisis_alpha_does_not_fire_when_median_severe_but_p25_mild():
+    # Right-skew of one mild event near the threshold but with most events benign.
+    # Median = -8% but p25 = -3% → does NOT fire. Old rule would have, new rule doesn't.
+    tags = assign_tags(_m(vix_spike_decay_pct=-8.0, vix_spike_decay_p25_pct=-3.0))
+    assert "crisis_alpha" not in tags
+
+
+def test_mean_reverter_requires_both_clauses_at_relaxed_thresholds():
+    # Commit 8: thresholds relaxed from ±5% to ±2%.
     assert "mean_reverter" in assign_tags(
-        _m(vix_crush_recovery_pct=5.01, vix_spike_decay_pct=-5.01)
+        _m(vix_crush_recovery_pct=2.01, vix_spike_decay_pct=-2.01)
     )
     assert "mean_reverter" not in assign_tags(
-        _m(vix_crush_recovery_pct=5.01, vix_spike_decay_pct=-4.99)
+        _m(vix_crush_recovery_pct=2.01, vix_spike_decay_pct=-1.99)
     )
     assert "mean_reverter" not in assign_tags(
-        _m(vix_crush_recovery_pct=4.99, vix_spike_decay_pct=-6.0)
+        _m(vix_crush_recovery_pct=1.99, vix_spike_decay_pct=-3.0)
+    )
+
+
+def test_mean_reverter_boundary_fires_at_2_5_does_not_fire_at_1_5():
+    # Both axes inside threshold → fires.
+    assert "mean_reverter" in assign_tags(
+        _m(vix_crush_recovery_pct=2.5, vix_spike_decay_pct=-2.5)
+    )
+    # Both axes outside threshold → does not fire.
+    assert "mean_reverter" not in assign_tags(
+        _m(vix_crush_recovery_pct=1.5, vix_spike_decay_pct=-1.5)
     )
 
 
@@ -179,11 +206,20 @@ def test_serialize_metrics_has_brief_required_keys():
     m = _m()
     out = rs._serialize_metrics("TSLA", m)
     required = {
-        "beta_normal", "beta_stress", "vix_spike_decay_pct", "vix_crush_recovery_pct",
+        "beta_normal", "beta_stress",
+        "vix_spike_decay_pct", "vix_spike_decay_p25_pct",  # Commit 8 adds p25
+        "vix_crush_recovery_pct",
         "spike_event_count", "crush_event_count", "stress_weeks", "normal_weeks",
         "confidence", "sensitivity_tags",
     }
     assert required.issubset(out.keys())
+
+
+def test_serialize_metrics_includes_p25_alongside_median():
+    m = _m(vix_spike_decay_pct=-3.0, vix_spike_decay_p25_pct=-11.0)
+    out = rs._serialize_metrics("TSLA", m)
+    assert out["vix_spike_decay_pct"] == -3.0
+    assert out["vix_spike_decay_p25_pct"] == -11.0
 
 
 def test_serialize_metrics_rounds_floats():
@@ -195,10 +231,51 @@ def test_serialize_metrics_rounds_floats():
 
 def test_serialize_metrics_handles_none_floats():
     m = _m(beta_normal=None, beta_stress=None,
-           vix_spike_decay_pct=None, vix_crush_recovery_pct=None,
+           vix_spike_decay_pct=None, vix_spike_decay_p25_pct=None,
+           vix_crush_recovery_pct=None,
            spike_event_count=0, crush_event_count=0,
            stress_weeks=0, normal_weeks=0)
     out = rs._serialize_metrics("EMPTY", m)
     assert out["beta_normal"] is None
+    assert out["vix_spike_decay_p25_pct"] is None
     assert out["confidence"] == "low"
     assert out["sensitivity_tags"] == []
+
+
+# ── p25 computation (Commit 8) ───────────────────────────────────────────────
+
+def test_compute_metrics_emits_p25_below_median_for_left_skewed_returns():
+    """Synthetic ticker with a left-skewed tail across spike events: 7 mild events
+    plus 1 severe (-15%) event. p25 must capture the bottom quartile (the -15%);
+    median stays near 0. Validates that p25 ≠ median when the distribution is asymmetric."""
+    # Build 200 trading days with VIX_close generating exactly 8 spike events at known
+    # positions, with ticker reactions to each spike of: 0,+1%,-1%,+2%,-2%,+3%,-3%,-15%.
+    # p25 of those 8 = nearer the worst quartile; median ≈ 0.
+    rng = pd.date_range("2024-01-01", periods=300, freq="B")
+    # VIX flat at 15 most days, jumps +25% at 8 chosen indices (≥ 5 days apart for cooldown).
+    vix = pd.Series([15.0] * 300, index=rng)
+    spike_indices = [10, 30, 50, 70, 90, 110, 130, 150]
+    for i in spike_indices:
+        vix.iloc[i] = 15.0 * 1.30  # +30% jump triggers spike
+        vix.iloc[i + 1] = 15.0  # back to baseline next day
+    vix_df = pd.DataFrame({"Close": vix})
+
+    # Ticker: flat 100 except for engineered 5d cumulative returns at each spike anchor.
+    ticker_close = pd.Series([100.0] * 300, index=rng)
+    reactions = [0.00, 0.01, -0.01, 0.02, -0.02, 0.03, -0.03, -0.15]
+    for i, r in zip(spike_indices, reactions):
+        ticker_close.iloc[i + 5] = 100.0 * (1.0 + r)
+    ticker_df = pd.DataFrame({"Close": ticker_close})
+
+    # SPX: flat — beta math is degenerate but we only care about spike metrics here.
+    spx_df = pd.DataFrame({"Close": pd.Series([4000.0] * 300, index=rng)})
+
+    m = rs.compute_metrics(ticker_df, spx_df, vix_df)
+    assert m.vix_spike_decay_pct is not None
+    assert m.vix_spike_decay_p25_pct is not None
+    # p25 should be more negative than median (left-skewed distribution).
+    assert m.vix_spike_decay_p25_pct < m.vix_spike_decay_pct
+    # Median of the 8 reactions = mean of {-0.01, 0} → -0.5%.
+    assert abs(m.vix_spike_decay_pct - (-0.5)) < 0.5
+    # p25 of those 8 reactions: numpy default linear interp lands between -3% and -2%.
+    assert m.vix_spike_decay_p25_pct < -2.0

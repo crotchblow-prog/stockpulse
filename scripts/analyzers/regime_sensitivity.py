@@ -60,6 +60,7 @@ class TickerMetrics:
     beta_normal: float | None
     beta_stress: float | None
     vix_spike_decay_pct: float | None
+    vix_spike_decay_p25_pct: float | None
     vix_crush_recovery_pct: float | None
     spike_event_count: int
     crush_event_count: int
@@ -166,7 +167,7 @@ def compute_metrics(
 ) -> TickerMetrics:
     """Compute the four metrics + their sample counts for one ticker."""
     if ticker_daily.empty or spx_daily.empty or vix_daily.empty:
-        return TickerMetrics(None, None, None, None, 0, 0, 0, 0)
+        return TickerMetrics(None, None, None, None, None, 0, 0, 0, 0)
 
     # Weekly closes for beta (Friday-close convention).
     tw = _weekly_close(ticker_daily)
@@ -196,7 +197,7 @@ def compute_metrics(
     vix_close = vix_daily["Close"].dropna() if "Close" in vix_daily.columns else pd.Series(dtype=float)
     if vix_close.empty:
         return TickerMetrics(
-            beta_normal, beta_stress, None, None,
+            beta_normal, beta_stress, None, None, None,
             0, 0, stress_weeks, normal_weeks,
         )
 
@@ -214,12 +215,14 @@ def compute_metrics(
     crush_returns = _five_day_cum_returns(ticker_close, crush_anchors)
 
     spike_decay_pct = (float(np.median(spike_returns)) * 100.0) if spike_returns else None
+    spike_decay_p25_pct = (float(np.percentile(spike_returns, 25)) * 100.0) if spike_returns else None
     crush_recovery_pct = (float(np.median(crush_returns)) * 100.0) if crush_returns else None
 
     return TickerMetrics(
         beta_normal=beta_normal,
         beta_stress=beta_stress,
         vix_spike_decay_pct=spike_decay_pct,
+        vix_spike_decay_p25_pct=spike_decay_p25_pct,
         vix_crush_recovery_pct=crush_recovery_pct,
         spike_event_count=len(spike_returns),
         crush_event_count=len(crush_returns),
@@ -231,18 +234,25 @@ def compute_metrics(
 # ── Tag assignment ───────────────────────────────────────────────────────────
 
 def assign_tags(m: TickerMetrics) -> list[str]:
-    """Apply the five sensitivity_tag rules. Empty list if any required metric is None."""
+    """Apply the five sensitivity_tag rules. Empty list if any required metric is None.
+
+    Commit 8 changes (2026-04-26):
+    - `crisis_alpha` switches to 25th-percentile post-spike decay (vs median) — surfaces
+      asymmetric tail behavior that median washes out.
+    - `mean_reverter` thresholds relaxed from ±5% to ±2% — the conjunction itself does
+      the "extreme" filtering; numeric bar was masking real candidates.
+    """
     tags: list[str] = []
     bn, bs = m.beta_normal, m.beta_stress
-    sd, cr = m.vix_spike_decay_pct, m.vix_crush_recovery_pct
+    sd, sd_p25, cr = m.vix_spike_decay_pct, m.vix_spike_decay_p25_pct, m.vix_crush_recovery_pct
 
     if bn is not None and bs is not None and bn > 1.3 and bs < bn:
         tags.append("high_normal")
     if bn is not None and bs is not None and bs > 1.5 and bs > bn:
         tags.append("high_stress")
-    if sd is not None and sd < -10:
+    if sd_p25 is not None and sd_p25 < -10:
         tags.append("crisis_alpha")
-    if cr is not None and sd is not None and cr > 5 and sd < -5:
+    if cr is not None and sd is not None and cr > 2 and sd < -2:
         tags.append("mean_reverter")
     if bn is not None and bs is not None and abs(bn) < 0.8 and abs(bs) < 1.0:
         tags.append("defensive")
@@ -266,7 +276,7 @@ def compute_all(universe: tuple[str, ...] = UNIVERSE) -> dict[str, dict[str, Any
         ticker = histories.get(sym, pd.DataFrame())
         if ticker.empty:
             log.warning("%s: no history — emitting low-confidence empty metrics", sym)
-            out[sym] = _serialize_metrics(sym, TickerMetrics(None, None, None, None, 0, 0, 0, 0))
+            out[sym] = _serialize_metrics(sym, TickerMetrics(None, None, None, None, None, 0, 0, 0, 0))
             continue
         m = compute_metrics(ticker, spx, vix)
         out[sym] = _serialize_metrics(sym, m)
@@ -281,6 +291,7 @@ def _serialize_metrics(symbol: str, m: TickerMetrics) -> dict[str, Any]:
         "beta_normal": _round(m.beta_normal, 3),
         "beta_stress": _round(m.beta_stress, 3),
         "vix_spike_decay_pct": _round(m.vix_spike_decay_pct, 2),
+        "vix_spike_decay_p25_pct": _round(m.vix_spike_decay_p25_pct, 2),
         "vix_crush_recovery_pct": _round(m.vix_crush_recovery_pct, 2),
         "spike_event_count": m.spike_event_count,
         "crush_event_count": m.crush_event_count,
