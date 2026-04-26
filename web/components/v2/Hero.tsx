@@ -88,13 +88,19 @@ function extractRead(synthesis: ReportPayload["synthesis"] | null | undefined): 
 }
 
 /**
- * Take the first N sentences of `text`. Splits on `. ` `? ` `! ` plus the
- * last full-stop at the very end. Conservative — if sentence detection fails,
- * returns the full text unchanged so the page never silently loses data.
+ * Take the first N sentences of `text`. Splits ONLY at terminator-followed-by-
+ * whitespace-followed-by-capital-or-CJK — so decimals like "21.30" and
+ * percentages like "+0.16%) signals" don't get treated as sentence boundaries
+ * (which produced fragmentary "30) confirms..." reads in earlier versions).
+ *
+ * Conservative: if no clean break is found, returns the full text unchanged
+ * so the page never silently loses data.
  */
 function truncateToSentences(text: string, n: number): string {
   const trimmed = text.trim();
-  const matches = trimmed.match(/[^.!?]+[.!?]+(?:\s|$)/g);
-  if (!matches || matches.length <= n) return trimmed;
-  return matches.slice(0, n).join("").trim();
+  // Lookbehind on terminator (.!?), required whitespace, lookahead on uppercase
+  // Latin OR a CJK Unified Ideograph (zh-TW sentences start with CJK).
+  const parts = trimmed.split(/(?<=[.!?])\s+(?=[A-Z一-龥])/);
+  if (parts.length <= n) return trimmed;
+  return parts.slice(0, n).join(" ").trim();
 }
