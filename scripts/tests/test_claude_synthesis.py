@@ -252,3 +252,146 @@ def test_holding_with_fetch_error_passes_through_as_error(captured):
     user_msg = captured["messages"][0]["content"]
     assert '"DEAD"' in user_msg
     assert '"no history"' in user_msg
+
+
+# ── Phase 2.5 Commit 7: payload normalization (tool_use schema-violation defense) ──
+#
+# Anthropic's tool_use input_schema is a guide, not a server-side validator.
+# These tests pin the normalization behavior for known model-shape variances.
+
+
+def _norm_response(payload: dict[str, Any]) -> "FakeResponse":
+    return FakeResponse(content=[FakeToolUse(
+        type="tool_use",
+        name=claude_synthesis.SYNTHESIS_TOOL["name"],
+        input=payload,
+    )])
+
+
+def _patched_with(monkeypatch, payload: dict[str, Any]) -> dict[str, Any]:
+    captured: dict[str, Any] = {}
+    monkeypatch.setattr(
+        claude_synthesis.anthropic, "Anthropic",
+        lambda *a, **kw: FakeClient(_norm_response(payload), captured),
+    )
+    return captured
+
+
+def test_normalize_market_collapsed_to_string(monkeypatch, caplog):
+    """The exact production bug MIRA caught — model returns market as a flat string."""
+    _patched_with(monkeypatch, {
+        "market": "VIX 18 — Tier 2 quality entries; bull-case the term-structure flips against us.",
+        "positions": [],
+    })
+    with caplog.at_level("WARNING"):
+        out = claude_synthesis.synthesize(_sample_report())
+    assert isinstance(out["market"], dict)
+    assert out["market"]["read"].startswith("VIX 18")
+    assert out["market"]["devils_advocate"] == ""
+    assert any("collapsed to string" in r.message for r in caplog.records)
+
+
+def test_normalize_market_missing_devils_advocate(monkeypatch, caplog):
+    """Half-populated market dict — preserve read, default devils to empty string."""
+    _patched_with(monkeypatch, {
+        "market": {"read": "Tier 2 read."},  # devils_advocate absent
+        "positions": [],
+    })
+    with caplog.at_level("WARNING"):
+        out = claude_synthesis.synthesize(_sample_report())
+    assert out["market"]["read"] == "Tier 2 read."
+    assert out["market"]["devils_advocate"] == ""
+
+
+def test_normalize_market_entirely_missing(monkeypatch, caplog):
+    _patched_with(monkeypatch, {"positions": []})  # no market at all
+    out = claude_synthesis.synthesize(_sample_report())
+    assert out["market"] == {"read": "", "devils_advocate": ""}
+
+
+def test_normalize_drops_position_with_invalid_action(monkeypatch, caplog):
+    _patched_with(monkeypatch, {
+        "market": {"read": "x", "devils_advocate": "y"},
+        "positions": [
+            {"symbol": "TSM", "action": "hold", "confidence": "medium", "rationale": "ok"},
+            {"symbol": "SOFI", "action": "buy", "confidence": "high", "rationale": "bad action"},  # 'buy' not in enum
+        ],
+    })
+    with caplog.at_level("WARNING"):
+        out = claude_synthesis.synthesize(_sample_report())
+    syms = [p["symbol"] for p in out["positions"]]
+    assert syms == ["TSM"]
+    assert any("not in enum" in r.message and "SOFI" in r.message for r in caplog.records)
+
+
+def test_normalize_drops_position_missing_symbol(monkeypatch):
+    _patched_with(monkeypatch, {
+        "market": {"read": "x", "devils_advocate": "y"},
+        "positions": [
+            {"action": "hold", "confidence": "low", "rationale": "no symbol"},
+            {"symbol": "TSM", "action": "hold", "confidence": "medium", "rationale": "ok"},
+        ],
+    })
+    out = claude_synthesis.synthesize(_sample_report())
+    assert [p["symbol"] for p in out["positions"]] == ["TSM"]
+
+
+def test_normalize_position_invalid_confidence_defaults_low(monkeypatch, caplog):
+    _patched_with(monkeypatch, {
+        "market": {"read": "x", "devils_advocate": "y"},
+        "positions": [
+            {"symbol": "TSM", "action": "hold", "confidence": "very-high", "rationale": "out of enum"},
+        ],
+    })
+    with caplog.at_level("WARNING"):
+        out = claude_synthesis.synthesize(_sample_report())
+    assert out["positions"][0]["confidence"] == "low"
+    assert any("very-high" in r.message for r in caplog.records)
+
+
+def test_normalize_drops_non_dict_position(monkeypatch):
+    _patched_with(monkeypatch, {
+        "market": {"read": "x", "devils_advocate": "y"},
+        "positions": [
+            "TSM hold medium ok",  # string instead of dict
+            {"symbol": "TSM", "action": "hold", "confidence": "medium", "rationale": "ok"},
+        ],
+    })
+    out = claude_synthesis.synthesize(_sample_report())
+    assert [p["symbol"] for p in out["positions"]] == ["TSM"]
+
+
+def test_normalize_positions_not_a_list_coerced_to_empty(monkeypatch, caplog):
+    _patched_with(monkeypatch, {
+        "market": {"read": "x", "devils_advocate": "y"},
+        "positions": "not a list at all",
+    })
+    with caplog.at_level("WARNING"):
+        out = claude_synthesis.synthesize(_sample_report())
+    assert out["positions"] == []
+
+
+def test_normalize_clean_payload_unchanged(monkeypatch, caplog):
+    """Happy path — well-formed payload passes through without warnings."""
+    clean = {
+        "market": {"read": "Tier 2 read.", "devils_advocate": "Bear case."},
+        "positions": [
+            {"symbol": "TSM", "action": "hold", "confidence": "medium", "rationale": "fine"},
+        ],
+    }
+    _patched_with(monkeypatch, clean)
+    with caplog.at_level("WARNING"):
+        out = claude_synthesis.synthesize(_sample_report())
+    assert out["market"] == clean["market"]
+    assert out["positions"][0]["symbol"] == "TSM"
+    norm_warnings = [r for r in caplog.records if "synthesis normalize" in r.message]
+    assert norm_warnings == []  # zero warnings on clean input
+
+
+def test_system_prompt_explicitly_forbids_market_string_collapse(captured):
+    """Belt-and-braces: prompt must instruct the model not to collapse market into a string."""
+    claude_synthesis.synthesize(_sample_report())
+    sys_text = captured["system"][0]["text"]
+    # The exact failure mode we hit in production
+    assert "Never" in sys_text and "collapse" in sys_text
+    assert "read" in sys_text and "devils_advocate" in sys_text

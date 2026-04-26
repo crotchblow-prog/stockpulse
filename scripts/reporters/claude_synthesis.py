@@ -130,6 +130,15 @@ Holdings without `sensitivity_tags` (or with `missing_from_universe`) are ticker
 - The devil's advocate must be a real contrarian thesis — what would invalidate the main read — not a polite rephrasing.
 - Match `action` to the tier's posture: do not recommend `add` at Tier 0 even on a `buy_list_member`.
 - Output exactly one tool call to `emit_todays_take`. No prose outside the tool call.
+
+# Output shape contract (do not deviate)
+
+The `emit_todays_take` tool's `input` MUST be a JSON object with exactly two top-level keys: `market` and `positions`.
+
+- `market` is an OBJECT with exactly two string fields: `read` and `devils_advocate`. **Never** collapse them into a single string at the parent level. Even if your `read` and `devils_advocate` happen to convey overlapping ideas, emit them as two separate string fields.
+- `positions` is an ARRAY of objects, each with exactly four string fields: `symbol`, `action`, `confidence`, `rationale`.
+
+If you have nothing meaningful to put in `devils_advocate`, populate it with the strongest single-sentence counter-thesis you can write — never leave it empty, never merge it into `read`.
 """
 
 
@@ -157,7 +166,7 @@ def synthesize(report: dict[str, Any]) -> dict[str, Any]:
         messages=[{"role": "user", "content": user_payload}],
     )
 
-    payload = _extract_tool_payload(resp)
+    payload = _normalize_payload(_extract_tool_payload(resp))
     payload["model"] = MODEL
     payload["usage"] = {
         "input_tokens": getattr(resp.usage, "input_tokens", None),
@@ -182,6 +191,83 @@ def _extract_tool_payload(resp: Any) -> dict[str, Any]:
         f"no {SYNTHESIS_TOOL['name']!r} tool_use in response; "
         f"stop_reason={getattr(resp, 'stop_reason', '?')}"
     )
+
+
+def _normalize_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    """Coerce known model-shape variances into the canonical synthesis contract.
+
+    Anthropic's tool_use input_schema is documented as a *guide* for the model, not a
+    strict server-side validator — the model can and occasionally does emit input that
+    violates the declared shape. This function makes the contract robust at the source
+    rather than relying on every downstream consumer to defend itself.
+
+    Each coercion logs a structured warning so we can graph drift frequency over time.
+    Per Brief A: drop malformed positions, never fail the whole synthesis on shape.
+    """
+    out: dict[str, Any] = {}
+
+    # ── market ──────────────────────────────────────────────────────────────
+    market_raw = payload.get("market")
+    if isinstance(market_raw, dict):
+        read = market_raw.get("read")
+        devils = market_raw.get("devils_advocate")
+        if not isinstance(read, str):
+            log.warning("synthesis normalize: market.read missing/non-string (%s); coerced to ''", type(read).__name__)
+            read = ""
+        if not isinstance(devils, str):
+            log.warning("synthesis normalize: market.devils_advocate missing/non-string (%s); coerced to ''", type(devils).__name__)
+            devils = ""
+        out["market"] = {"read": read, "devils_advocate": devils}
+    elif isinstance(market_raw, str):
+        log.warning(
+            "synthesis normalize: market collapsed to string (model violated tool_use schema); "
+            "coerced to {read: <str>, devils_advocate: ''}"
+        )
+        out["market"] = {"read": market_raw, "devils_advocate": ""}
+    elif market_raw is None:
+        log.warning("synthesis normalize: market missing entirely; coerced to empty pair")
+        out["market"] = {"read": "", "devils_advocate": ""}
+    else:
+        log.warning("synthesis normalize: market is unexpected type %s; coerced to empty pair", type(market_raw).__name__)
+        out["market"] = {"read": "", "devils_advocate": ""}
+
+    # ── positions ───────────────────────────────────────────────────────────
+    positions_raw = payload.get("positions")
+    positions: list[dict[str, Any]] = []
+    if isinstance(positions_raw, list):
+        for i, p in enumerate(positions_raw):
+            if not isinstance(p, dict):
+                log.warning("synthesis normalize: positions[%d] is %s, not dict; dropped", i, type(p).__name__)
+                continue
+            symbol = p.get("symbol")
+            action = p.get("action")
+            if not isinstance(symbol, str) or not symbol:
+                log.warning("synthesis normalize: positions[%d] missing symbol; dropped", i)
+                continue
+            if action not in ACTION_ENUM:
+                log.warning("synthesis normalize: positions[%d] (%s) action=%r not in enum; dropped", i, symbol, action)
+                continue
+            confidence = p.get("confidence")
+            if confidence not in CONFIDENCE_ENUM:
+                log.warning(
+                    "synthesis normalize: positions[%d] (%s) confidence=%r not in enum; defaulting to 'low'",
+                    i, symbol, confidence,
+                )
+                confidence = "low"
+            rationale = p.get("rationale")
+            if not isinstance(rationale, str):
+                rationale = ""
+            positions.append({
+                "symbol": symbol,
+                "action": action,
+                "confidence": confidence,
+                "rationale": rationale,
+            })
+    elif positions_raw is not None:
+        log.warning("synthesis normalize: positions is %s, not list; coerced to []", type(positions_raw).__name__)
+    out["positions"] = positions
+
+    return out
 
 
 def _build_user_payload(report: dict[str, Any]) -> str:
