@@ -13,15 +13,17 @@
                 launchctl kickstart -k gui/$(id -u)/com.stockpulse.daily
 
   StartCalendarInterval uses the system's LOCAL timezone. With MIRA's
-  system tz set to Asia/Taipei, the schedule below (21:00) maps to:
-    - 9 AM America/New_York during DST (EDT, ~Mar-Nov) — primary case
-    - 8 AM America/New_York outside DST (EST, ~Nov-Mar) — 1-hour drift
+  system tz set to Asia/Taipei, the schedule below (22:00) maps to:
+    - 10 AM America/New_York during DST (EDT, ~Mar-Nov) — primary case
+    - 9 AM America/New_York outside DST (EST, ~Nov-Mar) — 1-hour drift
 
-  We accept the bi-annual drift because launchd doesn't support per-job
-  timezone overrides. The report still lands ≥ 30 min before NYSE open in
-  both regimes, which is what matters operationally. If a precise 9 AM ET
-  year-round becomes important, switch to BSD cron with `TZ=America/New_York`
-  prefix in the crontab line.
+  Target: 30 min after NYSE open (9:30 ET → fires 10:00 ET). By then the
+  opening-auction volatility has settled, intraday technicals are valid,
+  and yfinance has the day's first prints. We accept the bi-annual DST
+  drift because launchd doesn't support per-job timezone overrides — the
+  winter regime still fires 30 min after open at 9:00 EST. If a precise
+  10 AM ET year-round becomes important, switch to BSD cron with
+  `TZ=America/New_York` prefix in the crontab line.
 
   RunAtLoad is false: do not auto-fire on launchctl bootstrap. Use kickstart
   for a manual run.
@@ -44,7 +46,7 @@
   <key>StartCalendarInterval</key>
   <dict>
     <key>Hour</key>
-    <integer>21</integer>
+    <integer>22</integer>
     <key>Minute</key>
     <integer>0</integer>
   </dict>
