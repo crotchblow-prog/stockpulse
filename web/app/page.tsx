@@ -1,9 +1,5 @@
-import { ReportViewer } from "@/components/ReportViewer";
-import { readLatestReport } from "@/lib/reports";
+import { redirect } from "next/navigation";
 
-export const dynamic = "force-dynamic";
-
-export default async function HomePage() {
-  const md = await readLatestReport();
-  return <ReportViewer markdown={md} />;
+export default function RootIndex() {
+  redirect("/en");
 }

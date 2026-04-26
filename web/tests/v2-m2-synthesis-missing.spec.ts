@@ -30,7 +30,7 @@ test("synthesis-missing case renders without crashing", async ({ page }) => {
       if (msg.type() === "error") consoleErrors.push(msg.text());
     });
 
-    await page.goto("/v2/en", { waitUntil: "networkidle" });
+    await page.goto("/en", { waitUntil: "networkidle" });
 
     // Hero present (data-tier set), no exceptions in console.
     await expect(page.locator("[data-tier]").first()).toBeVisible();

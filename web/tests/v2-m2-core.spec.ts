@@ -9,7 +9,7 @@ import { test, expect } from "@playwright/test";
  */
 
 test("hero renders with data-tier read from JSON sidecar", async ({ page }) => {
-  await page.goto("/v2/en");
+  await page.goto("/en");
   const tierBanner = page.locator("[data-tier]").first();
   await expect(tierBanner).toBeVisible();
   // Today's report has tier 2 — assert it's a number 0-5.
@@ -18,7 +18,7 @@ test("hero renders with data-tier read from JSON sidecar", async ({ page }) => {
 });
 
 test("watch list sorts CRITICAL → HIGH → MEDIUM → LOW", async ({ page }) => {
-  await page.goto("/v2/en");
+  await page.goto("/en");
   // Wait for the watch list section, then read the data-severity values in order.
   const items = page.locator("[data-severity]");
   const count = await items.count();
@@ -39,7 +39,7 @@ test("watch list sorts CRITICAL → HIGH → MEDIUM → LOW", async ({ page }) =
 
 test("mobile holdings has no horizontal scroll at 375px", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 800 });
-  await page.goto("/v2/en");
+  await page.goto("/en");
 
   const html = page.locator("html");
   const scrollWidth = await html.evaluate((el) => el.scrollWidth);
@@ -52,7 +52,7 @@ test("mobile holdings has no horizontal scroll at 375px", async ({ page }) => {
 });
 
 test("zh route renders with same component tree", async ({ page }) => {
-  await page.goto("/v2/zh");
+  await page.goto("/zh");
   await expect(page.locator("[data-tier]").first()).toBeVisible();
   // Title or label includes Chinese.
   const text = await page.locator("body").innerText();

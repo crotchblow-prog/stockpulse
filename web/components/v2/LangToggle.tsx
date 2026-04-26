@@ -25,8 +25,8 @@ export function LangToggle({
     }
   }, [current]);
 
-  const enHref = `/v2/en${pathSuffix}`;
-  const zhHref = `/v2/zh${pathSuffix}`;
+  const enHref = `/en${pathSuffix}`;
+  const zhHref = `/zh${pathSuffix}`;
 
   return (
     <nav

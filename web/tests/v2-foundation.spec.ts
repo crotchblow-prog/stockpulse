@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 /**
  * M1 foundation smoke test. Asserts:
- * 1. /v2/en boots without console errors.
+ * 1. /en boots without console errors.
  * 2. The v2 root wrapper renders with --bg-base (rgb(10, 10, 11)).
  *
  * Note: ARIA's brief asked to assert `body` background, but the root
@@ -11,13 +11,13 @@ import { test, expect } from "@playwright/test";
  * applies --bg-base to a `[data-v2-root]` wrapper inside body. Asserting
  * on that wrapper is the equivalent guarantee for v2 routes.
  */
-test("/v2/en boots clean with --bg-base on the v2 root wrapper", async ({ page }) => {
+test("/en boots clean with --bg-base on the v2 root wrapper", async ({ page }) => {
   const consoleErrors: string[] = [];
   page.on("console", (msg) => {
     if (msg.type() === "error") consoleErrors.push(msg.text());
   });
 
-  await page.goto("/v2/en");
+  await page.goto("/en");
   await page.waitForLoadState("networkidle");
 
   expect(consoleErrors, `console errors: ${consoleErrors.join("; ")}`).toEqual([]);
@@ -28,7 +28,7 @@ test("/v2/en boots clean with --bg-base on the v2 root wrapper", async ({ page }
   expect(bg).toBe("rgb(10, 10, 11)");
 });
 
-test("/v2 redirects to /v2/en", async ({ page }) => {
-  await page.goto("/v2");
-  await expect(page).toHaveURL(/\/v2\/en\/?$/);
+test("/ redirects to /en", async ({ page }) => {
+  await page.goto("/");
+  await expect(page).toHaveURL(/\/en\/?$/);
 });

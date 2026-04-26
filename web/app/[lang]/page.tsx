@@ -21,8 +21,8 @@ export async function generateMetadata({
   return {
     alternates: {
       languages: {
-        en: "/v2/en",
-        "zh-Hant": "/v2/zh",
+        en: "/en",
+        "zh-Hant": "/zh",
       },
     },
   };
