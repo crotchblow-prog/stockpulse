@@ -3,8 +3,23 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "StockPulse",
+  metadataBase: new URL("https://vixpulse.asia"),
+  title: "VIXPulse",
   description: "Daily VIX-tier US-market analysis",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "VIXPulse",
+    description: "Daily VIX-tier US-market analysis",
+    url: "https://vixpulse.asia",
+    siteName: "VIXPulse",
+    locale: "zh_Hant",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "VIXPulse",
+    description: "Daily VIX-tier US-market analysis",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -14,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="border-b border-white/10">
           <div className="mx-auto max-w-3xl px-6 py-5 flex items-center justify-between">
             <Link href="/" className="font-semibold tracking-tight">
-              📊 StockPulse
+              📊 VIXPulse
             </Link>
             <nav className="text-sm text-[color:var(--color-muted)] flex gap-5">
               <Link href="/" className="hover:text-white">Today</Link>
