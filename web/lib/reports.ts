@@ -50,3 +50,91 @@ export async function listArchivedReports(lang: Lang = "en"): Promise<ReportEntr
     .map((filename) => ({ date: filename.replace(/\.md$/, ""), filename }))
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
+
+// ── JSON sidecar (v2 frontend reads this, not the .md) ───────────────────────
+
+export type Quote = {
+  symbol: string;
+  label: string;
+  last: number | null;
+  prev_close: number | null;
+  change: number | null;
+  change_pct: number | null;
+  error: string | null;
+};
+
+export type Holding = {
+  account: string;
+  avg_cost: number | null;
+  change: number | null;
+  change_pct: number | null;
+  days_to_earnings: number | null;
+  earnings_date: string | null;
+  flags: string[];
+  last: number | null;
+  ma_200: number | null;
+  ma_50: number | null;
+  missing_from_universe?: boolean;
+  pct_from_52w_high: number | null;
+  pct_from_52w_low: number | null;
+  pct_from_ma_200: number | null;
+  pct_from_ma_50: number | null;
+  regime_metrics: Record<string, unknown> | null;
+  rsi_14: number | null;
+  sensitivity_tags: string[];
+  tags?: string[];
+  tier_index: number | null;
+  vs_avg_cost: number | null;
+};
+
+export type SynthesisPosition = {
+  symbol: string;
+  action: string;
+  confidence: string;
+  rationale: string;
+};
+
+export type Synthesis = {
+  market: { read: string; devils_advocate: string } | string | null;
+  positions: SynthesisPosition[];
+  model?: string;
+  usage?: Record<string, number>;
+};
+
+export type Tier = {
+  index: number;
+  name: string;
+  action: string;
+  buy_list: string[];
+  buy_size_pct: string;
+  cash_target_pct: number;
+  vix_range: [number, number];
+  note?: string;
+  sell_list?: string[] | null;
+};
+
+export type ReportPayload = {
+  schema_version: number;
+  date: string;
+  vix_value: number;
+  tier: Tier;
+  snapshot: Record<string, Quote>;
+  holdings: Record<string, Holding>;
+  synthesis?: Synthesis | null;
+  accounts?: Record<string, { holdings: string[]; tier_index: number; total_value: number | null }>;
+};
+
+export async function readReportJsonByDate(
+  date: string | "latest",
+  lang: Lang = "en",
+): Promise<ReportPayload | null> {
+  const filename = date === "latest" ? "latest.json" : `${date}.json`;
+  if (date !== "latest" && !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+  const file = path.join(langDir(lang), filename);
+  try {
+    const raw = await fs.readFile(file, "utf8");
+    return JSON.parse(raw) as ReportPayload;
+  } catch {
+    return null;
+  }
+}
