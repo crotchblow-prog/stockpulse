@@ -133,11 +133,11 @@
   "schema_version": 1,
   "snapshot": {
     "BTC": {
-      "change": 116.890625,
-      "change_pct": 0.0015091363165050816,
+      "change": -104.3046875,
+      "change_pct": -0.0013466434274601888,
       "error": null,
       "label": "BTC",
-      "last": 77572.203125,
+      "last": 77351.0078125,
       "prev_close": 77455.3125,
       "symbol": "BTC-USD"
     },
@@ -212,6 +212,44 @@
       "last": 94.4000015258789,
       "prev_close": 95.8499984741211,
       "symbol": "CL=F"
+    }
+  },
+  "synthesis": {
+    "market": {
+      "devils_advocate": "VIX3M at 21.30 sitting well above spot VIX is the hidden warning — if that spread compresses via spot VIX spiking rather than VIX3M falling, today's green Nasdaq print flips into a headfake and every high-beta name in the book gets repriced hard.",
+      "read": "VIX at 18.71 (Tier 2) with VIX3M at 21.30 confirms a modest term-structure contango — the market is pricing more uncertainty ahead than today's calm suggests. Nasdaq leading (+1.63%) while Dow slightly red is a risk-on-but-selective tape. Tier 2 posture: 50% cash, 3–5% entries in quality growth only, avoid anything with earnings in the next 7 days."
+    },
+    "model": "claude-sonnet-4-6",
+    "positions": [
+      {
+        "action": "hold",
+        "confidence": "medium",
+        "rationale": "RSI 68.3 and sitting at the 52-week high (0% from it), 33.5% above 200DMA — momentum is real but the name is extended and technically overbought. Tier 2 doesn't justify chasing a new add at these levels; hold what's already +9.4% above cost and let it breathe.",
+        "symbol": "TSM"
+      },
+      {
+        "action": "watch",
+        "confidence": "low",
+        "rationale": "8.2% below 200DMA with a deep_drawdown flag and still ~1.6% underwater on cost — the 23% extension above 50DMA looks like a dead-cat bounce rather than a structural turn. No earnings date to anchor a catalyst; keep on watch and require a 200DMA reclaim before any re-engagement.",
+        "symbol": "IONQ"
+      },
+      {
+        "action": "hold",
+        "confidence": "low",
+        "rationale": "RSI 48.6 hugging the 50DMA (-0.87%), but 13% below 200DMA and 31% off 52-week high with a deep_drawdown flag — still in structural downtrend. At -1.9% below cost, no averaging down per framework rules; hold the line and re-evaluate on a confirmed 200DMA reclaim.",
+        "symbol": "PLTR"
+      },
+      {
+        "action": "trim",
+        "confidence": "medium",
+        "rationale": "30% underwater, 22.7% below 200DMA, 42.8% off 52-week high, and carrying active Muddy Waters short-seller risk (high_risk_tag + event_play flags) — the risk/reward is structurally impaired. No earnings_within_7d flag today so trim (not exit) is valid, but size reduction is warranted; do not add under any circumstances given the binary event setup.",
+        "symbol": "SOFI"
+      }
+    ],
+    "usage": {
+      "cache_read_input_tokens": 0,
+      "input_tokens": 3243,
+      "output_tokens": 686
     }
   },
   "tier": {
