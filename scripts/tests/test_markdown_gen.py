@@ -271,3 +271,58 @@ def test_universe_scanner_avoid_sorted_by_abs_spike_decay_desc():
     avoid_section = out.split("🔴 Avoid")[1]
     # Sort: WORST (-25.3) > MID (-15.0) > MILD (-10.5).
     assert avoid_section.index("WORST") < avoid_section.index("MID") < avoid_section.index("MILD")
+
+
+# ── Commit 6.5: enriched empty-placeholder text with threshold gap ───────────
+
+def test_watch_transition_empty_renders_gap_with_best_recovery_and_best_decay():
+    # Three tickers, none qualify as mean_reverter (recovery ≤ 5 OR decay ≥ -5),
+    # but their actual best values should surface in the gap text.
+    universe = {
+        "AAA": _u(crush_recovery=4.5, spike_decay=-4.0, sensitivity_tags=[]),
+        "BBB": _u(crush_recovery=2.0, spike_decay=-2.5, sensitivity_tags=[]),
+        "CCC": _u(crush_recovery=-1.0, spike_decay=1.0, sensitivity_tags=[]),
+    }
+    out = "\n".join(_render_universe_scanner(2, universe))
+    watch_section = out.split("🟡 Watch")[1].split("🔴 Avoid")[0]
+    # best_recovery = max(4.5, 2.0, -1.0) = 4.5 ; best_decay = min(-4.0, -2.5, 1.0) = -4.0
+    assert "best today: crush=+4.50%, decay=-4.00%" in watch_section
+    assert "no candidates fire crush > +5% AND decay < -5%" in watch_section
+
+
+def test_avoid_empty_renders_gap_with_worst_decay():
+    universe = {
+        "AAA": _u(spike_decay=-2.0, sensitivity_tags=[]),
+        "BBB": _u(spike_decay=-7.5, sensitivity_tags=[]),  # worst — closest to -10
+        "CCC": _u(spike_decay=1.5, sensitivity_tags=[]),
+    }
+    out = "\n".join(_render_universe_scanner(2, universe))
+    avoid_section = out.split("🔴 Avoid")[1]
+    assert "worst today: -7.50%" in avoid_section
+    assert "no candidates fire decay < -10%" in avoid_section
+
+
+def test_empty_regime_universe_still_shows_universe_data_not_loaded():
+    # Regression check — the gap-enriched text MUST NOT clobber the
+    # "universe data not loaded" message when there's no data to gap-against.
+    out = "\n".join(_render_universe_scanner(2, {}))
+    assert "_universe data not loaded — run scripts/analyzers/regime_sensitivity.py_" in out
+    # And we never render "best today" or "worst today" without data.
+    assert "best today" not in out
+    assert "worst today" not in out
+
+
+def test_watch_transition_gap_falls_back_when_all_tickers_low_confidence():
+    # All confidence == "low" → exclude from gap math. Render simple
+    # threshold-only string with no parenthetical.
+    universe = {
+        "WEAK1": _u(crush_recovery=20.0, spike_decay=-50.0, confidence="low", sensitivity_tags=[]),
+        "WEAK2": _u(crush_recovery=15.0, spike_decay=-30.0, confidence="low", sensitivity_tags=[]),
+    }
+    out = "\n".join(_render_universe_scanner(2, universe))
+    watch_section = out.split("🟡 Watch")[1].split("🔴 Avoid")[0]
+    assert "no candidates fire crush > +5% AND decay < -5%" in watch_section
+    assert "best today" not in watch_section  # no parenthetical when no valid data
+    avoid_section = out.split("🔴 Avoid")[1]
+    assert "no candidates fire decay < -10%" in avoid_section
+    assert "worst today" not in avoid_section

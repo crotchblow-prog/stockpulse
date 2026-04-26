@@ -208,6 +208,21 @@ def _render_add_candidates(
     return lines
 
 
+def _watch_transition_empty_message(regime_universe: dict[str, dict[str, Any]]) -> str:
+    """Italic placeholder text for 🟡 Watch — surfaces today's best gap toward the threshold."""
+    valid = [e for e in regime_universe.values() if e.get("confidence") != "low"]
+    recoveries = [e.get("vix_crush_recovery_pct") for e in valid if e.get("vix_crush_recovery_pct") is not None]
+    decays = [e.get("vix_spike_decay_pct") for e in valid if e.get("vix_spike_decay_pct") is not None]
+    if not recoveries or not decays:
+        return "_no candidates fire crush > +5% AND decay < -5%_"
+    best_recovery = max(recoveries)
+    best_decay = min(decays)
+    return (
+        f"_no candidates fire crush > +5% AND decay < -5% "
+        f"(best today: crush={best_recovery:+.2f}%, decay={best_decay:+.2f}%)_"
+    )
+
+
 def _render_watch_transition(
     regime_universe: dict[str, dict[str, Any]], data_present: bool,
 ) -> list[str]:
@@ -223,7 +238,8 @@ def _render_watch_transition(
     candidates.sort(key=lambda kv: (-(kv[1].get("vix_crush_recovery_pct") or 0.0), kv[0]))
     top5 = candidates[:5]
     if not top5:
-        lines.append(_empty_row(4))
+        msg = _watch_transition_empty_message(regime_universe)
+        lines.append(f"| {msg} |  |  |  |")
     else:
         for sym, entry in top5:
             lines.append(
@@ -232,6 +248,16 @@ def _render_watch_transition(
             )
     lines.append("")
     return lines
+
+
+def _avoid_empty_message(regime_universe: dict[str, dict[str, Any]]) -> str:
+    """Italic placeholder text for 🔴 Avoid — surfaces today's worst spike-decay vs the threshold."""
+    valid = [e for e in regime_universe.values() if e.get("confidence") != "low"]
+    decays = [e.get("vix_spike_decay_pct") for e in valid if e.get("vix_spike_decay_pct") is not None]
+    if not decays:
+        return "_no candidates fire decay < -10%_"
+    worst_decay = min(decays)
+    return f"_no candidates fire decay < -10% (worst today: {worst_decay:+.2f}%)_"
 
 
 def _render_avoid_candidates(
@@ -249,7 +275,8 @@ def _render_avoid_candidates(
     candidates.sort(key=lambda kv: (-abs(kv[1].get("vix_spike_decay_pct") or 0.0), kv[0]))
     top5 = candidates[:5]
     if not top5:
-        lines.append(_empty_row(4))
+        msg = _avoid_empty_message(regime_universe)
+        lines.append(f"| {msg} |  |  |  |")
     else:
         for sym, entry in top5:
             sample = min(

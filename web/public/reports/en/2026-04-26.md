@@ -8,15 +8,15 @@ Cash target **50%** · buy size **3-5%** · range _VIX 18–24.6_
 
 ## 📝 Today's Take
 
-**Market read.** VIX at 18.71 sits in Tier 2 — the regime permits quality growth entries at 3-5% sizing with a 50% cash target. The term structure is mildly inverted (VIX3M 21.30 vs spot 18.71), signaling residual stress in the forward curve; this is not a clean all-clear. Nasdaq +1.63% leads, but the Dow is slightly red and WTI -1.51% hints at demand-side worry underneath the tech rally.
+**Market read.** VIX at 18.71 puts us squarely in Tier 2 — the regime is calm enough for small quality-growth entries (3-5%) but not a green light to load up. The VIX3M at 21.3 is notably elevated vs spot, signaling the market is pricing residual tail risk over the next quarter; this spread argues for restraint at the upper end of Tier 2. Nasdaq leading (+1.63%) while Dow lags (-0.16%) reflects a tech-led risk-on tone, but with VIX barely inside Tier 2 and the term structure inverted-ish, discipline on position sizing matters more than usual today.
 
-**Devil's advocate.** VIX3M at 21.30 is still planted in Tier 3 territory — if spot VIX mean-reverts upward toward the forward curve rather than the curve collapsing down, today's green tape is a bull trap and Tier 2 posture flips overnight. A single macro catalyst (tariff escalation, Fed hawkish surprise) could push VIX back above 24.6 and invalidate the current quality-growth add thesis entirely.
+**Devil's advocate.** If the VIX3M-spot spread compresses sharply (VIX spikes back above 20 on macro news — Fed surprise, tariff escalation, earnings miss from a megacap this week), this Tier 2 'calm' snaps back to Tier 3 fast, punishing any adds made today at stretched valuations. TSM in particular, at a 52-week high with RSI 68 and a high_normal sensitivity tag, would reprice hard in that scenario.
 
 **Position calls:**
-- **TSM** — trim (medium). RSI 68.3, at 52-week high, +12.7% above 50DMA and +33.5% above 200DMA — momentum is extended. Sensitivity tag `high_normal` means this is an appropriate add only at Tier 0-2, but at these stretched levels with no earnings catalyst visible, locking in partial gains is more disciplined than chasing; +9.4% above avg cost gives a clean trim zone.
-- **IONQ** — hold (low). Earnings in 10 days (May 6) — within the tier note's 7-day caution window is not yet triggered but close; -8.2% below 200DMA, 48% off 52-week high, and slightly underwater (-1.6% vs avg cost). No `add` at Tier 2 on a speculative, below-200DMA name this close to earnings; hold and reassess inside 7 days.
-- **PLTR** — watch (low). Earnings in 8 days (May 4) — one day outside the hard 7-day trim trigger, but framework says avoid buys within 7 days; -13.0% below 200DMA, -30.9% off 52-week high, and -1.9% underwater. No add; set a calendar alert to reassess trim vs hold in 24 hours when it crosses into the 7-day window.
-- **SOFI** — trim (high). Earnings in 3 days (Apr 29), `earnings_within_3d` flag active, Muddy Waters short-seller report live — framework mandates no `add`; only `hold`, `trim`, or `exit` valid. At -29.7% underwater, -22.7% below 200DMA, and 42.8% off 52-week high, trimming now reduces binary event exposure before a potentially adversarial earnings print.
+- **TSM** — hold (medium). RSI 68 and sitting exactly at the 52-week high (+33.5% above 200DMA) screams overbought in the near term; the high_normal sensitivity tag means this is an add target only at Tier 0-2, but chasing a new 52-week high at RSI 68 is not the setup — wait for a pullback. Already +9.4% above cost, so hold and let it breathe rather than adding into the high.
+- **IONQ** — watch (medium). RSI 60 and +23.4% above the 50DMA suggest short-term momentum, but it sits 8.2% below the 200DMA with a 48% drawdown from the 52-week high and earnings in 10 days (May 6). No add ahead of a speculative, high-beta earnings event; monitor for post-earnings reaction as a potential re-entry signal.
+- **PLTR** — hold (low). Earnings in 8 days (May 4) — inside the 7-day trim/hedge window by a hair but close enough to warrant no new adds; RSI 48 and -13% below the 200DMA with a 31% drawdown from the 52-week high and nearly flat vs cost (-1.9%) means risk/reward of adding is poor. Hold current size, set a mental stop, and reassess post-earnings.
+- **SOFI** — trim (high). Earnings in 3 days (April 29), active Muddy Waters short-seller report, 30% underwater vs cost, and 42.8% below the 52-week high — the special-case rule is unambiguous: earnings_within_3d flag with high_risk_tag means the only valid actions are trim or exit. Reduce exposure now to cut binary event risk; do not hold full size into a Muddy Waters-shadowed print.
 
 ## 🎯 Tier Action
 
@@ -45,13 +45,13 @@ Cash target **50%** · buy size **3-5%** · range _VIX 18–24.6_
 
 | Ticker | Crush recovery | Spike decay | Note |
 |---|---:|---:|---|
-| _no candidates at current thresholds_ |  |  |  |
+| _no candidates fire crush > +5% AND decay < -5% (best today: crush=+1.41%, decay=-2.08%)_ |  |  |  |
 
 **🔴 Avoid candidates** _(crisis_alpha, sample ≥ 8)_
 
 | Ticker | Spike decay | Sample | Note |
 |---|---:|---:|---|
-| _no candidates at current thresholds_ |  |  |  |
+| _no candidates fire decay < -10% (worst today: -2.08%)_ |  |  |  |
 
 ## 💼 Holdings
 
@@ -72,7 +72,7 @@ Cash target **50%** · buy size **3-5%** · range _VIX 18–24.6_
 | Nasdaq | 24,836.60 | +398.10 (+1.63%) |
 | Dow | 49,230.71 | -79.61 (-0.16%) |
 | USD/JPY | 159.33 | -0.16 (-0.10%) |
-| BTC | 78,116.63 | +504.62 (+0.65%) |
+| BTC | 78,065.09 | +453.08 (+0.58%) |
 | Gold | 4,740.90 | +35.80 (+0.76%) |
 | WTI | 94.40 | -1.45 (-1.51%) |
 
