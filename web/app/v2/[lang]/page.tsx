@@ -1,12 +1,32 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { readReportJsonByDate } from "@/lib/reports";
+import { loadVixHistory } from "@/lib/vix-history";
+import { isLocale, t, type Locale } from "@/lib/i18n";
 import { Hero } from "@/components/v2/Hero";
 import { WatchList } from "@/components/v2/WatchList";
 import { Holdings } from "@/components/v2/Holdings";
 import { SnapshotGrid } from "@/components/v2/SnapshotGrid";
 import { V2Footer } from "@/components/v2/V2Footer";
+import { LangToggle } from "@/components/v2/LangToggle";
+import { VixSparklineLazy } from "@/components/v2/VixSparklineLazy";
 
-const LOCALES = new Set(["en", "zh"]);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLocale(lang)) return {};
+  return {
+    alternates: {
+      languages: {
+        en: "/v2/en",
+        "zh-Hant": "/v2/zh",
+      },
+    },
+  };
+}
 
 export default async function V2LangIndex({
   params,
@@ -14,25 +34,32 @@ export default async function V2LangIndex({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  if (!LOCALES.has(lang)) notFound();
-  const language = lang as "en" | "zh";
+  if (!isLocale(lang)) notFound();
+  const language: Locale = lang;
 
   const payload = await readReportJsonByDate("latest", language);
+  const history = await loadVixHistory(30, "en");
+
   if (!payload) {
     return (
       <div className="mx-auto max-w-3xl px-6 py-10">
-        <p className="text-sm text-[color:var(--color-muted)]">
-          {language === "zh"
-            ? "尚無報告。每日 cron 將於 22:00 Asia/Taipei 產出。"
-            : "No report yet. The daily cron runs at 22:00 Asia/Taipei."}
-        </p>
+        <p className="text-sm text-[color:var(--color-muted)]">{t(language, "no_report")}</p>
       </div>
     );
   }
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-8 space-y-8">
+      <header className="flex items-center justify-between gap-3">
+        <h1 className="text-base font-semibold tracking-tight font-mono">📊 VIXPulse</h1>
+        <LangToggle current={language} pathSuffix="" />
+      </header>
       <Hero payload={payload} lang={language} />
+      <VixSparklineLazy
+        data={history}
+        currentTier={payload.tier.index}
+        locale={language}
+      />
       <WatchList holdings={payload.holdings} lang={language} />
       <Holdings holdings={payload.holdings} lang={language} />
       <SnapshotGrid snapshot={payload.snapshot} tierIndex={payload.tier.index} lang={language} />

@@ -10,7 +10,7 @@ export default function V2Layout({ children }: { children: React.ReactNode }) {
     <div
       data-v2-root
       style={{ background: "var(--color-bg-base)", minHeight: "100dvh" }}
-      className="font-sans"
+      className="font-sans overflow-x-hidden"
     >
       {children}
     </div>
