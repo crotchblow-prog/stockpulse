@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from analyzers.flags import is_watchworthy
 from analyzers.vix_tier import TierResult, TIER_BADGE, TIER_STARS
 
 
@@ -53,13 +54,61 @@ def _holding_row(symbol: str, h: dict[str, Any]) -> str:
     return f"| **{symbol}** | {last} | {vs_cost} | {rsi} | {ma_50} | {ma_200} | {hi_52} |"
 
 
+def _render_todays_take(synthesis: dict[str, Any] | None) -> list[str]:
+    """Render the 📝 Today's Take section, or [] if synthesis is missing/empty."""
+    if not synthesis:
+        return []
+    market = synthesis.get("market") or {}
+    positions = synthesis.get("positions") or []
+    read = market.get("read")
+    devils = market.get("devils_advocate")
+    if not (read or devils or positions):
+        return []
+    lines = ["## 📝 Today's Take", ""]
+    if read:
+        lines.append(f"**Market read.** {read}")
+        lines.append("")
+    if devils:
+        lines.append(f"**Devil's advocate.** {devils}")
+        lines.append("")
+    if positions:
+        lines.append("**Position calls:**")
+        for p in positions:
+            sym = p.get("symbol", "—")
+            action = p.get("action", "—")
+            conf = p.get("confidence", "—")
+            rationale = p.get("rationale", "").strip()
+            tail = f" {rationale}" if rationale else ""
+            lines.append(f"- **{sym}** — {action} ({conf}).{tail}")
+        lines.append("")
+    return lines
+
+
+def _render_watch_list(holdings: dict[str, dict[str, Any]]) -> list[str]:
+    """Render 🚩 Watch List for holdings whose flags are watchworthy. Skips section if no rows."""
+    rows: list[str] = []
+    for symbol, h in holdings.items():
+        flags = h.get("flags") or []
+        if not is_watchworthy(flags):
+            continue
+        account = h.get("account") or "?"
+        tier_idx = h.get("tier_index")
+        tier_str = f"Tier {tier_idx}" if tier_idx is not None else "—"
+        flag_str = ", ".join(flags) if flags else "_no flags_"
+        rows.append(f"- **{symbol}** ({tier_str} / {account}): {flag_str}")
+    if not rows:
+        return []
+    return ["## 🚩 Watch List", "", *rows, ""]
+
+
 def render(report: dict[str, Any]) -> str:
-    """Render a report dict to a Markdown string. Top-level keys: date, vix_value, tier, snapshot, holdings."""
+    """Render a report dict to a Markdown string. Top-level keys: date, vix_value, tier, snapshot, holdings, synthesis?."""
     date: str = report["date"]
     tier: TierResult = report["tier"]
     vix_value: float = report["vix_value"]
     snapshot: dict[str, Any] = report["snapshot"]
     holdings: dict[str, dict[str, Any]] = report["holdings"]
+    synthesis = report.get("synthesis")
 
     badge = TIER_BADGE.get(tier.index, "•")
     stars = TIER_STARS.get(tier.index, "")
@@ -84,6 +133,9 @@ def render(report: dict[str, Any]) -> str:
         lines.append(f"> _{tier.note}_")
     lines.append("")
 
+    # ── Today's Take (synthesis) ──────────────────────────────────────────
+    lines.extend(_render_todays_take(synthesis))
+
     # ── Tier action (today's playbook) ────────────────────────────────────
     lines.append("## 🎯 Tier Action")
     lines.append("")
@@ -95,6 +147,9 @@ def render(report: dict[str, Any]) -> str:
         lines.append("")
         lines.append("**Sell list:** " + ", ".join(f"`{t}`" for t in tier.sell_list))
     lines.append("")
+
+    # ── Watch List (flag-driven) ──────────────────────────────────────────
+    lines.extend(_render_watch_list(holdings))
 
     # ── Holdings ──────────────────────────────────────────────────────────
     lines.append("## 💼 Holdings")

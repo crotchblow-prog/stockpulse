@@ -32,7 +32,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
           cache: "pip"
           cache-dependency-path: scripts/requirements.txt
 
@@ -43,6 +43,7 @@ jobs:
         env:
           REPORT_DATE: ${{ inputs.report_date }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
         run: python scripts/generate_report.py
 
       - name: Commit + push if report changed
