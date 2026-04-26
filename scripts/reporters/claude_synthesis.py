@@ -117,7 +117,7 @@ Each position may include `sensitivity_tags` reflecting how the ticker historica
 
 - `crisis_alpha` — falls hard on VIX spikes. Avoid `add` for these names during a tier transition UP into stress regimes (Tier 2→3, 3→4).
 - `defensive` — low VIX-sensitivity (KO/JNJ/PG-style). Remains a candidate for `add` even at Tier 3-4. Do not trim on Tier 2 framework bias against high-beta if the name is defensively tagged.
-- `mean_reverter` — drops then snaps back. Promote to `watch` priority on tier transitions DOWN (Tier 3→2, 4→3) — these are entry candidates as the regime relaxes.
+- `mean_reverter` — names that historically benefit from VIX-crush events (positive 5-day cumulative returns post-crush). Promote to `watch` priority on tier transitions DOWN (Tier 3→2, 4→3) — these are entry candidates as the regime relaxes.
 - `high_normal` — high vol under calm regime. Appropriate `add` target at Tier 0-2 only. Do not add at Tier 3+.
 - `high_stress` — amplifies in stress. Warning at Tier 3+; prefer `trim` over `hold` if also flagged `high_stress`.
 

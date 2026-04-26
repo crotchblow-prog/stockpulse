@@ -278,33 +278,34 @@ def test_universe_scanner_avoid_sorted_by_abs_spike_decay_desc():
 
 # ── Commit 6.5: enriched empty-placeholder text with threshold gap ───────────
 
-def test_watch_transition_empty_renders_gap_with_best_recovery_and_best_decay():
-    # Three tickers, none qualify as mean_reverter at the relaxed ±2% bar (recovery ≤ 2
-    # OR decay ≥ -2), but their actual best values should surface in the gap text.
+def test_watch_transition_empty_renders_single_axis_crush_gap():
+    # Commit 10: mean_reverter is single-axis (crush > +0.6%); placeholder drops the AND-clause.
+    # Three tickers, all under +0.6% recovery → none qualify, gap text shows best recovery.
     universe = {
-        "AAA": _u(crush_recovery=1.5, spike_decay=-1.0, sensitivity_tags=[]),
-        "BBB": _u(crush_recovery=0.5, spike_decay=-1.8, sensitivity_tags=[]),
-        "CCC": _u(crush_recovery=-1.0, spike_decay=1.0, sensitivity_tags=[]),
+        "AAA": _u(crush_recovery=0.5, sensitivity_tags=[]),  # best
+        "BBB": _u(crush_recovery=0.3, sensitivity_tags=[]),
+        "CCC": _u(crush_recovery=-0.5, sensitivity_tags=[]),
     }
     out = "\n".join(_render_universe_scanner(2, universe))
     watch_section = out.split("🟡 Watch")[1].split("🔴 Avoid")[0]
-    # best_recovery = max(1.5, 0.5, -1.0) = 1.5 ; best_decay = min(-1.0, -1.8, 1.0) = -1.8
-    assert "best today: crush=+1.50%, decay=-1.80%" in watch_section
-    assert "no candidates fire crush > +2% AND decay < -2%" in watch_section
+    assert "best today: +0.50%" in watch_section
+    assert "no candidates fire crush > +0.6%" in watch_section
+    # No AND-clause anymore.
+    assert "AND" not in watch_section.split("no candidates fire")[1].split("_")[0]
 
 
-def test_avoid_empty_renders_gap_with_worst_p25_decay():
-    # Commit 8: empty placeholder uses vix_spike_decay_p25_pct, not the median.
-    # Median values are deliberately mild to verify the placeholder ignores them.
+def test_avoid_empty_renders_gap_at_minus_4_threshold():
+    # Commit 10: threshold tuned to -4% (was -10% pre-Commit 10, then proposed -5%
+    # but data didn't reach -5%). Still uses p25 field (Commit 8 methodology).
     universe = {
-        "AAA": _u(spike_decay=-2.0, spike_decay_p25=-4.0, sensitivity_tags=[]),
-        "BBB": _u(spike_decay=-1.0, spike_decay_p25=-7.5, sensitivity_tags=[]),  # worst p25
+        "AAA": _u(spike_decay=-2.0, spike_decay_p25=-3.0, sensitivity_tags=[]),
+        "BBB": _u(spike_decay=-1.0, spike_decay_p25=-3.5, sensitivity_tags=[]),  # worst p25 just under -4
         "CCC": _u(spike_decay=1.5, spike_decay_p25=-1.0, sensitivity_tags=[]),
     }
     out = "\n".join(_render_universe_scanner(2, universe))
     avoid_section = out.split("🔴 Avoid")[1]
-    assert "worst today: -7.50%" in avoid_section
-    assert "no candidates fire p25 decay < -10%" in avoid_section
+    assert "worst today: -3.50%" in avoid_section
+    assert "no candidates fire p25 decay < -4%" in avoid_section
 
 
 def test_empty_regime_universe_still_shows_universe_data_not_loaded():
@@ -328,10 +329,10 @@ def test_watch_transition_gap_falls_back_when_all_tickers_low_confidence():
     }
     out = "\n".join(_render_universe_scanner(2, universe))
     watch_section = out.split("🟡 Watch")[1].split("🔴 Avoid")[0]
-    assert "no candidates fire crush > +2% AND decay < -2%" in watch_section
+    assert "no candidates fire crush > +0.6%" in watch_section
     assert "best today" not in watch_section  # no parenthetical when no valid data
     avoid_section = out.split("🔴 Avoid")[1]
-    assert "no candidates fire p25 decay < -10%" in avoid_section
+    assert "no candidates fire p25 decay < -4%" in avoid_section
     assert "worst today" not in avoid_section
 
 

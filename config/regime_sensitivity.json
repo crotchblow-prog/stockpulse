@@ -1,5 +1,5 @@
 {
-  "computed_at": "2026-04-26T09:08:53+00:00",
+  "computed_at": "2026-04-26T11:30:21+00:00",
   "lookback_years": 5,
   "min_sample_size": 8,
   "tickers": {
@@ -139,7 +139,8 @@
       "crush_event_count": 152,
       "normal_weeks": 165,
       "sensitivity_tags": [
-        "high_normal"
+        "high_normal",
+        "mean_reverter"
       ],
       "spike_event_count": 20,
       "stress_weeks": 93,
@@ -222,7 +223,9 @@
       "confidence": "high",
       "crush_event_count": 152,
       "normal_weeks": 165,
-      "sensitivity_tags": [],
+      "sensitivity_tags": [
+        "crisis_alpha"
+      ],
       "spike_event_count": 20,
       "stress_weeks": 93,
       "vix_crush_recovery_pct": 0.07,
@@ -236,6 +239,7 @@
       "crush_event_count": 152,
       "normal_weeks": 165,
       "sensitivity_tags": [
+        "crisis_alpha",
         "defensive"
       ],
       "spike_event_count": 20,
@@ -257,7 +261,7 @@
       "stress_weeks": 93,
       "vix_crush_recovery_pct": 0.16,
       "vix_spike_decay_p25_pct": -1.1,
-      "vix_spike_decay_pct": 1.14
+      "vix_spike_decay_pct": 1.13
     },
     "COST": {
       "beta_normal": 0.662,
@@ -266,6 +270,7 @@
       "crush_event_count": 152,
       "normal_weeks": 165,
       "sensitivity_tags": [
+        "mean_reverter",
         "defensive"
       ],
       "spike_event_count": 20,
@@ -365,7 +370,8 @@
       "crush_event_count": 152,
       "normal_weeks": 165,
       "sensitivity_tags": [
-        "high_normal"
+        "high_normal",
+        "crisis_alpha"
       ],
       "spike_event_count": 20,
       "stress_weeks": 93,
@@ -380,7 +386,8 @@
       "crush_event_count": 152,
       "normal_weeks": 165,
       "sensitivity_tags": [
-        "high_stress"
+        "high_stress",
+        "mean_reverter"
       ],
       "spike_event_count": 20,
       "stress_weeks": 93,
@@ -395,6 +402,7 @@
       "crush_event_count": 152,
       "normal_weeks": 165,
       "sensitivity_tags": [
+        "mean_reverter",
         "defensive"
       ],
       "spike_event_count": 20,
@@ -409,7 +417,9 @@
       "confidence": "high",
       "crush_event_count": 152,
       "normal_weeks": 165,
-      "sensitivity_tags": [],
+      "sensitivity_tags": [
+        "mean_reverter"
+      ],
       "spike_event_count": 20,
       "stress_weeks": 93,
       "vix_crush_recovery_pct": 0.74,
@@ -436,6 +446,7 @@
       "crush_event_count": 152,
       "normal_weeks": 165,
       "sensitivity_tags": [
+        "mean_reverter",
         "defensive"
       ],
       "spike_event_count": 20,
@@ -451,7 +462,8 @@
       "crush_event_count": 152,
       "normal_weeks": 165,
       "sensitivity_tags": [
-        "high_normal"
+        "high_normal",
+        "crisis_alpha"
       ],
       "spike_event_count": 20,
       "stress_weeks": 93,
@@ -634,7 +646,8 @@
       "crush_event_count": 152,
       "normal_weeks": 165,
       "sensitivity_tags": [
-        "high_normal"
+        "high_normal",
+        "mean_reverter"
       ],
       "spike_event_count": 20,
       "stress_weeks": 93,
@@ -707,7 +720,8 @@
       "crush_event_count": 152,
       "normal_weeks": 165,
       "sensitivity_tags": [
-        "high_normal"
+        "high_normal",
+        "crisis_alpha"
       ],
       "spike_event_count": 20,
       "stress_weeks": 93,
@@ -722,7 +736,8 @@
       "crush_event_count": 152,
       "normal_weeks": 165,
       "sensitivity_tags": [
-        "high_normal"
+        "high_normal",
+        "mean_reverter"
       ],
       "spike_event_count": 20,
       "stress_weeks": 93,
@@ -823,6 +838,7 @@
       "crush_event_count": 152,
       "normal_weeks": 165,
       "sensitivity_tags": [
+        "mean_reverter",
         "defensive"
       ],
       "spike_event_count": 20,

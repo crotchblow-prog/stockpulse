@@ -236,23 +236,30 @@ def compute_metrics(
 def assign_tags(m: TickerMetrics) -> list[str]:
     """Apply the five sensitivity_tag rules. Empty list if any required metric is None.
 
-    Commit 8 changes (2026-04-26):
-    - `crisis_alpha` switches to 25th-percentile post-spike decay (vs median) — surfaces
-      asymmetric tail behavior that median washes out.
-    - `mean_reverter` thresholds relaxed from ±5% to ±2% — the conjunction itself does
-      the "extreme" filtering; numeric bar was masking real candidates.
+    Commit 10 (2026-04-26): rule shape redefined against observed 2021-2026 behavior.
+    - `crisis_alpha`: switched to p25 < -4% (tuned to natural break in 5y universe
+      distribution). Initially proposed -5% but data showed worst p25 was INTC at
+      -4.98% — the -5% bar fires zero. -4% surfaces INTC/TSLA/CHTR/F/CMCSA/AMT.
+    - `mean_reverter`: dropped the spike_decay conjunction; single-axis crush > +0.6%
+      (also tuned to natural break — top-recovery names cluster between +1.4% and
+      +0.6%, then there's a gap). The "drops then snaps back" pattern doesn't
+      manifest; top-recovery names rally OFF spikes. +0.6% surfaces NVDA/AVGO/FTNT/
+      TSM/GOOGL/IBM/COST/WMT.
+    Thresholds tuned to natural breaks in 5y 2021-2026 universe; expect to revisit
+    if the universe regime changes meaningfully (true crisis return, etc.).
+    Commit 8 (2026-04-26): added p25 methodology for `crisis_alpha`. Retained.
     """
     tags: list[str] = []
     bn, bs = m.beta_normal, m.beta_stress
-    sd, sd_p25, cr = m.vix_spike_decay_pct, m.vix_spike_decay_p25_pct, m.vix_crush_recovery_pct
+    sd_p25, cr = m.vix_spike_decay_p25_pct, m.vix_crush_recovery_pct
 
     if bn is not None and bs is not None and bn > 1.3 and bs < bn:
         tags.append("high_normal")
     if bn is not None and bs is not None and bs > 1.5 and bs > bn:
         tags.append("high_stress")
-    if sd_p25 is not None and sd_p25 < -10:
+    if sd_p25 is not None and sd_p25 < -4:
         tags.append("crisis_alpha")
-    if cr is not None and sd is not None and cr > 2 and sd < -2:
+    if cr is not None and cr > 0.6:
         tags.append("mean_reverter")
     if bn is not None and bs is not None and abs(bn) < 0.8 and abs(bs) < 1.0:
         tags.append("defensive")

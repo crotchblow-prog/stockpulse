@@ -241,18 +241,13 @@ def _render_add_candidates(
 
 
 def _watch_transition_empty_message(regime_universe: dict[str, dict[str, Any]]) -> str:
-    """Italic placeholder text for 🟡 Watch — surfaces today's best gap toward the threshold."""
+    """Italic placeholder text for 🟡 Watch — single-axis crush > +0.6% (Commit 10)."""
     valid = [e for e in regime_universe.values() if e.get("confidence") != "low"]
     recoveries = [e.get("vix_crush_recovery_pct") for e in valid if e.get("vix_crush_recovery_pct") is not None]
-    decays = [e.get("vix_spike_decay_pct") for e in valid if e.get("vix_spike_decay_pct") is not None]
-    if not recoveries or not decays:
-        return "_no candidates fire crush > +2% AND decay < -2%_"
+    if not recoveries:
+        return "_no candidates fire crush > +0.6%_"
     best_recovery = max(recoveries)
-    best_decay = min(decays)
-    return (
-        f"_no candidates fire crush > +2% AND decay < -2% "
-        f"(best today: crush={best_recovery:+.2f}%, decay={best_decay:+.2f}%)_"
-    )
+    return f"_no candidates fire crush > +0.6% (best today: {best_recovery:+.2f}%)_"
 
 
 def _render_watch_transition(
@@ -283,18 +278,18 @@ def _render_watch_transition(
 
 
 def _avoid_empty_message(regime_universe: dict[str, dict[str, Any]]) -> str:
-    """Italic placeholder text for 🔴 Avoid — surfaces today's worst p25 spike-decay vs the -10% threshold.
+    """Italic placeholder text for 🔴 Avoid — surfaces today's worst p25 spike-decay vs the -4% threshold.
 
-    Commit 8 (2026-04-26): switched from median to 25th-percentile to match the new
-    crisis_alpha tag rule. Median washed out asymmetric tails; p25 is the "worst-quartile
-    reaction across spike events" that the threshold is actually testing against.
+    Commit 10 (2026-04-26): threshold tuned from -10% → -4% (initially proposed
+    -5% but data showed worst p25 was INTC at -4.98%, just above the bar). Tuned
+    to natural break in 5y 2021-2026 universe. Commit 8 introduced p25 methodology.
     """
     valid = [e for e in regime_universe.values() if e.get("confidence") != "low"]
     p25_decays = [e.get("vix_spike_decay_p25_pct") for e in valid if e.get("vix_spike_decay_p25_pct") is not None]
     if not p25_decays:
-        return "_no candidates fire p25 decay < -10%_"
+        return "_no candidates fire p25 decay < -4%_"
     worst_decay = min(p25_decays)
-    return f"_no candidates fire p25 decay < -10% (worst today: {worst_decay:+.2f}%)_"
+    return f"_no candidates fire p25 decay < -4% (worst today: {worst_decay:+.2f}%)_"
 
 
 def _render_avoid_candidates(

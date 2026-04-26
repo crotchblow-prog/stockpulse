@@ -50,51 +50,46 @@ def test_high_stress_not_assigned_at_boundary_1_5():
     assert "high_stress" not in assign_tags(_m(beta_normal=1.0, beta_stress=1.5))
 
 
-def test_crisis_alpha_assigned_when_p25_decay_lt_minus_10():
-    # Commit 8: p25 is the basis, not median.
-    assert "crisis_alpha" in assign_tags(_m(vix_spike_decay_p25_pct=-10.01))
+def test_crisis_alpha_assigned_when_p25_decay_lt_minus_4():
+    # Commit 10 final: threshold tuned -10% → -4% (initially proposed -5% but
+    # universe data didn't reach that bar — INTC at -4.98% was the worst).
+    assert "crisis_alpha" in assign_tags(_m(vix_spike_decay_p25_pct=-4.01))
 
 
-def test_crisis_alpha_not_at_boundary_minus_10_p25():
-    assert "crisis_alpha" not in assign_tags(_m(vix_spike_decay_p25_pct=-10.0))
+def test_crisis_alpha_not_at_boundary_minus_4_p25():
+    assert "crisis_alpha" not in assign_tags(_m(vix_spike_decay_p25_pct=-4.0))
 
 
-def test_crisis_alpha_fires_when_median_mild_but_p25_extreme():
-    # Asymmetric tail: median = -2% (would NOT have fired under old methodology)
-    # but p25 = -12% (the bottom-quartile reaction is severe). Must fire under Commit 8.
+def test_crisis_alpha_fires_at_minus_12_p25():
+    # Sanity: TSLA-shaped p25 of -12% should still fire crisis_alpha at the new threshold.
     tags = assign_tags(_m(vix_spike_decay_pct=-2.0, vix_spike_decay_p25_pct=-12.0))
     assert "crisis_alpha" in tags
 
 
-def test_crisis_alpha_does_not_fire_when_median_severe_but_p25_mild():
-    # Right-skew of one mild event near the threshold but with most events benign.
-    # Median = -8% but p25 = -3% → does NOT fire. Old rule would have, new rule doesn't.
-    tags = assign_tags(_m(vix_spike_decay_pct=-8.0, vix_spike_decay_p25_pct=-3.0))
+def test_crisis_alpha_does_not_fire_at_p25_mild():
+    # KO-shaped: p25 = -1% → does NOT fire crisis_alpha.
+    tags = assign_tags(_m(vix_spike_decay_p25_pct=-1.0, beta_normal=0.18, beta_stress=0.5))
     assert "crisis_alpha" not in tags
 
 
-def test_mean_reverter_requires_both_clauses_at_relaxed_thresholds():
-    # Commit 8: thresholds relaxed from ±5% to ±2%.
+def test_mean_reverter_is_single_axis_crush_only():
+    # Commit 10: dropped the spike_decay conjunction. Only crush_recovery > 0.6% matters.
+    # Positive spike_decay should NOT prevent firing (this is the explicit shape change).
     assert "mean_reverter" in assign_tags(
-        _m(vix_crush_recovery_pct=2.01, vix_spike_decay_pct=-2.01)
-    )
-    assert "mean_reverter" not in assign_tags(
-        _m(vix_crush_recovery_pct=2.01, vix_spike_decay_pct=-1.99)
-    )
-    assert "mean_reverter" not in assign_tags(
-        _m(vix_crush_recovery_pct=1.99, vix_spike_decay_pct=-3.0)
+        _m(vix_crush_recovery_pct=2.0, vix_spike_decay_pct=5.0)
     )
 
 
-def test_mean_reverter_boundary_fires_at_2_5_does_not_fire_at_1_5():
-    # Both axes inside threshold → fires.
-    assert "mean_reverter" in assign_tags(
-        _m(vix_crush_recovery_pct=2.5, vix_spike_decay_pct=-2.5)
-    )
-    # Both axes outside threshold → does not fire.
-    assert "mean_reverter" not in assign_tags(
-        _m(vix_crush_recovery_pct=1.5, vix_spike_decay_pct=-1.5)
-    )
+def test_mean_reverter_boundary_at_plus_0_6():
+    # Commit 10 final: tuned +1% → +0.6% to match natural break in distribution.
+    # +1.0% fires.
+    assert "mean_reverter" in assign_tags(_m(vix_crush_recovery_pct=1.0))
+    # +0.7% fires (above +0.6%).
+    assert "mean_reverter" in assign_tags(_m(vix_crush_recovery_pct=0.7))
+    # +0.5% does not fire (below +0.6%).
+    assert "mean_reverter" not in assign_tags(_m(vix_crush_recovery_pct=0.5))
+    # Exact boundary +0.6% does not fire (strict greater-than).
+    assert "mean_reverter" not in assign_tags(_m(vix_crush_recovery_pct=0.6))
 
 
 def test_defensive_assigned_for_low_beta_pair():
