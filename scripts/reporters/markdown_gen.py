@@ -54,6 +54,38 @@ def _holding_row(symbol: str, h: dict[str, Any]) -> str:
     return f"| **{symbol}** | {last} | {vs_cost} | {rsi} | {ma_50} | {ma_200} | {hi_52} |"
 
 
+def _render_buy_list(buy_list: list[str], synthesis: dict[str, Any] | None) -> str:
+    """Render the Tier Action buy list, annotating each ticker with its synthesis action when held.
+
+    Resolves the visual contradiction between the static framework view (the buy list says "TSM
+    is a Tier-2 candidate") and the tactical synthesis view (Today's Take says "TSM hold today
+    because it's at 52w high"). For each buy-list ticker that's also in `synthesis.positions[]`
+    (i.e. a current holding the model issued an action for), append the action inline:
+
+        TSM (hold)
+
+    Tickers not in the synthesis positions are framework candidates only — left as plain
+    backticks so a reader can see at a glance which are pure candidates and which are held.
+    """
+    actions: dict[str, str] = {}
+    if synthesis:
+        for p in synthesis.get("positions") or []:
+            if not isinstance(p, dict):
+                continue
+            sym = p.get("symbol")
+            action = p.get("action")
+            if isinstance(sym, str) and isinstance(action, str):
+                actions[sym] = action
+    parts: list[str] = []
+    for t in buy_list:
+        action = actions.get(t)
+        if action:
+            parts.append(f"`{t}` ({action})")
+        else:
+            parts.append(f"`{t}`")
+    return ", ".join(parts)
+
+
 def _render_todays_take(synthesis: dict[str, Any] | None) -> list[str]:
     """Render the 📝 Today's Take section, or [] if synthesis is missing/empty."""
     if not synthesis:
@@ -363,7 +395,7 @@ def render(report: dict[str, Any]) -> str:
     lines.append("## 🎯 Tier Action")
     lines.append("")
     if tier.buy_list:
-        lines.append("**Buy list:** " + ", ".join(f"`{t}`" for t in tier.buy_list))
+        lines.append("**Buy list:** " + _render_buy_list(tier.buy_list, synthesis))
     else:
         lines.append("**Buy list:** _(no buys at this tier)_")
     if tier.sell_list:

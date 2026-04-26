@@ -8,7 +8,7 @@ from pathlib import Path
 SCRIPTS_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SCRIPTS_DIR))
 
-from reporters.markdown_gen import _render_watch_list, _tier_relevant_sensitivity_tags  # noqa: E402
+from reporters.markdown_gen import _render_buy_list, _render_watch_list, _tier_relevant_sensitivity_tags  # noqa: E402
 
 
 # ── _tier_relevant_sensitivity_tags filtering rules ──────────────────────────
@@ -333,3 +333,64 @@ def test_watch_transition_gap_falls_back_when_all_tickers_low_confidence():
     avoid_section = out.split("🔴 Avoid")[1]
     assert "no candidates fire p25 decay < -10%" in avoid_section
     assert "worst today" not in avoid_section
+
+
+# ── Buy-list annotation (Phase 2.5 Commit 9) ─────────────────────────────────
+
+def test_buy_list_no_synthesis_renders_plain_backticks():
+    """Without synthesis (e.g. ANTHROPIC_API_KEY missing), buy list stays as plain ticker codes."""
+    out = _render_buy_list(["GOOGL", "TSM", "AVGO"], synthesis=None)
+    assert out == "`GOOGL`, `TSM`, `AVGO`"
+
+
+def test_buy_list_annotates_held_tickers_with_synthesis_action():
+    """The fix for the Tier-Action / Today's Take perceived contradiction."""
+    synthesis = {
+        "positions": [
+            {"symbol": "TSM", "action": "hold", "confidence": "medium", "rationale": "..."},
+        ],
+    }
+    out = _render_buy_list(["GOOGL", "TSM", "AVGO"], synthesis=synthesis)
+    # Held + synthesized → annotated
+    assert "`TSM` (hold)" in out
+    # Pure framework candidates → plain
+    assert "`GOOGL`," in out
+    assert out.endswith("`AVGO`")
+
+
+def test_buy_list_annotates_with_each_action_value():
+    """Verify all five action enum values render correctly."""
+    synthesis = {
+        "positions": [
+            {"symbol": "A", "action": "add", "confidence": "high", "rationale": ""},
+            {"symbol": "B", "action": "hold", "confidence": "medium", "rationale": ""},
+            {"symbol": "C", "action": "trim", "confidence": "high", "rationale": ""},
+            {"symbol": "D", "action": "exit", "confidence": "low", "rationale": ""},
+            {"symbol": "E", "action": "watch", "confidence": "low", "rationale": ""},
+        ],
+    }
+    out = _render_buy_list(["A", "B", "C", "D", "E"], synthesis=synthesis)
+    for sym, action in [("A", "add"), ("B", "hold"), ("C", "trim"), ("D", "exit"), ("E", "watch")]:
+        assert f"`{sym}` ({action})" in out
+
+
+def test_buy_list_skips_annotation_when_position_malformed():
+    """Defense in depth — drop unannotated if position dict is missing fields."""
+    synthesis = {
+        "positions": [
+            {"symbol": "TSM", "action": "hold", "confidence": "medium", "rationale": "ok"},
+            {"symbol": "X"},  # no action
+            {"action": "hold"},  # no symbol
+            "not a dict",
+        ],
+    }
+    out = _render_buy_list(["TSM", "X", "GOOGL"], synthesis=synthesis)
+    assert "`TSM` (hold)" in out
+    assert "`X`," in out  # no annotation, but ticker still rendered as plain
+    assert out.endswith("`GOOGL`")
+
+
+def test_buy_list_empty_synthesis_positions():
+    """Synthesis present but positions empty (e.g. clean run with no holdings issued) — plain render."""
+    out = _render_buy_list(["GOOGL"], synthesis={"positions": []})
+    assert out == "`GOOGL`"
