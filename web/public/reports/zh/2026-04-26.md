@@ -8,30 +8,54 @@
 
 ## 📝 今日觀點
 
-**市場解讀。** VIX 位於 18.7，令我們穩居 Tier 2——優質成長股、小規模進場（3-5%）、50% 現金下限。VIX/VIX3M 利差（18.7 對 21.3）顯示市場仍在即期讀數之上對殘存近期風險定價；不要把 Nasdaq 單日 +1.6% 視為加碼訊號。黃金報 4741、USD/JPY 幾乎未動（-0.1%），說明風險情緒偏多只是試探性的，尚未獲得確認。
+**市場解讀。** VIX 於 18.71 落在 Tier 2 — 當前機制允許以 3-5% 規模進場優質成長股，現金目標維持 50%。期限結構小幅倒掛（VIX3M 21.30 vs 現貨 18.71），顯示遠期曲線仍有殘餘壓力；此非乾淨的全面解除警報。Nasdaq +1.63% 領漲，但道瓊小幅收紅，WTI -1.51% 暗示科技反彈之下藏有需求面隱憂。
 
-**反方觀點。** 若未來幾個交易日 VIX3M 向即期值壓縮，且 Nasdaq 跟進突破 25,000，Tier 2 的保守姿態可能過於謹慎——搶先布局 GOOGL/MSFT 財報優於預期的投資者，或許會在更好的重新進場價位出現之前就已跳空離去。
+**反方觀點。** VIX3M 於 21.30 仍嵌於 Tier 3 領域 — 若現貨 VIX 均值回歸向遠期曲線靠攏，而非曲線向下收斂，今日的上漲走勢即為多頭陷阱，Tier 2 部位姿態將一夜翻轉。單一總體催化劑（關稅升溫、Fed 鷹派意外）即可將 VIX 推回 24.6 之上，全面否定當前優質成長加碼論點。
 
 **持倉判斷：**
-- **TSM** — hold（medium）。距成本上漲 9.4%，恰好站在 52 週高點，RSI 68.3——動能真實但超買風險升高。相對 200DMA 達 +33.5%，若進一步延伸應考慮 trim；但今日無負面催化劑，故 hold 並留意回檔以在 Tier 2 規模內 add。
-- **IONQ** — watch（low）。技術面分歧：相對 50DMA +23.4%，但仍低於 200DMA 8.2%，距 52 週高點回落 48%，且距財報僅 10 天（5 月 6 日）。高 Beta 投機標的，帶有 `deep_drawdown` 旗標——今日尚未觸發嚴格的 7 天財報窗口，但下次檢視即進入 trim/hold-only 模式；在 Tier 2 下不加碼如此遠離修復的標的。
-- **PLTR** — trim（medium）。距財報 8 天（5 月 4 日）——再一個交易日收盤即觸發 7 天 trim 規則，且現況已然疲弱：低於 200DMA 13%、距 52 週高點回落 31%、RSI 中性於 48.6、帳面虧損 1.9%。趁財報窗口鎖定 hold-only 模式前先行減倉，避免在更不利條件下被動應對。
-- **SOFI** — trim（high）。距財報僅 3 天（4 月 29 日）、Muddy Waters 積極放空報告、帳面虧損 29.7%、低於 200DMA 22.7%、距 52 週高點回落 42.8%——每一個旗標都在大聲警示：二元事件前必須減倉。框架明確規定：`earnings_within_7d` + `high_risk_tag` = hold、trim 或 exit only；此處執行 trim 以削減二元風險，同時保留殘倉，以備論點意外成立。
+- **TSM** — trim（medium）。RSI 68.3，站在 52 週高點，相對 50DMA +12.7%、相對 200DMA +33.5% — 動能已過度延伸。敏感度標籤 `high_normal` 表示此標的僅適合在 Tier 0-2 加碼，但在當前拉伸幅度下且無明顯財報催化劑，鎖定部分獲利比追高更為紀律；相對均成本 +9.4% 提供了乾淨的 trim 區間。
+- **IONQ** — hold（low）。財報在 10 天後（5 月 6 日）— 尚未觸發 Tier 備註中的 7 天警示窗口，但已接近；相對 200DMA -8.2%，距 52 週高點 -48%，且小幅套牢（相對均成本 -1.6%）。Tier 2 之下不對如此接近財報、投機性且位於 200DMA 下方的標的 `add`；hold 並於 7 天內重新評估。
+- **PLTR** — watch（low）。財報在 8 天後（5 月 4 日）— 距強制 7 天 trim 觸發點僅差一天，但框架要求避免在 7 天內買進；相對 200DMA -13.0%，距 52 週高點 -30.9%，且套牢 -1.9%。不加碼；設置日曆提醒，24 小時後進入 7 天窗口時重新評估 trim vs hold。
+- **SOFI** — trim（high）。財報在 3 天後（4 月 29 日），`earnings_within_3d` 旗標已啟動，Muddy Waters 做空報告正在發酵 — 框架規定不得 `add`；僅 `hold`、`trim` 或 `exit` 有效。相對均成本 -29.73%、相對 200DMA -22.74%、距 52 週高點 -42.75%，現在 trim 可在潛在不利財報前降低二元事件敞口。
 
 ## 🎯 Tier 行動
 
-**買進清單：** `GOOGL`, `MSFT`, `AAPL`, `AMZN`, `META`, `TSM`, `AVGO`, `TXN`
+**買進清單：** `GOOGL`、`MSFT`、`AAPL`、`AMZN`、`META`、`TSM`、`AVGO`、`TXN`
 
 ## 🚩 關注名單
 
-- **TSM**（Tier 2 / Exness）：`near_52w_high`, `buy_list_member`
-- **IONQ**（Tier 2 / Taiwan_Brokerage）：`below_200dma`, `deep_drawdown`
-- **PLTR**（Tier 2 / Taiwan_Brokerage）：`near_50dma`, `below_200dma`, `deep_drawdown`
-- **SOFI**（Tier 2 / Taiwan_Brokerage）：`below_200dma`, `deep_drawdown`, `underwater`, `earnings_within_7d`, `earnings_within_3d`, `high_risk_tag`, `event_play`
+- **TSM**（Tier 2 / Exness）：near_52w_high、buy_list_member ⋮ high_normal
+- **IONQ**（Tier 2 / Taiwan_Brokerage）：below_200dma、deep_drawdown
+- **PLTR**（Tier 2 / Taiwan_Brokerage）：near_50dma、below_200dma、deep_drawdown
+- **SOFI**（Tier 2 / Taiwan_Brokerage）：below_200dma、deep_drawdown、underwater、earnings_within_7d、earnings_within_3d、high_risk_tag、event_play
+
+## 📡 標的掃描 — Tier 2
+
+**🟢 加碼候選** _（high_normal，樣本數 ≥ 8）_
+
+| 標的 | β normal | 樣本數 | 備註 |
+|---|---:|---:|---|
+| TSLA | 2.48 | 20 |  |
+| AVGO | 2.43 | 20 |  |
+| NVDA | 2.26 | 20 |  |
+| AMD | 2.16 | 20 |  |
+| INTC | 1.90 | 20 |  |
+
+**🟡 觀察（轉換）** _（mean_reverter，樣本數 ≥ 8）_
+
+| 標的 | 崩潰回升 | 急升衰退 | 備註 |
+|---|---:|---:|---|
+| _目前閾值下無候選標的_ |  |  |  |
+
+**🔴 避開候選** _（crisis_alpha，樣本數 ≥ 8）_
+
+| 標的 | 急升衰退 | 樣本數 | 備註 |
+|---|---:|---:|---|
+| _目前閾值下無候選標的_ |  |  |  |
 
 ## 💼 持倉
 
-| Ticker | 最新價 | 相對均成本 | RSI(14) | 相對 50DMA | 相對 200DMA | 相對 52 週高點 |
+| 標的 | 最新價 | 相對均成本 | RSI(14) | 相對 50DMA | 相對 200DMA | 相對 52 週高點 |
 |---|---:|---:|---:|---:|---:|---:|
 | **TSM** | 402.46 | +9.43% | 68 | +12.73% | +33.54% | +0.00% |
 | **IONQ** | 42.69 | -1.59% | 61 | +23.44% | -8.20% | -48.00% |
@@ -48,7 +72,7 @@
 | Nasdaq | 24,836.60 | +398.10 (+1.63%) |
 | Dow | 49,230.71 | -79.61 (-0.16%) |
 | USD/JPY | 159.33 | -0.16 (-0.10%) |
-| BTC | 77,985.63 | +373.62 (+0.48%) |
+| BTC | 78,116.63 | +504.62 (+0.65%) |
 | Gold | 4,740.90 | +35.80 (+0.76%) |
 | WTI | 94.40 | -1.45 (-1.51%) |
 

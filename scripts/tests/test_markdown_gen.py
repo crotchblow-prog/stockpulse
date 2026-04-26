@@ -87,3 +87,187 @@ def test_watch_list_section_skipped_when_no_watchworthy_rows():
     # is_watchworthy returns False for empty flags, so no section emitted.
     holdings = {"AAPL": {"account": "Exness", "tier_index": 2, "flags": [], "sensitivity_tags": ["defensive"]}}
     assert _render_watch_list(holdings) == []
+
+
+# ── Universe Scanner (Phase 2.5 Commit 6) ────────────────────────────────────
+
+from reporters.markdown_gen import _render_universe_scanner, render  # noqa: E402
+
+def _u(beta_normal=1.0, beta_stress=1.0, spike_decay=0.0, crush_recovery=0.0,
+       sensitivity_tags=None, confidence="high",
+       spike_count=20, crush_count=20, stress_weeks=50, normal_weeks=200):
+    return {
+        "beta_normal": beta_normal,
+        "beta_stress": beta_stress,
+        "vix_spike_decay_pct": spike_decay,
+        "vix_crush_recovery_pct": crush_recovery,
+        "spike_event_count": spike_count,
+        "crush_event_count": crush_count,
+        "stress_weeks": stress_weeks,
+        "normal_weeks": normal_weeks,
+        "confidence": confidence,
+        "sensitivity_tags": sensitivity_tags or [],
+    }
+
+
+def test_universe_scanner_tier_0_2_filters_for_high_normal():
+    universe = {
+        "TSLA": _u(beta_normal=2.0, sensitivity_tags=["high_normal"]),
+        "KO": _u(beta_normal=0.2, sensitivity_tags=["defensive"]),
+    }
+    out = "\n".join(_render_universe_scanner(2, universe))
+    assert "## 📡 Universe Scanner — Tier 2" in out
+    assert "🟢 Add candidates" in out
+    assert "high_normal" in out
+    # Tier 2 → Add filter is high_normal → TSLA appears in Add, KO does not.
+    add_section = out.split("🟡 Watch")[0]
+    assert "TSLA" in add_section
+    assert "KO" not in add_section
+
+
+def test_universe_scanner_tier_3_filters_for_defensive():
+    universe = {
+        "TSLA": _u(beta_normal=2.0, sensitivity_tags=["high_normal"]),
+        "KO": _u(beta_normal=0.2, sensitivity_tags=["defensive"]),
+    }
+    out = "\n".join(_render_universe_scanner(3, universe))
+    add_section = out.split("🟡 Watch")[0]
+    # Tier 3 → Add filter is defensive → KO appears, TSLA does not.
+    assert "KO" in add_section
+    assert "TSLA" not in add_section
+
+
+def test_universe_scanner_tier_5_uses_defensive_filter_like_tier_3_4():
+    universe = {"KO": _u(beta_normal=0.2, sensitivity_tags=["defensive"])}
+    out = "\n".join(_render_universe_scanner(5, universe))
+    assert "## 📡 Universe Scanner — Tier 5" in out
+    assert "KO" in out
+
+
+def test_universe_scanner_top_5_truncation_with_alpha_tiebreak():
+    # Six high_normal candidates; same |beta_normal| for the tiebreak case.
+    universe = {
+        "AAA": _u(beta_normal=2.5, sensitivity_tags=["high_normal"]),
+        "BBB": _u(beta_normal=2.0, sensitivity_tags=["high_normal"]),
+        "CCC": _u(beta_normal=2.0, sensitivity_tags=["high_normal"]),  # tie with BBB
+        "DDD": _u(beta_normal=1.8, sensitivity_tags=["high_normal"]),
+        "EEE": _u(beta_normal=1.6, sensitivity_tags=["high_normal"]),
+        "FFF": _u(beta_normal=1.5, sensitivity_tags=["high_normal"]),
+    }
+    out = "\n".join(_render_universe_scanner(2, universe))
+    add_section = out.split("🟡 Watch")[0]
+    # Top 5 by abs(beta_normal) descending → AAA, BBB, CCC, DDD, EEE — FFF excluded.
+    assert "FFF" not in add_section
+    for s in ("AAA", "BBB", "CCC", "DDD", "EEE"):
+        assert s in add_section
+    # Alpha tiebreak: BBB before CCC (both at 2.0).
+    assert add_section.index("BBB") < add_section.index("CCC")
+
+
+def test_universe_scanner_empty_sub_region_renders_placeholder():
+    # No candidates fire any filter.
+    universe = {"AAPL": _u(sensitivity_tags=[])}
+    out = "\n".join(_render_universe_scanner(2, universe))
+    assert "_no candidates at current thresholds_" in out
+    # All three sub-region headers must still be present.
+    assert "🟢 Add candidates" in out
+    assert "🟡 Watch (transition)" in out
+    assert "🔴 Avoid candidates" in out
+
+
+def test_universe_scanner_overlap_decorates_both_rows():
+    # Same ticker tagged both high_normal and crisis_alpha → must appear in both
+    # Add and Avoid with cross-warnings.
+    universe = {
+        "TSLA": _u(beta_normal=2.0, spike_decay=-12.3,
+                   sensitivity_tags=["high_normal", "crisis_alpha"]),
+    }
+    out = "\n".join(_render_universe_scanner(2, universe))
+    add_section = out.split("🟡 Watch")[0]
+    avoid_section = out.split("🔴 Avoid")[1]
+    # Add row gets the warning, Avoid row gets the plain note.
+    assert "⚠️ also in Avoid" in add_section
+    assert "also in Add" in avoid_section
+    # The warning emoji must NOT appear in the Avoid section row.
+    avoid_lines = [ln for ln in avoid_section.split("\n") if "TSLA" in ln]
+    assert len(avoid_lines) == 1
+    assert "⚠️" not in avoid_lines[0]
+
+
+def test_universe_scanner_excludes_low_confidence_tickers():
+    universe = {
+        "WEAK": _u(beta_normal=2.5, sensitivity_tags=["high_normal"], confidence="low"),
+        "OK": _u(beta_normal=1.5, sensitivity_tags=["high_normal"], confidence="high"),
+    }
+    out = "\n".join(_render_universe_scanner(2, universe))
+    add_section = out.split("🟡 Watch")[0]
+    assert "OK" in add_section
+    assert "WEAK" not in add_section
+
+
+def test_universe_scanner_position_between_watch_list_and_holdings():
+    """Section ordering invariant — Universe Scanner must land between Watch List and Holdings."""
+    from analyzers.vix_tier import TierResult
+    tier = TierResult(name="tier_2", index=2, action="觀察", cash_target_pct=50,
+                      buy_list=[], vix_range=(18.0, 24.6))
+    report = {
+        "date": "2026-04-26",
+        "vix_value": 18.71,
+        "tier": tier,
+        "snapshot": {},
+        "holdings": {
+            "TSM": {
+                "account": "Exness", "tier_index": 2,
+                "flags": ["near_52w_high", "buy_list_member"],
+                "sensitivity_tags": ["high_normal"], "missing_from_universe": False,
+                "last": 400.0, "vs_avg_cost": 0.1, "rsi_14": 60.0,
+                "pct_from_ma_50": 0.05, "pct_from_ma_200": 0.10, "pct_from_52w_high": -0.02,
+            },
+        },
+        "regime_universe": {"TSM": _u(beta_normal=1.4, sensitivity_tags=["high_normal"])},
+    }
+    out = render(report)
+    # Substring positions establish the canonical order.
+    pos_watch = out.index("🚩 Watch List")
+    pos_scanner = out.index("📡 Universe Scanner")
+    pos_holdings = out.index("💼 Holdings")
+    assert pos_watch < pos_scanner < pos_holdings
+
+
+def test_universe_scanner_missing_data_renders_graceful_placeholder():
+    out = "\n".join(_render_universe_scanner(2, None))
+    assert "## 📡 Universe Scanner — Tier 2" in out
+    assert "_universe data not loaded — run scripts/analyzers/regime_sensitivity.py_" in out
+    # All three sub-region headers still present.
+    assert "🟢 Add candidates" in out
+    assert "🟡 Watch (transition)" in out
+    assert "🔴 Avoid candidates" in out
+
+
+def test_universe_scanner_empty_universe_renders_graceful_placeholder():
+    out = "\n".join(_render_universe_scanner(2, {}))
+    assert "_universe data not loaded — run scripts/analyzers/regime_sensitivity.py_" in out
+
+
+def test_universe_scanner_watch_transition_sorted_by_crush_recovery_desc():
+    universe = {
+        "BBB": _u(crush_recovery=8.0, spike_decay=-6.0, sensitivity_tags=["mean_reverter"]),
+        "AAA": _u(crush_recovery=10.0, spike_decay=-7.0, sensitivity_tags=["mean_reverter"]),
+        "CCC": _u(crush_recovery=6.0, spike_decay=-5.5, sensitivity_tags=["mean_reverter"]),
+    }
+    out = "\n".join(_render_universe_scanner(2, universe))
+    watch_section = out.split("🟡 Watch")[1].split("🔴 Avoid")[0]
+    # Sort: AAA (10) > BBB (8) > CCC (6).
+    assert watch_section.index("AAA") < watch_section.index("BBB") < watch_section.index("CCC")
+
+
+def test_universe_scanner_avoid_sorted_by_abs_spike_decay_desc():
+    universe = {
+        "MILD": _u(spike_decay=-10.5, sensitivity_tags=["crisis_alpha"]),
+        "WORST": _u(spike_decay=-25.3, sensitivity_tags=["crisis_alpha"]),
+        "MID": _u(spike_decay=-15.0, sensitivity_tags=["crisis_alpha"]),
+    }
+    out = "\n".join(_render_universe_scanner(2, universe))
+    avoid_section = out.split("🔴 Avoid")[1]
+    # Sort: WORST (-25.3) > MID (-15.0) > MILD (-10.5).
+    assert avoid_section.index("WORST") < avoid_section.index("MID") < avoid_section.index("MILD")

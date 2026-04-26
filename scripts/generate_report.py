@@ -315,6 +315,7 @@ def main() -> int:
         "snapshot": snapshot,
         "holdings": holdings_data,
         "accounts": accounts,
+        "regime_universe": regime,
     }
 
     synthesis = maybe_synthesize(report, skip=args.no_synthesis)

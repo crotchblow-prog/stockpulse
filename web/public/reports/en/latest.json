@@ -33,11 +33,14 @@
       "last": 42.689998626708984,
       "ma_200": 46.50234997749329,
       "ma_50": 34.58320003509522,
+      "missing_from_universe": true,
       "pct_from_52w_high": -0.47996101192412427,
       "pct_from_52w_low": 0.6054907251497007,
       "pct_from_ma_200": -0.08198190742251622,
       "pct_from_ma_50": 0.23441435677979322,
+      "regime_metrics": null,
       "rsi_14": 60.56011342395892,
+      "sensitivity_tags": [],
       "tags": [
         "quantum",
         "high_beta",
@@ -61,11 +64,14 @@
       "last": 143.08999633789062,
       "ma_200": 164.43422515869142,
       "ma_50": 144.3518002319336,
+      "missing_from_universe": true,
       "pct_from_52w_high": -0.3093445245853731,
       "pct_from_52w_low": 0.3144405248541227,
       "pct_from_ma_200": -0.12980405265510878,
       "pct_from_ma_50": -0.008741171859412896,
+      "regime_metrics": null,
       "rsi_14": 48.59482081303004,
+      "sensitivity_tags": [],
       "tags": [
         "ai_software",
         "high_beta"
@@ -92,11 +98,14 @@
       "last": 18.440000534057617,
       "ma_200": 23.8669500207901,
       "ma_50": 17.842600116729738,
+      "missing_from_universe": true,
       "pct_from_52w_high": -0.4275069525553972,
       "pct_from_52w_low": 0.4740207990952063,
       "pct_from_ma_200": -0.22738345209610603,
       "pct_from_ma_50": 0.033481690640353445,
+      "regime_metrics": null,
       "rsi_14": 54.868927685312215,
+      "sensitivity_tags": [],
       "tags": [
         "fintech",
         "high_risk",
@@ -119,11 +128,22 @@
       "last": 402.4599914550781,
       "ma_200": 301.3683000946045,
       "ma_50": 357.0002014160156,
+      "missing_from_universe": false,
       "pct_from_52w_high": 0.0,
       "pct_from_52w_low": 1.4630355354238311,
       "pct_from_ma_200": 0.3354423518622871,
       "pct_from_ma_50": 0.12733827560530644,
+      "regime_metrics": {
+        "beta_normal": 1.441,
+        "beta_stress": 1.098,
+        "confidence": "high",
+        "vix_crush_recovery_pct": 0.81,
+        "vix_spike_decay_pct": 2.04
+      },
       "rsi_14": 68.31647787047217,
+      "sensitivity_tags": [
+        "high_normal"
+      ],
       "tags": [
         "semi",
         "high_beta"
@@ -132,14 +152,14 @@
       "vs_avg_cost": 0.09426572624344899
     }
   },
-  "schema_version": 1,
+  "schema_version": 2,
   "snapshot": {
     "BTC": {
-      "change": 373.6171875,
-      "change_pct": 0.004813909089865878,
+      "change": 504.6171875,
+      "change_pct": 0.0065017920670708005,
       "error": null,
       "label": "BTC",
-      "last": 77985.6328125,
+      "last": 78116.6328125,
       "prev_close": 77612.015625,
       "symbol": "BTC-USD"
     },
@@ -218,40 +238,40 @@
   },
   "synthesis": {
     "market": {
-      "devils_advocate": "If the VIX3M compresses toward spot in the next few sessions and Nasdaq follows through above 25,000, the Tier 2 posture could prove too cautious — early movers in GOOGL/MSFT earnings beats could gap away before a re-entry at better levels materializes.",
-      "read": "VIX at 18.7 keeps us squarely in Tier 2 — quality growth, small entries (3-5%), 50% cash floor. The VIX/VIX3M spread (18.7 vs 21.3) signals the market is still pricing in residual near-term risk above the spot reading; don't chase the Nasdaq's +1.6% day as a signal to load up. Gold at 4741 and USD/JPY barely moving (-0.1%) suggest risk-on is tentative, not confirmed."
+      "devils_advocate": "VIX3M at 21.30 is still planted in Tier 3 territory — if spot VIX mean-reverts upward toward the forward curve rather than the curve collapsing down, today's green tape is a bull trap and Tier 2 posture flips overnight. A single macro catalyst (tariff escalation, Fed hawkish surprise) could push VIX back above 24.6 and invalidate the current quality-growth add thesis entirely.",
+      "read": "VIX at 18.71 sits in Tier 2 — the regime permits quality growth entries at 3-5% sizing with a 50% cash target. The term structure is mildly inverted (VIX3M 21.30 vs spot 18.71), signaling residual stress in the forward curve; this is not a clean all-clear. Nasdaq +1.63% leads, but the Dow is slightly red and WTI -1.51% hints at demand-side worry underneath the tech rally."
     },
     "model": "claude-sonnet-4-6",
     "positions": [
       {
-        "action": "hold",
+        "action": "trim",
         "confidence": "medium",
-        "rationale": "Up 9.4% from cost and sitting exactly at its 52-week high with RSI 68.3 — momentum is real but overbought risk is elevated. At +33.5% above the 200DMA, a trim would be warranted on any further extension, but no negative catalyst today so hold and watch for a pullback entry to add within Tier 2 sizing rules.",
+        "rationale": "RSI 68.3, at 52-week high, +12.7% above 50DMA and +33.5% above 200DMA — momentum is extended. Sensitivity tag `high_normal` means this is an appropriate add only at Tier 0-2, but at these stretched levels with no earnings catalyst visible, locking in partial gains is more disciplined than chasing; +9.4% above avg cost gives a clean trim zone.",
         "symbol": "TSM"
+      },
+      {
+        "action": "hold",
+        "confidence": "low",
+        "rationale": "Earnings in 10 days (May 6) — within the tier note's 7-day caution window is not yet triggered but close; -8.2% below 200DMA, 48% off 52-week high, and slightly underwater (-1.6% vs avg cost). No `add` at Tier 2 on a speculative, below-200DMA name this close to earnings; hold and reassess inside 7 days.",
+        "symbol": "IONQ"
       },
       {
         "action": "watch",
         "confidence": "low",
-        "rationale": "Technically split: +23.4% above the 50DMA but still 8.2% below the 200DMA and 48% off the 52-week high, with earnings in 10 days (May 6). High-beta speculative name with deep_drawdown flag — outside the strict 7-day earnings window today, but next review will trigger the trim/hold-only posture; no add at Tier 2 on a name this far from recovery.",
-        "symbol": "IONQ"
-      },
-      {
-        "action": "trim",
-        "confidence": "medium",
-        "rationale": "Earnings in 8 days (May 4) — one daily close away from triggering the 7-day trim rule, and the setup is already weak: 13% below the 200DMA, 31% off the 52-week high, RSI neutral at 48.6, and 1.9% underwater. Reduce exposure now before the earnings window locks in the hold-only posture under worse conditions.",
+        "rationale": "Earnings in 8 days (May 4) — one day outside the hard 7-day trim trigger, but framework says avoid buys within 7 days; -13.0% below 200DMA, -30.9% off 52-week high, and -1.9% underwater. No add; set a calendar alert to reassess trim vs hold in 24 hours when it crosses into the 7-day window.",
         "symbol": "PLTR"
       },
       {
         "action": "trim",
         "confidence": "high",
-        "rationale": "Earnings in 3 days (Apr 29), active Muddy Waters short report, 29.7% underwater, 22.7% below the 200DMA, and 42.8% off the 52-week high — every flag screams reduce before a binary event. Framework is explicit: earnings_within_7d + high_risk_tag = hold, trim, or exit only; trim here to cut binary risk while retaining a residual position if the thesis somehow clears.",
+        "rationale": "Earnings in 3 days (Apr 29), `earnings_within_3d` flag active, Muddy Waters short-seller report live — framework mandates no `add`; only `hold`, `trim`, or `exit` valid. At -29.7% underwater, -22.7% below 200DMA, and 42.8% off 52-week high, trimming now reduces binary event exposure before a potentially adversarial earnings print.",
         "symbol": "SOFI"
       }
     ],
     "usage": {
       "cache_read_input_tokens": 0,
-      "input_tokens": 3282,
-      "output_tokens": 804
+      "input_tokens": 3731,
+      "output_tokens": 843
     }
   },
   "tier": {

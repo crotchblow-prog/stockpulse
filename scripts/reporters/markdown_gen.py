@@ -58,7 +58,15 @@ def _render_todays_take(synthesis: dict[str, Any] | None) -> list[str]:
     """Render the 📝 Today's Take section, or [] if synthesis is missing/empty."""
     if not synthesis:
         return []
-    market = synthesis.get("market") or {}
+    market_raw = synthesis.get("market")
+    if isinstance(market_raw, str):
+        # Synthesis sometimes collapses `market` into a single string when the model
+        # decides one paragraph captures both read and devils — tolerate it.
+        market = {"read": market_raw}
+    elif isinstance(market_raw, dict):
+        market = market_raw
+    else:
+        market = {}
     positions = synthesis.get("positions") or []
     read = market.get("read")
     devils = market.get("devils_advocate")
@@ -128,6 +136,162 @@ def _render_watch_list(holdings: dict[str, dict[str, Any]]) -> list[str]:
     return ["## 🚩 Watch List", "", *rows, ""]
 
 
+# ── Universe Scanner (Phase 2.5 Commit 6) ────────────────────────────────────
+
+def _add_candidate_filter(tier_idx: int) -> tuple[str, str]:
+    """Return (sensitivity_tag, human-readable filter description) for the Add column at this tier."""
+    if tier_idx <= 2:
+        return "high_normal", "high_normal"
+    return "defensive", "defensive"
+
+
+def _eligible(entry: dict[str, Any], tag: str) -> bool:
+    """Universe entry passes the sample-size guard AND has the named sensitivity tag."""
+    if entry.get("confidence") == "low":
+        return False
+    return tag in (entry.get("sensitivity_tags") or [])
+
+
+def _fmt_signed_pct(v: Any) -> str:
+    """JSON-serialized percentages live here as numbers (e.g. -8.3 = -8.3%); render with sign + 1 decimal."""
+    if v is None:
+        return "—"
+    sign = "+" if v >= 0 else ""
+    return f"{sign}{v:.1f}%"
+
+
+def _fmt_beta(v: Any) -> str:
+    if v is None:
+        return "—"
+    return f"{v:.2f}"
+
+
+def _empty_row(col_count: int) -> str:
+    """Render the `_no candidates_` placeholder row with the right number of cells."""
+    cells = ["_no candidates at current thresholds_"] + [""] * (col_count - 1)
+    return "| " + " | ".join(cells) + " |"
+
+
+def _missing_universe_row(col_count: int) -> str:
+    cells = ["_universe data not loaded — run scripts/analyzers/regime_sensitivity.py_"] + [""] * (col_count - 1)
+    return "| " + " | ".join(cells) + " |"
+
+
+def _render_add_candidates(
+    tier_idx: int, regime_universe: dict[str, dict[str, Any]], avoid_tickers: set[str], data_present: bool,
+) -> list[str]:
+    tag, label = _add_candidate_filter(tier_idx)
+    lines = [f"**🟢 Add candidates** _({label}, sample ≥ 8)_", "",
+             "| Ticker | β normal | Sample | Note |",
+             "|---|---:|---:|---|"]
+    if not data_present:
+        lines.append(_missing_universe_row(4))
+        lines.append("")
+        return lines
+
+    candidates = [(s, e) for s, e in regime_universe.items() if _eligible(e, tag)]
+    candidates.sort(key=lambda kv: (-abs(kv[1].get("beta_normal") or 0.0), kv[0]))
+    top5 = candidates[:5]
+    if not top5:
+        lines.append(_empty_row(4))
+    else:
+        for sym, entry in top5:
+            sample = min(
+                entry.get("spike_event_count") or 0,
+                entry.get("crush_event_count") or 0,
+                entry.get("stress_weeks") or 0,
+                entry.get("normal_weeks") or 0,
+            )
+            note = "⚠️ also in Avoid" if sym in avoid_tickers else ""
+            lines.append(f"| {sym} | {_fmt_beta(entry.get('beta_normal'))} | {sample} | {note} |")
+    lines.append("")
+    return lines
+
+
+def _render_watch_transition(
+    regime_universe: dict[str, dict[str, Any]], data_present: bool,
+) -> list[str]:
+    lines = ["**🟡 Watch (transition)** _(mean_reverter, sample ≥ 8)_", "",
+             "| Ticker | Crush recovery | Spike decay | Note |",
+             "|---|---:|---:|---|"]
+    if not data_present:
+        lines.append(_missing_universe_row(4))
+        lines.append("")
+        return lines
+
+    candidates = [(s, e) for s, e in regime_universe.items() if _eligible(e, "mean_reverter")]
+    candidates.sort(key=lambda kv: (-(kv[1].get("vix_crush_recovery_pct") or 0.0), kv[0]))
+    top5 = candidates[:5]
+    if not top5:
+        lines.append(_empty_row(4))
+    else:
+        for sym, entry in top5:
+            lines.append(
+                f"| {sym} | {_fmt_signed_pct(entry.get('vix_crush_recovery_pct'))} | "
+                f"{_fmt_signed_pct(entry.get('vix_spike_decay_pct'))} |  |"
+            )
+    lines.append("")
+    return lines
+
+
+def _render_avoid_candidates(
+    regime_universe: dict[str, dict[str, Any]], add_tickers: set[str], data_present: bool,
+) -> list[str]:
+    lines = ["**🔴 Avoid candidates** _(crisis_alpha, sample ≥ 8)_", "",
+             "| Ticker | Spike decay | Sample | Note |",
+             "|---|---:|---:|---|"]
+    if not data_present:
+        lines.append(_missing_universe_row(4))
+        lines.append("")
+        return lines
+
+    candidates = [(s, e) for s, e in regime_universe.items() if _eligible(e, "crisis_alpha")]
+    candidates.sort(key=lambda kv: (-abs(kv[1].get("vix_spike_decay_pct") or 0.0), kv[0]))
+    top5 = candidates[:5]
+    if not top5:
+        lines.append(_empty_row(4))
+    else:
+        for sym, entry in top5:
+            sample = min(
+                entry.get("spike_event_count") or 0,
+                entry.get("crush_event_count") or 0,
+                entry.get("stress_weeks") or 0,
+                entry.get("normal_weeks") or 0,
+            )
+            note = "also in Add" if sym in add_tickers else ""
+            lines.append(
+                f"| {sym} | {_fmt_signed_pct(entry.get('vix_spike_decay_pct'))} | {sample} | {note} |"
+            )
+    lines.append("")
+    return lines
+
+
+def _render_universe_scanner(
+    tier_idx: int, regime_universe: dict[str, dict[str, Any]] | None,
+) -> list[str]:
+    """Render the 📡 Universe Scanner block with three always-rendered sub-regions.
+
+    All three sub-regions render even when their candidate list is empty — the placeholder row
+    surfaces "thresholds need tuning" as an observable state rather than hiding the question.
+    """
+    universe = regime_universe or {}
+    data_present = bool(universe)
+
+    add_tag, _ = _add_candidate_filter(tier_idx)
+    add_set = (
+        {s for s, e in universe.items() if _eligible(e, add_tag)} if data_present else set()
+    )
+    avoid_set = (
+        {s for s, e in universe.items() if _eligible(e, "crisis_alpha")} if data_present else set()
+    )
+
+    lines: list[str] = [f"## 📡 Universe Scanner — Tier {tier_idx}", ""]
+    lines.extend(_render_add_candidates(tier_idx, universe, avoid_set, data_present))
+    lines.extend(_render_watch_transition(universe, data_present))
+    lines.extend(_render_avoid_candidates(universe, add_set, data_present))
+    return lines
+
+
 def render(report: dict[str, Any]) -> str:
     """Render a report dict to a Markdown string. Top-level keys: date, vix_value, tier, snapshot, holdings, synthesis?."""
     date: str = report["date"]
@@ -177,6 +341,9 @@ def render(report: dict[str, Any]) -> str:
 
     # ── Watch List (flag-driven) ──────────────────────────────────────────
     lines.extend(_render_watch_list(holdings))
+
+    # ── Universe Scanner (regime sensitivity) ─────────────────────────────
+    lines.extend(_render_universe_scanner(tier.index, report.get("regime_universe")))
 
     # ── Holdings ──────────────────────────────────────────────────────────
     lines.append("## 💼 Holdings")
