@@ -1,6 +1,6 @@
-# 📊 Daily Market — 2026-04-26
+# 📊 Daily Market — 2026-04-27
 
-**VIX 18.71** → 🟠 **Tier 2 · 觀察** 
+**VIX 19.11** → 🟠 **Tier 2 · 觀察** 
 
 Cash target **50%** · buy size **3-5%** · range _VIX 18–24.6_
 
@@ -8,13 +8,26 @@ Cash target **50%** · buy size **3-5%** · range _VIX 18–24.6_
 
 ## 📝 Today's Take
 
-**Market read.** VIX at 18.71 puts us squarely in Tier 2 — quality growth, small entries, 50% cash target. The VIX3M spread (21.30 vs 18.71) signals residual term-structure stress; this is not a cleared all-clear. Nasdaq leading (+1.63%) while Dow lags (-0.16%) confirms the rally is concentrated in mega-cap tech — stay selective, size 3–5%, avoid earnings landmines in the next 7 days.
+**Market read.** VIX at 19.1 sits squarely in Tier 2 — elevated enough to demand 50% cash discipline, but not a full stress regime. VIX3M at 21.4 implies the market is pricing continued near-term uncertainty rather than a sharp mean-reversion, so the term structure is mildly contango — no urgency to deploy aggressively. Equities are effectively flat (SPX -0.02%, Dow +0.006%), USD/JPY slipping -0.30% to 159.27 suggests mild yen strength — watch for carry unwind pressure on risk assets if that accelerates.
 
-**Devil's advocate.** If the VIX3M/VIX contango compresses sharply downward into Tier 1 territory this week on strong mega-cap earnings beats, the 50% cash target starts looking like opportunity cost — the regime could snap bullish faster than the framework re-rates it.
+**Devil's advocate.** If VIX fades sharply back toward 15 on a surprise trade deal or macro relief catalyst, Tier 2 quality-growth names rip and sitting at 50% cash becomes a drag — the 'calm before the storm' narrative flips into 'missed the re-entry.' WTI +2.1% alongside flat equities could also signal a stagflation bid that front-runs a hawkish Fed pivot, compressing equity multiples regardless of VIX level.
+
+**Position calls:**
+- **TSM** — trim (medium). RSI 69.5 and sitting exactly at the 52-week high with +13.7% above 50DMA and +34.6% above 200DMA — technically stretched by every measure. Sensitivity tag `high_normal` means Tier 2 is the ceiling for adds; at this extension, trimming into strength preserves gains (+10.6% above avg cost) and reloads cash for a better re-entry if VIX ticks up into Tier 3 where `mean_reverter` tag becomes actionable.
+- **IONQ** — watch (low). Earnings in 9 days (May 6) with position -3.6% underwater, 10% below 200DMA, and 49% off 52-week high — deep drawdown with a binary event approaching. RSI 58 and +20% above 50DMA suggests a short-term bounce that does not fix the structural damage; no add warranted at Tier 2 for a speculative quantum name flagged `below_200dma` and `deep_drawdown`.
+- **PLTR** — trim (high). `earnings_within_7d` flag is live (May 4, 7 days out) — framework mandates trim or hedge before known earnings; position is already -1.9% underwater, 13% below 200DMA, and 30.9% off 52-week high with RSI a tepid 48.6. Trimming now cuts binary earnings risk on a name that has no technical support and is deep in drawdown.
+- **SOFI** — trim (high). Earnings in 2 days (Apr 29), `earnings_within_7d` + `earnings_within_3d` both flagged — SOFI special-case rule strictly limits actions to hold/trim/exit; position is 28.2% underwater, 21% below 200DMA, 41.5% off 52-week high with active Muddy Waters short report. Trim now to reduce exposure ahead of a binary event on a high-risk name with no structural support.
 
 ## 🎯 Tier Action
 
-**Buy list:** `GOOGL`, `MSFT`, `AAPL`, `AMZN`, `META`, `TSM`, `AVGO`, `TXN`
+**Buy list:** `GOOGL`, `MSFT`, `AAPL`, `AMZN`, `META`, `TSM` (trim), `AVGO`, `TXN`
+
+## 🚩 Watch List
+
+- **TSM** (Tier 2 / Exness): near_52w_high, buy_list_member ⋮ high_normal
+- **IONQ** (Tier 2 / Taiwan_Brokerage): below_200dma, deep_drawdown
+- **PLTR** (Tier 2 / Taiwan_Brokerage): near_50dma, below_200dma, deep_drawdown, earnings_within_7d
+- **SOFI** (Tier 2 / Taiwan_Brokerage): below_200dma, deep_drawdown, underwater, earnings_within_7d, earnings_within_3d, high_risk_tag, event_play
 
 ## 📡 Universe Scanner — Tier 2 (Watch)
 
@@ -52,20 +65,29 @@ _Tickers tagged in both 🟢 Add and 🔴 Avoid are double-edged: they amplify o
 | INTC | -0.3% | 20 | double-edged (see Add) |
 | CMCSA | -0.0% | 20 |  |
 
+## 💼 Holdings
+
+| Ticker | Last | vs avg cost | RSI(14) | vs 50DMA | vs 200DMA | vs 52w high |
+|---|---:|---:|---:|---:|---:|---:|
+| **TSM** | 406.71 | +10.58% | 70 | +13.68% | +34.56% | +0.00% |
+| **IONQ** | 41.81 | -3.63% | 58 | +20.15% | -10.06% | -49.07% |
+| **PLTR** | 143.14 | -1.87% | 49 | -1.03% | -12.95% | -30.91% |
+| **SOFI** | 18.84 | -28.20% | 58 | +5.64% | -21.03% | -41.51% |
+
 ## 🌐 Market Snapshot
 
 | Asset | Last | Δ |
 |---|---:|---:|
-| VIX | 18.71 | -0.60 (-3.11%) |
-| VIX3M | 21.30 | -0.18 (-0.84%) |
-| S&P 500 | 7,165.08 | +56.68 (+0.80%) |
-| Nasdaq | 24,836.60 | +398.10 (+1.63%) |
-| Dow | 49,230.71 | -79.61 (-0.16%) |
-| USD/JPY | 159.33 | -0.16 (-0.10%) |
-| BTC | 78,054.17 | +442.16 (+0.57%) |
-| Gold | 4,740.90 | +35.80 (+0.76%) |
-| WTI | 94.40 | -1.45 (-1.51%) |
+| VIX | 19.11 | +0.40 (+2.14%) |
+| VIX3M | 21.44 | +0.14 (+0.66%) |
+| S&P 500 | 7,163.30 | -1.78 (-0.02%) |
+| Nasdaq | 24,789.36 | -47.24 (-0.19%) |
+| Dow | 49,233.82 | +3.11 (+0.01%) |
+| USD/JPY | 159.27 | -0.48 (-0.30%) |
+| BTC | 77,749.97 | -907.57 (-1.15%) |
+| Gold | 4,706.10 | -16.20 (-0.34%) |
+| WTI | 96.42 | +2.02 (+2.14%) |
 
 ---
 
-_Generated 2026-04-26 · Asia/Taipei · not investment advice._
+_Generated 2026-04-27 · Asia/Taipei · not investment advice._

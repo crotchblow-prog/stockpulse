@@ -1,14 +1,14 @@
 {
-  "fetched_at": 1777178710.49821,
+  "fetched_at": 1777298409.3533592,
   "rows": [
     {
       "date": "2026-07-15",
       "epsActual": null,
-      "epsEstimate": 23.6085,
+      "epsEstimate": 23.6852,
       "hour": "amc",
       "quarter": 2,
       "revenueActual": null,
-      "revenueEstimate": 1264205086173,
+      "revenueEstimate": 1266482291977,
       "symbol": "2330.TW",
       "year": 2026
     },
@@ -26,11 +26,11 @@
     {
       "date": "2026-05-04",
       "epsActual": null,
-      "epsEstimate": 0.2843,
+      "epsEstimate": 0.2848,
       "hour": "",
       "quarter": 1,
       "revenueActual": null,
-      "revenueEstimate": 1571352207,
+      "revenueEstimate": 1568871231,
       "symbol": "PLTR",
       "year": 2026
     },
