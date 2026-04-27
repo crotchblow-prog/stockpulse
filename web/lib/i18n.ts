@@ -77,6 +77,12 @@ const en: Dict = {
   tier_action_3: "Scale in",
   tier_action_4: "Catch the panic",
   tier_action_5: "Extreme opportunity",
+  // footer nav
+  "footer.about": "About",
+  "footer.privacy": "Privacy",
+  "footer.terms": "Terms",
+  "footer.contact": "Contact",
+  "footer.copyright_brand": "VIX Pulse",
 };
 
 const zh: Dict = {
@@ -138,6 +144,11 @@ const zh: Dict = {
   tier_action_3: "分批進場",
   tier_action_4: "恐慌承接",
   tier_action_5: "極端機會",
+  "footer.about": "關於我們",
+  "footer.privacy": "隱私權政策",
+  "footer.terms": "服務條款",
+  "footer.contact": "聯絡我們",
+  "footer.copyright_brand": "VIX Pulse",
 };
 
 const dicts: Record<Locale, Dict> = { en, zh };

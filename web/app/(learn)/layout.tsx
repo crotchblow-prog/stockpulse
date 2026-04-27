@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { VixPulseLogo } from "@/components/v2/VixPulseLogo";
+import { LearnFooter } from "@/components/v2/LearnFooter";
 
 /**
  * Layout for /learn and /zh/learn — applies the same Phase 3.0 design tokens
@@ -31,15 +32,7 @@ export default function LearnLayout({ children }: { children: React.ReactNode })
         </div>
       </header>
       <main className="mx-auto max-w-3xl px-6 py-8">{children}</main>
-      <footer
-        className="mx-auto max-w-3xl px-6 py-10 text-xs text-[color:var(--color-muted)] border-t mt-12"
-        style={{ borderColor: "var(--color-border)" }}
-      >
-        Asia/Taipei · not investment advice · {" "}
-        <a className="underline" href="https://github.com/crotchblow-prog/stockpulse">
-          GitHub
-        </a>
-      </footer>
+      <LearnFooter />
     </div>
   );
 }
