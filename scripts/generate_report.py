@@ -360,7 +360,9 @@ def main() -> int:
     log.info("wrote en/%s and en/%s", en_dated_json.name, en_latest_json.name)
 
     # zh translation is best-effort — failure here never blocks the EN report.
-    zh = maybe_translate(en_md, synthesis, skip=(args.en_only or args.no_synthesis))
+    # Read synthesis off `report` (not the captured `synthesis` local) so --public
+    # stripping above propagates into the zh sidecar.
+    zh = maybe_translate(en_md, report.get("synthesis"), skip=(args.en_only or args.no_synthesis))
     if zh is not None:
         zh_md, zh_synthesis = zh
         zh_dir = REPORTS_DIR / "zh"

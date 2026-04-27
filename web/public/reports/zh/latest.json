@@ -1,159 +1,7 @@
 {
-  "accounts": {
-    "Exness": {
-      "holdings": [
-        "TSM"
-      ],
-      "tier_index": 2,
-      "total_value": null
-    },
-    "Taiwan_Brokerage": {
-      "holdings": [
-        "IONQ",
-        "PLTR",
-        "SOFI"
-      ],
-      "tier_index": 2,
-      "total_value": null
-    }
-  },
+  "accounts": {},
   "date": "2026-04-27",
-  "holdings": {
-    "IONQ": {
-      "account": "Taiwan_Brokerage",
-      "avg_cost": 43.38,
-      "change": -0.8849983215332031,
-      "change_pct": -0.020730811665557285,
-      "days_to_earnings": 9,
-      "earnings_date": "2026-05-06",
-      "flags": [
-        "below_200dma",
-        "deep_drawdown"
-      ],
-      "last": 41.80500030517578,
-      "ma_200": 46.481724977493286,
-      "ma_50": 34.79330005645752,
-      "missing_from_universe": true,
-      "pct_from_52w_high": -0.49074184224467227,
-      "pct_from_52w_low": 0.5722075992958232,
-      "pct_from_ma_200": -0.10061426667323559,
-      "pct_from_ma_50": 0.20152443824933805,
-      "regime_metrics": null,
-      "rsi_14": 58.4091433203873,
-      "sensitivity_tags": [],
-      "tags": [
-        "quantum",
-        "high_beta",
-        "speculative"
-      ],
-      "tier_index": 2,
-      "vs_avg_cost": -0.03630704690696683
-    },
-    "PLTR": {
-      "account": "Taiwan_Brokerage",
-      "avg_cost": 145.87,
-      "change": 0.0500030517578125,
-      "change_pct": 0.00034945176488603735,
-      "days_to_earnings": 7,
-      "earnings_date": "2026-05-04",
-      "flags": [
-        "near_50dma",
-        "below_200dma",
-        "deep_drawdown",
-        "earnings_within_7d"
-      ],
-      "last": 143.13999938964844,
-      "ma_200": 164.43742515563966,
-      "ma_50": 144.6320001220703,
-      "missing_from_universe": true,
-      "pct_from_52w_high": -0.30910317381056124,
-      "pct_from_52w_low": 0.3148998584153707,
-      "pct_from_ma_200": -0.12951690131266197,
-      "pct_from_ma_50": -0.010315841108209897,
-      "regime_metrics": null,
-      "rsi_14": 48.64303303177897,
-      "sensitivity_tags": [],
-      "tags": [
-        "ai_software",
-        "high_beta"
-      ],
-      "tier_index": 2,
-      "vs_avg_cost": -0.01871529862447088
-    },
-    "SOFI": {
-      "account": "Taiwan_Brokerage",
-      "avg_cost": 26.24,
-      "change": 0.39999961853027344,
-      "change_pct": 0.021691952654312414,
-      "days_to_earnings": 2,
-      "earnings_date": "2026-04-29",
-      "flags": [
-        "below_200dma",
-        "deep_drawdown",
-        "underwater",
-        "earnings_within_7d",
-        "earnings_within_3d",
-        "high_risk_tag",
-        "event_play"
-      ],
-      "last": 18.84000015258789,
-      "ma_200": 23.85630002498627,
-      "ma_50": 17.833400135040282,
-      "missing_from_universe": true,
-      "pct_from_52w_high": -0.41508846047530584,
-      "pct_from_52w_low": 0.5059951884806513,
-      "pct_from_ma_200": -0.2102714950409107,
-      "pct_from_ma_50": 0.05644464936160839,
-      "regime_metrics": null,
-      "rsi_14": 58.049293545298724,
-      "sensitivity_tags": [],
-      "tags": [
-        "fintech",
-        "high_risk",
-        "muddy_waters_target"
-      ],
-      "tier_index": 2,
-      "vs_avg_cost": -0.2820121893068639
-    },
-    "TSM": {
-      "account": "Exness",
-      "avg_cost": 367.79,
-      "change": 4.24810791015625,
-      "change_pct": 0.010555354570270164,
-      "days_to_earnings": null,
-      "earnings_date": null,
-      "flags": [
-        "near_52w_high",
-        "buy_list_member"
-      ],
-      "last": 406.7080993652344,
-      "ma_200": 302.2530406188965,
-      "ma_50": 357.77236328125,
-      "missing_from_universe": false,
-      "pct_from_52w_high": 0.0,
-      "pct_from_52w_low": 1.4890337488194048,
-      "pct_from_ma_200": 0.3455881156148326,
-      "pct_from_ma_50": 0.13677897206810036,
-      "regime_metrics": {
-        "beta_normal": 1.441,
-        "beta_stress": 1.098,
-        "confidence": "high",
-        "vix_crush_recovery_pct": 0.81,
-        "vix_spike_decay_pct": 2.04
-      },
-      "rsi_14": 69.52613724945087,
-      "sensitivity_tags": [
-        "high_normal",
-        "mean_reverter"
-      ],
-      "tags": [
-        "semi",
-        "high_beta"
-      ],
-      "tier_index": 2,
-      "vs_avg_cost": 0.10581608897804277
-    }
-  },
+  "holdings": {},
   "regime_universe": {
     "AAPL": {
       "beta_normal": 0.997,
@@ -1018,123 +866,98 @@
   "schema_version": 2,
   "snapshot": {
     "BTC": {
-      "change": -907.5703125,
-      "change_pct": -0.011538249522132385,
+      "change": -831.2265625,
+      "change_pct": -0.01056766550806428,
       "error": null,
       "label": "BTC",
-      "last": 77749.96875,
+      "last": 77826.3125,
       "prev_close": 78657.5390625,
       "symbol": "BTC-USD"
     },
     "Dow": {
-      "change": 3.109375,
-      "change_pct": 6.315925447323834e-05,
+      "change": -87.76171875,
+      "change_pct": -0.0017826620229274442,
       "error": null,
       "label": "Dow",
-      "last": 49233.8203125,
+      "last": 49142.94921875,
       "prev_close": 49230.7109375,
       "symbol": "^DJI"
     },
     "Gold": {
-      "change": -16.19970703125,
-      "change_pct": -0.0034304698348820786,
+      "change": -16.39990234375,
+      "change_pct": -0.0034728634398584674,
       "error": null,
       "label": "Gold",
-      "last": 4706.10009765625,
+      "last": 4705.89990234375,
       "prev_close": 4722.2998046875,
       "symbol": "GC=F"
     },
     "Nasdaq": {
-      "change": -47.236328125,
-      "change_pct": -0.0019018838676760662,
+      "change": -53.875,
+      "change_pct": -0.0021691777798625847,
       "error": null,
       "label": "Nasdaq",
-      "last": 24789.36328125,
+      "last": 24782.724609375,
       "prev_close": 24836.599609375,
       "symbol": "^IXIC"
     },
     "S&P 500": {
-      "change": -1.7802734375,
-      "change_pct": -0.00024846525343592146,
+      "change": -3.80029296875,
+      "change_pct": -0.0005303908577871028,
       "error": null,
       "label": "S&P 500",
-      "last": 7163.2998046875,
+      "last": 7161.27978515625,
       "prev_close": 7165.080078125,
       "symbol": "^GSPC"
     },
     "USD/JPY": {
-      "change": -0.4799957275390625,
-      "change_pct": -0.0030047246302694797,
+      "change": -0.52899169921875,
+      "change_pct": -0.003311434449635449,
       "error": null,
       "label": "USD/JPY",
-      "last": 159.26699829101562,
+      "last": 159.21800231933594,
       "prev_close": 159.7469940185547,
       "symbol": "JPY=X"
     },
     "VIX": {
-      "change": 0.40000152587890625,
-      "change_pct": 0.021379024342703775,
+      "change": -0.03999900817871094,
+      "change_pct": -0.0021378412686244297,
       "error": null,
       "label": "VIX",
-      "last": 19.110000610351562,
+      "last": 18.670000076293945,
       "prev_close": 18.709999084472656,
       "symbol": "^VIX"
     },
     "VIX3M": {
-      "change": 0.1400012969970703,
-      "change_pct": 0.006572831080363496,
+      "change": -0.11999893188476562,
+      "change_pct": -0.005633752872440279,
       "error": null,
       "label": "VIX3M",
-      "last": 21.440000534057617,
+      "last": 21.18000030517578,
       "prev_close": 21.299999237060547,
       "symbol": "^VIX3M"
     },
     "WTI": {
-      "change": 2.0199966430664062,
-      "change_pct": 0.021398269178127528,
+      "change": 2.1100006103515625,
+      "change_pct": 0.022351701019550564,
       "error": null,
       "label": "WTI",
-      "last": 96.41999816894531,
+      "last": 96.51000213623047,
       "prev_close": 94.4000015258789,
       "symbol": "CL=F"
     }
   },
   "synthesis": {
     "market": {
-      "devils_advocate": "若因貿易協議意外達成或宏觀利好催化，VIX 急速回落至 15，Tier 2 優質成長股將急漲，持有 50% 現金反成拖累——「暴風雨前的寧靜」敘事將翻轉為「錯過重新進場」。WTI +2.1% 伴隨股市持平，亦可能暗示滯脹競價已搶先反映鷹派聯準會轉向，無論 VIX 水位如何，均壓縮股票估值倍數。",
-      "read": "VIX 報 19.1，明確落於 Tier 2——高到足以要求 50% 現金紀律，但尚未進入完全壓力模式。VIX3M 報 21.4，意味市場正為持續的短期不確定性定價，而非預期急速均值回歸，期限結構呈溫和正價差——無迫切理由積極部署。股市實質持平（SPX -0.02%，Dow +0.006%），USD/JPY 下滑 -0.30% 至 159.27，顯示日圓溫和走強——若跌勢加速，須留意套利交易平倉對風險資產的壓力。"
+      "devils_advocate": "若 VIX3M 向即期值收斂（利差壓縮），且 S&P 週末收盤守穩 7,100 之上，Tier 2 架構將成為 TSM 等標的的合理均值回歸進場訊號——若行情在月末急拉，「等待確認」的立場將實質損失 alpha。",
+      "read": "VIX 報 18.67，明確位於 Tier 2 — 優質成長小倉可進場，規模控制在 3–5%，但結構性目標仍維持 50% 現金。VIX3M 利差（21.18 對 18.67）顯示市場仍在為殘餘期限壓力定價；這並非風險全開的信號。股市當日基本持平，USD/JPY 報 159.22（-0.33%）、黃金走軟，顯示溫和的避險佈局但無恐慌情緒——此一環境獎勵耐心而非躁進。"
     },
     "model": "claude-sonnet-4-6",
-    "positions": [
-      {
-        "action": "trim",
-        "confidence": "medium",
-        "rationale": "RSI 69.5，且恰好站在 52 週高點，較 50DMA 高出 +13.7%，較 200DMA 高出 +34.6%——每項技術指標均顯示過度延伸。敏感度標籤 `high_normal` 意味 Tier 2 是加倉上限；在此延伸幅度下，趁強修剪可鎖定獲利（較均價高 +10.6%），並為 VIX 升入 Tier 3 時 `mean_reverter` 標籤可操作的更佳進場點備妥現金。",
-        "symbol": "TSM"
-      },
-      {
-        "action": "watch",
-        "confidence": "low",
-        "rationale": "財報將於 9 天後公布（5 月 6 日），倉位目前虧損 -3.6%，低於 200DMA 10%，距 52 週高點下跌 49%——深度回撤疊加二元事件迫近。RSI 58 及較 50DMA 高 +20% 顯示短線反彈，但無法修復結構性損傷；在 Tier 2 下，對一個標注 `below_200dma` 及 `deep_drawdown` 的投機性量子概念股，不宜加倉。",
-        "symbol": "IONQ"
-      },
-      {
-        "action": "trim",
-        "confidence": "high",
-        "rationale": "`earnings_within_7d` 標籤已觸發（5 月 4 日，距今 7 天）——框架規定在已知財報前須修剪或對沖；倉位已虧損 -1.9%，低於 200DMA 13%，距 52 週高點下跌 30.9%，RSI 疲弱報 48.6。現在修剪可降低二元財報風險，該標的毫無技術支撐且深陷回撤。",
-        "symbol": "PLTR"
-      },
-      {
-        "action": "trim",
-        "confidence": "high",
-        "rationale": "財報在 2 天後（4 月 29 日），`earnings_within_7d` 及 `earnings_within_3d` 雙雙觸發——SOFI 特殊規則嚴格限制操作為 hold／trim／exit；倉位虧損 28.2%，低於 200DMA 21%，距 52 週高點下跌 41.5%，且有 Muddy Waters 做空報告在身。立即修剪以降低高風險標的在二元事件前的曝險，該標的毫無結構性支撐。",
-        "symbol": "SOFI"
-      }
-    ],
+    "positions": [],
     "usage": {
       "cache_read_input_tokens": 0,
-      "input_tokens": 3956,
-      "output_tokens": 910
+      "input_tokens": 3951,
+      "output_tokens": 882
     }
   },
   "tier": {
@@ -1160,5 +983,5 @@
       24.6
     ]
   },
-  "vix_value": 19.110000610351562
+  "vix_value": 18.670000076293945
 }
