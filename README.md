@@ -6,7 +6,7 @@ A daily decision-support report for a single-user US-equity portfolio, driven by
 
 > The canonical strategic context lives in [`PROJECT_BRIEF.md`](./PROJECT_BRIEF.md) — read that first if you're trying to understand WHY this project exists. This README covers WHAT was built and HOW to run it.
 
-## What's implemented (as of 2026-04-26)
+## What's implemented (as of 2026-04-27)
 
 ### Phase 1 — Data + Tier classification ✅ (shipped 2026-04-25)
 - yfinance market snapshot (VIX, VIX3M, indices, FX, BTC, gold, oil)
@@ -30,7 +30,7 @@ Four sequential commits delivered the synthesis layer:
 6. **Commit 10** — Threshold redefinition tuned to natural breaks in the 2021-2026 universe: `crisis_alpha p25 < -4%` (5/59 names fire), `mean_reverter` becomes single-axis `crush_recovery > +0.6%` (9/59 names fire) — the "drops then snaps back" pattern doesn't manifest in the data; top-recovery names rally OFF spikes.
 7. **Commit 10.5** — Universe Scanner readability pass: Sample column reads `normal_weeks` for 🟢 Add (matches `β normal`'s calculation basis), framework legend under section heading, bilingual tier action in the heading (`📡 Universe Scanner — Tier 2 (觀察)`).
 
-178 tests pass. Daily run cost: ~$0.08 bilingual (~$2.40/month, well under the $5–10 cap in [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §5.1).
+Python pipeline tests + 30 Playwright tests pass on `main`. Daily run cost: ~$0.08 bilingual (~$2.40/month, well under the $5–10 cap in [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §5.1).
 
 ### Phase 3.0 — Frontend redesign ✅ (shipped 2026-04-26)
 Next.js 15 + Tailwind v4 + shadcn primitives + recharts + Playwright. New design lives at `vixpulse.asia/` (`/en` and `/zh`), Phase 1 markdown viewer preserved at `/legacy/*` as escape hatch. See [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §11 for the routing table and design system.
@@ -41,15 +41,39 @@ Next.js 15 + Tailwind v4 + shadcn primitives + recharts + Playwright. New design
 | M2 | Core redesign — Hero, severity-classified WatchList, responsive Holdings, SnapshotGrid, V2Footer | `ee91fa5` |
 | M3 | VIX sparkline (recharts, lazy), custom i18n, dynamic OG card | `85d37dd` |
 | M4 cutover | `/v2/*` → `/`, Phase 1 → `/legacy/*`, basic-auth dropped | `1f2660b` |
-| M4 hardening | Visual regression CI workflow, defensive `/archive` redirects, doc updates | `[this commit]` |
+| M4 hardening | Visual regression CI workflow, defensive `/archive` redirects, doc updates | `d4aa387` |
+
+### Phase 3.1 — TodaysTake / TierAction / UniverseScanner + `/learn` v2 chrome ✅ (shipped 2026-04-27)
+
+Three new Server Components landed between the hero/sparkline and watch list, and `/learn` moved under a route group with the same Phase 3.0 chrome. First-Load JS unchanged (2.17 KB / 108 KB total — zero client JS added). 30 Playwright tests on `main` (was 19; +11 for Phase 3.1).
+
+| # | What | Commit |
+|---|---|---|
+| 3.1 | `TodaysTake` (market read + devil's advocate + position calls) · `TierAction` (buy_list with held-ticker `(hold)` annotation) · `UniverseScanner` (Add / Watch / Avoid sub-regions, cross-region overlap warnings) · `(learn)` route group with `[data-v2-root][data-area='learn']` chrome · `regime_universe` surfaced into JSON sidecar via additive `json_emitter` change | `d4a1e9a` |
+| 3.2 | Tier-action label localization, double-edged tag clarification, hero synthesis read truncation fix, "VIX Pulse" wordmark spacing, tier-ladder logo | `2fb37f9` · `8d42dc8` · `c585a61` · `acdab4a` |
+| Sparkline backfill | 30+ days of VIX history seeded so the chart isn't empty on first deploys | `d22e7d7` |
+| `/learn` UX redesign | Visual tier ramp, numbered rule cards, section grid | `1ab49e4` · `64118c9` · `2099892` |
+
+### Privacy mode ✅ (shipped 2026-04-26, hardened 2026-04-27)
+
+Per [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §5.2 the deployed site no longer exposes Carina's portfolio. `scripts/generate_report.py --public` empties `report.holdings`, `report.accounts`, and `report.synthesis.positions` before render — markdown drops the Holdings + position-call sections, JSON sidecars expose `holdings: {}` and `synthesis.positions: []`. The tier / VIX / market snapshot / Universe Scanner / synthesis market read + devil's advocate remain. `scripts/run_daily.sh` passes `--public` for cron output; local invocations without the flag retain the full personal view.
+
+| # | What | Commit |
+|---|---|---|
+| Privacy stance | `--public` flag in `generate_report.py` + `run_daily.sh`, markdown skips empty Holdings, v2 components return `null` rather than placeholder cards | `c2ad7a1` |
+| zh sidecar fix | One-line bug — captured `synthesis` local was passed to `maybe_translate` before strip propagated; reading off `report` after strip closes the leak | `f12fb89` |
+| Legal pages | `/about` · `/privacy` · `/terms` + site-wide © + nav footer | `295721d` |
 
 ## What's left
 
 | Area | Status | When |
 |---|---|---|
+| Vercel↔GitHub auto-deploy integration | Broken since 2026-04-26 — webhook returns `incorrect_git_source_info`; manual `vercel --prod` deploys are the working path until reconnected. Tracked on the agent-bus. | Active |
+| MIRA's launchd cron honoring `--public` | Today's `c646f33` cron commit produced an unstripped sidecar despite `run_daily.sh` calling `--public`; root-cause delegated to MIRA. The script-side leak (zh sidecar) is fixed in `f12fb89`. | Active |
 | Threshold tuning revisit for `crisis_alpha` / `mean_reverter` | Tuned in Commit 10 (5/59 + 9/59 fire counts). Revisit if the universe regime changes meaningfully (true crisis return). | 2027 or post-incident |
-| Visual regression baseline screenshots | M4-hardening shipped the CI workflow; baselines themselves need a known-good deployed state to capture from | Next session |
-| Lighthouse mobile + desktop audit | Deferred from M4-hardening; needs deployed URL or local production-build run | Next session |
+| Visual regression baseline screenshots | M4-hardening shipped the CI workflow; baselines themselves need a known-good deployed state to capture from | When auto-deploy is restored |
+| Lighthouse mobile + desktop audit | Deferred from M4-hardening; needs deployed URL or local production-build run | When auto-deploy is restored |
+| Phase 4 — multi-user accounts | Brief-writer scheduled for 2026-04-27; sign-up + screenshot/API holdings + per-user watch list + per-user synthesis | Brief lands 2026-04-27, implementation TBD |
 | Telegram bot push (Phase 3) | Not started | July 2026 |
 | Searchable archive UI + Supabase archive (Phase 3) | Phase 1 archive at `/legacy/archive`; Supabase not wired | August 2026 |
 | MetaApi Track A — auto-sync Exness holdings (Phase 3) | Not started; plan in [`PROJECT_BRIEF`](./PROJECT_BRIEF.md) §6.7 | September 2026 |
