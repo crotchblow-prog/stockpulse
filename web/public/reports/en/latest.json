@@ -1,6 +1,6 @@
 {
   "accounts": {},
-  "date": "2026-04-27",
+  "date": "2026-05-13",
   "holdings": {},
   "regime_universe": {
     "AAPL": {
@@ -866,122 +866,120 @@
   "schema_version": 2,
   "snapshot": {
     "BTC": {
-      "change": -831.2265625,
-      "change_pct": -0.01056766550806428,
+      "change": 614.2265625,
+      "change_pct": 0.0076322776195479345,
       "error": null,
       "label": "BTC",
-      "last": 77826.3125,
-      "prev_close": 78657.5390625,
+      "last": 81091.71875,
+      "prev_close": 80477.4921875,
       "symbol": "BTC-USD"
     },
     "Dow": {
-      "change": -87.76171875,
-      "change_pct": -0.0017826620229274442,
+      "change": 56.08984375,
+      "change_pct": 0.0011284668191931938,
       "error": null,
       "label": "Dow",
-      "last": 49142.94921875,
-      "prev_close": 49230.7109375,
+      "last": 49760.55859375,
+      "prev_close": 49704.46875,
       "symbol": "^DJI"
     },
     "Gold": {
-      "change": -16.39990234375,
-      "change_pct": -0.0034728634398584674,
+      "change": 38.0,
+      "change_pct": 0.008123824013737346,
       "error": null,
       "label": "Gold",
-      "last": 4705.89990234375,
-      "prev_close": 4722.2998046875,
+      "last": 4715.60009765625,
+      "prev_close": 4677.60009765625,
       "symbol": "GC=F"
     },
     "Nasdaq": {
-      "change": -53.875,
-      "change_pct": -0.0021691777798625847,
+      "change": -185.931640625,
+      "change_pct": -0.007076604802653513,
       "error": null,
       "label": "Nasdaq",
-      "last": 24782.724609375,
-      "prev_close": 24836.599609375,
+      "last": 26088.19921875,
+      "prev_close": 26274.130859375,
       "symbol": "^IXIC"
     },
     "S&P 500": {
-      "change": -3.80029296875,
-      "change_pct": -0.0005303908577871028,
+      "change": -11.8798828125,
+      "change_pct": -0.0016026088601544934,
       "error": null,
       "label": "S&P 500",
-      "last": 7161.27978515625,
-      "prev_close": 7165.080078125,
+      "last": 7400.9599609375,
+      "prev_close": 7412.83984375,
       "symbol": "^GSPC"
     },
     "USD/JPY": {
-      "change": -0.52899169921875,
-      "change_pct": -0.003311434449635449,
+      "change": 0.498992919921875,
+      "change_pct": 0.003173629316175174,
       "error": null,
       "label": "USD/JPY",
-      "last": 159.21800231933594,
-      "prev_close": 159.7469940185547,
+      "last": 157.72999572753906,
+      "prev_close": 157.2310028076172,
       "symbol": "JPY=X"
     },
     "VIX": {
-      "change": -0.03999900817871094,
-      "change_pct": -0.0021378412686244297,
+      "change": -0.3899993896484375,
+      "change_pct": -0.021218683757119997,
       "error": null,
       "label": "VIX",
-      "last": 18.670000076293945,
-      "prev_close": 18.709999084472656,
+      "last": 17.989999771118164,
+      "prev_close": 18.3799991607666,
       "symbol": "^VIX"
     },
     "VIX3M": {
-      "change": -0.11999893188476562,
-      "change_pct": -0.005633752872440279,
+      "change": -0.1999988555908203,
+      "change_pct": -0.00941614207843711,
       "error": null,
       "label": "VIX3M",
-      "last": 21.18000030517578,
-      "prev_close": 21.299999237060547,
+      "last": 21.040000915527344,
+      "prev_close": 21.239999771118164,
       "symbol": "^VIX3M"
     },
     "WTI": {
-      "change": 2.1100006103515625,
-      "change_pct": 0.022351701019550564,
+      "change": -1.3499984741210938,
+      "change_pct": -0.01321196388812999,
       "error": null,
       "label": "WTI",
-      "last": 96.51000213623047,
-      "prev_close": 94.4000015258789,
+      "last": 100.83000183105469,
+      "prev_close": 102.18000030517578,
       "symbol": "CL=F"
     }
   },
   "synthesis": {
     "market": {
-      "devils_advocate": "If VIX3M collapses toward spot (spread compression) and the S&P holds above 7,100 through week-end, the Tier 2 setup becomes a legitimate mean-reversion entry signal for names like TSM — the 'wait for confirmation' stance would cost real alpha if the tape rips into month-end.",
-      "read": "VIX at 18.67 sits squarely in Tier 2 — quality growth small entries are on the table at 3-5% sizing, but 50% cash is the structural target. The VIX3M spread (21.18 vs 18.67) signals the market is still pricing residual term stress; this is not a risk-on all-clear. Equities are essentially flat on the day while USD/JPY at 159.22 (-0.33%) and Gold softening suggest mild risk-off positioning without panic — a regime that rewards patience over aggression."
+      "devils_advocate": "VIX has been decelerating rapidly (–2.1% today, VIX3M compressing too) — if the term structure normalizes and VIX drops to sub-16 by week's end, we flip to Tier 0 and the entire buy list locks out, so any defensive adds made today may be entered just as the posture tightens further.",
+      "read": "VIX at 18.0 sits just inside Tier 1 — the threshold between complacency and genuine caution. VIX3M at 21.0 signals the term structure is still inverted relative to spot, meaning the market is pricing near-term calm but mid-horizon unease. S&P and Nasdaq are down fractionally while Dow ekes a gain — rotation defensively is already underway. Cash target is 60%; Tier 1 permits only 2–5% buys in defensives (KO, JNJ, WMT, VZ, PG, MRK). No speculative adds justified today."
     },
     "model": "claude-sonnet-4-6",
     "positions": [],
     "usage": {
       "cache_read_input_tokens": 0,
-      "input_tokens": 3951,
-      "output_tokens": 882
+      "input_tokens": 1985,
+      "output_tokens": 848
     }
   },
   "tier": {
-    "action": "觀察",
+    "action": "警戒佈局",
     "buy_list": [
-      "GOOGL",
-      "MSFT",
-      "AAPL",
-      "AMZN",
-      "META",
-      "TSM",
-      "AVGO",
-      "TXN"
+      "KO",
+      "JNJ",
+      "WMT",
+      "VZ",
+      "PG",
+      "MRK"
     ],
-    "buy_size_pct": "3-5",
-    "cash_target_pct": 50,
-    "index": 2,
-    "name": "tier_2",
-    "note": "避開財報前 7 天的標的",
+    "buy_size_pct": "2-5",
+    "cash_target_pct": 60,
+    "index": 1,
+    "name": "tier_1",
+    "note": null,
     "sell_list": null,
     "vix_range": [
-      18.0,
-      24.6
+      15.0,
+      18.0
     ]
   },
-  "vix_value": 18.670000076293945
+  "vix_value": 17.989999771118164
 }
