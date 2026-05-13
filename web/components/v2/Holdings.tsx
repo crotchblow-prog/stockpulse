@@ -10,7 +10,7 @@ export function Holdings({
 }) {
   const entries = Object.entries(holdings).sort(([a], [b]) => a.localeCompare(b));
 
-  // --public mode strips holdings; render nothing (no header, no placeholder)
+  // Default-strip removes holdings; render nothing (no header, no placeholder)
   // so the public site doesn't leak a "No holdings" placeholder card.
   if (entries.length === 0) return null;
 

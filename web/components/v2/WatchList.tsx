@@ -44,7 +44,7 @@ export function WatchList({
 }) {
   const classified = classifyAndSort(holdings);
 
-  // --public mode strips holdings; the Watch List has nothing to render so
+  // Default-strip removes holdings; the Watch List has nothing to render so
   // skip the section entirely (no header, no placeholder).
   if (classified.length === 0) return null;
 

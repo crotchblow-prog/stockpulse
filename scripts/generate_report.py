@@ -49,14 +49,15 @@ def parse_args() -> argparse.Namespace:
         help="Skip the zh translation step. EN report still ships normally.",
     )
     p.add_argument(
-        "--public",
+        "--personal",
         action="store_true",
         help=(
-            "Strip personal-portfolio data from the output: empties holdings + accounts + "
-            "synthesis.positions + Tier Action annotations. Keeps tier/VIX/snapshot/"
-            "Universe Scanner/synthesis market read + devil's advocate. Used by the daily "
-            "cron — public site never sees Carina's positions. Run without this flag for "
-            "the full personal view."
+            "INCLUDE personal-portfolio data in the output: keeps holdings, accounts, "
+            "synthesis.positions, and Tier Action annotations. DEFAULT behavior strips "
+            "all personal data — only pass --personal for local invocations where you "
+            "want the full view. The daily cron MUST NOT pass this flag (and does not). "
+            "Inverting the default in 2026-05-13 makes a script-reload race unable to "
+            "drop the strip — leaking now requires a positive flag."
         ),
     )
     p.add_argument("-v", "--verbose", action="store_true", help="DEBUG logging.")
@@ -333,18 +334,19 @@ def main() -> int:
     if synthesis is not None:
         report["synthesis"] = synthesis
 
-    if args.public:
-        # Strip personal-portfolio data BEFORE rendering, so neither markdown
-        # nor JSON sidecar leak holdings, account groupings, or per-position
-        # action calls. Keeps tier/VIX/snapshot/Universe Scanner intact, plus
-        # the synthesis market read + devil's advocate (general commentary).
+    if not args.personal:
+        # Default-strip personal-portfolio data BEFORE rendering, so neither
+        # markdown nor JSON sidecar leak holdings, account groupings, or
+        # per-position action calls. Keeps tier/VIX/snapshot/Universe Scanner
+        # intact, plus the synthesis market read + devil's advocate.
+        # Pass --personal locally to retain the full view.
         report["holdings"] = {}
         report["accounts"] = {}
         if isinstance(report.get("synthesis"), dict):
             stripped = dict(report["synthesis"])
             stripped["positions"] = []
             report["synthesis"] = stripped
-        log.info("--public: stripped holdings + accounts + synthesis.positions for deploy")
+        log.info("default-strip: removed holdings + accounts + synthesis.positions (pass --personal to keep)")
 
     en_md = markdown_gen.render(report)
 
@@ -360,7 +362,7 @@ def main() -> int:
     log.info("wrote en/%s and en/%s", en_dated_json.name, en_latest_json.name)
 
     # zh translation is best-effort — failure here never blocks the EN report.
-    # Read synthesis off `report` (not the captured `synthesis` local) so --public
+    # Read synthesis off `report` (not the captured `synthesis` local) so default-strip
     # stripping above propagates into the zh sidecar.
     zh = maybe_translate(en_md, report.get("synthesis"), skip=(args.en_only or args.no_synthesis))
     if zh is not None:

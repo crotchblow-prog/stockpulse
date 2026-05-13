@@ -437,7 +437,7 @@ def render(report: dict[str, Any]) -> str:
     lines.extend(_render_universe_scanner(tier.index, tier.action, report.get("regime_universe")))
 
     # ── Holdings ──────────────────────────────────────────────────────────
-    # Skip the entire section when holdings is empty (e.g. --public mode strips
+    # Skip the entire section when holdings is empty (e.g. default-strip removes
     # personal-portfolio data). Avoids rendering an empty table that reads as broken.
     if holdings:
         lines.append("## 💼 Holdings")

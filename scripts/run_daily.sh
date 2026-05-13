@@ -35,10 +35,12 @@ cd "$REPO_DIR"
     exit 1
   fi
 
-  # --public strips personal-portfolio data (holdings, accounts, synthesis
-  # positions) before render. Vercel-deployed output never sees Carina's
-  # positions. Run without --public locally for the full personal view.
-  ./.venv/bin/python scripts/generate_report.py --public
+  # generate_report.py default-strips personal-portfolio data (holdings,
+  # accounts, synthesis positions) before render. The Vercel-deployed output
+  # never sees Carina's positions. DO NOT add --personal here — that flag is
+  # the local-only opt-in for the full personal view. Inverting the default
+  # on 2026-05-13 closes the script-reload race that caused the 04-27 leak.
+  ./.venv/bin/python scripts/generate_report.py
 
   if [[ -n "$(git status --porcelain web/public/reports/)" ]]; then
     git add web/public/reports/
