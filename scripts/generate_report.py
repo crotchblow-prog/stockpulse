@@ -56,7 +56,7 @@ def parse_args() -> argparse.Namespace:
             "synthesis.positions, and Tier Action annotations. DEFAULT behavior strips "
             "all personal data — only pass --personal for local invocations where you "
             "want the full view. The daily cron MUST NOT pass this flag (and does not). "
-            "Inverting the default in 2026-05-13 makes a script-reload race unable to "
+            "Inverting the default on 2026-05-13 makes a script-reload race unable to "
             "drop the strip — leaking now requires a positive flag."
         ),
     )
