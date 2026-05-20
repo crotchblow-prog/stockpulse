@@ -1,10 +1,10 @@
 {
-  "fetched_at": 1778653898.3138719,
+  "fetched_at": 1779285607.105976,
   "rows": [
     {
       "date": "2026-07-15",
       "epsActual": null,
-      "epsEstimate": 23.2114,
+      "epsEstimate": 23.6852,
       "hour": "amc",
       "quarter": 2,
       "revenueActual": null,
@@ -15,33 +15,33 @@
     {
       "date": "2026-08-04",
       "epsActual": null,
-      "epsEstimate": -0.4007,
+      "epsEstimate": -0.3687,
       "hour": "",
       "quarter": 2,
       "revenueActual": null,
-      "revenueEstimate": 64428575,
+      "revenueEstimate": 65180723,
       "symbol": "IONQ",
       "year": 2026
     },
     {
       "date": "2026-08-03",
       "epsActual": null,
-      "epsEstimate": 0.3427,
+      "epsEstimate": 0.3511,
       "hour": "",
       "quarter": 2,
       "revenueActual": null,
-      "revenueEstimate": 1821746785,
+      "revenueEstimate": 1833401397,
       "symbol": "PLTR",
       "year": 2026
     },
     {
       "date": "2026-07-27",
       "epsActual": null,
-      "epsEstimate": 0.1132,
+      "epsEstimate": 0.1109,
       "hour": "bmo",
       "quarter": 2,
       "revenueActual": null,
-      "revenueEstimate": 1140936626,
+      "revenueEstimate": 1140528626,
       "symbol": "SOFI",
       "year": 2026
     }

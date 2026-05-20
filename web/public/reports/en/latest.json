@@ -1,6 +1,6 @@
 {
   "accounts": {},
-  "date": "2026-05-13",
+  "date": "2026-05-20",
   "holdings": {},
   "regime_universe": {
     "AAPL": {
@@ -866,98 +866,98 @@
   "schema_version": 2,
   "snapshot": {
     "BTC": {
-      "change": 614.2265625,
-      "change_pct": 0.0076322776195479345,
+      "change": 386.421875,
+      "change_pct": 0.0050347532541350284,
       "error": null,
       "label": "BTC",
-      "last": 81091.71875,
-      "prev_close": 80477.4921875,
+      "last": 77137.328125,
+      "prev_close": 76750.90625,
       "symbol": "BTC-USD"
     },
     "Dow": {
-      "change": 56.08984375,
-      "change_pct": 0.0011284668191931938,
+      "change": 60.94921875,
+      "change_pct": 0.0012346926558537354,
       "error": null,
       "label": "Dow",
-      "last": 49760.55859375,
-      "prev_close": 49704.46875,
+      "last": 49424.828125,
+      "prev_close": 49363.87890625,
       "symbol": "^DJI"
     },
     "Gold": {
-      "change": 38.0,
-      "change_pct": 0.008123824013737346,
+      "change": -16.2998046875,
+      "change_pct": -0.003617115015415702,
       "error": null,
       "label": "Gold",
-      "last": 4715.60009765625,
-      "prev_close": 4677.60009765625,
+      "last": 4490.0,
+      "prev_close": 4506.2998046875,
       "symbol": "GC=F"
     },
     "Nasdaq": {
-      "change": -185.931640625,
-      "change_pct": -0.007076604802653513,
+      "change": 127.708984375,
+      "change_pct": 0.00493643118983189,
       "error": null,
       "label": "Nasdaq",
-      "last": 26088.19921875,
-      "prev_close": 26274.130859375,
+      "last": 25998.419921875,
+      "prev_close": 25870.7109375,
       "symbol": "^IXIC"
     },
     "S&P 500": {
-      "change": -11.8798828125,
-      "change_pct": -0.0016026088601544934,
+      "change": 25.63037109375,
+      "change_pct": 0.003485413500344916,
       "error": null,
       "label": "S&P 500",
-      "last": 7400.9599609375,
-      "prev_close": 7412.83984375,
+      "last": 7379.240234375,
+      "prev_close": 7353.60986328125,
       "symbol": "^GSPC"
     },
     "USD/JPY": {
-      "change": 0.498992919921875,
-      "change_pct": 0.003173629316175174,
+      "change": 0.24200439453125,
+      "change_pct": 0.0015233720426075443,
       "error": null,
       "label": "USD/JPY",
-      "last": 157.72999572753906,
-      "prev_close": 157.2310028076172,
+      "last": 159.10299682617188,
+      "prev_close": 158.86099243164062,
       "symbol": "JPY=X"
     },
     "VIX": {
-      "change": -0.3899993896484375,
-      "change_pct": -0.021218683757119997,
+      "change": -0.25,
+      "change_pct": -0.013842746810233907,
       "error": null,
       "label": "VIX",
-      "last": 17.989999771118164,
-      "prev_close": 18.3799991607666,
+      "last": 17.809999465942383,
+      "prev_close": 18.059999465942383,
       "symbol": "^VIX"
     },
     "VIX3M": {
-      "change": -0.1999988555908203,
-      "change_pct": -0.00941614207843711,
+      "change": -0.20000076293945312,
+      "change_pct": -0.009469732717430736,
       "error": null,
       "label": "VIX3M",
-      "last": 21.040000915527344,
-      "prev_close": 21.239999771118164,
+      "last": 20.920000076293945,
+      "prev_close": 21.1200008392334,
       "symbol": "^VIX3M"
     },
     "WTI": {
-      "change": -1.3499984741210938,
-      "change_pct": -0.01321196388812999,
+      "change": -5.909996032714844,
+      "change_pct": -0.05483897389631286,
       "error": null,
       "label": "WTI",
-      "last": 100.83000183105469,
-      "prev_close": 102.18000030517578,
+      "last": 101.86000061035156,
+      "prev_close": 107.7699966430664,
       "symbol": "CL=F"
     }
   },
   "synthesis": {
     "market": {
-      "devils_advocate": "VIX has been decelerating rapidly (–2.1% today, VIX3M compressing too) — if the term structure normalizes and VIX drops to sub-16 by week's end, we flip to Tier 0 and the entire buy list locks out, so any defensive adds made today may be entered just as the posture tightens further.",
-      "read": "VIX at 18.0 sits just inside Tier 1 — the threshold between complacency and genuine caution. VIX3M at 21.0 signals the term structure is still inverted relative to spot, meaning the market is pricing near-term calm but mid-horizon unease. S&P and Nasdaq are down fractionally while Dow ekes a gain — rotation defensively is already underway. Cash target is 60%; Tier 1 permits only 2–5% buys in defensives (KO, JNJ, WMT, VZ, PG, MRK). No speculative adds justified today."
+      "devils_advocate": "If VIX3M compresses toward spot (20.9 → sub-18) over the next week, we could slip into Tier 0 — which actually locks down buying further and signals the market has priced out all near-term risk, often a setup for a sharp vol event. A complacent melt-up here would be the worst entry point for any new longs.",
+      "read": "VIX at 17.81 (Tier 1) with VIX3M at 20.92 — the term structure is still inverted-ish, signaling residual stress above the spot reading. Equities are grinding higher (SPX +0.35%, Nasdaq +0.49%) but this is not a green light to deploy aggressively: Tier 1 means 60% cash target, defensive-only buys (KO/JNJ/WMT/VZ/PG/MRK) at 2–5% sizing. USD/JPY at 159.10 (+0.15%) continues to drift higher — JPY weakness persists, no reversal catalyst visible today."
     },
     "model": "claude-sonnet-4-6",
     "positions": [],
     "usage": {
       "cache_read_input_tokens": 0,
-      "input_tokens": 1985,
-      "output_tokens": 848
+      "input_tokens": 1977,
+      "output_tokens": 856
     }
   },
   "tier": {
@@ -981,5 +981,5 @@
       18.0
     ]
   },
-  "vix_value": 17.989999771118164
+  "vix_value": 17.809999465942383
 }
