@@ -1,14 +1,14 @@
-# 📊 Daily Market — 2026-05-20
+# 📊 Daily Market — 2026-06-14
 
-**VIX 17.81** → 🟡 **Tier 1 · 警戒佈局** 
+**VIX 17.68** → 🟡 **Tier 1 · 警戒佈局** 
 
 Cash target **60%** · buy size **2-5%** · range _VIX 15–18_
 
 ## 📝 Today's Take
 
-**Market read.** VIX at 17.81 (Tier 1) with VIX3M at 20.92 — the term structure is still inverted-ish, signaling residual stress above the spot reading. Equities are grinding higher (SPX +0.35%, Nasdaq +0.49%) but this is not a green light to deploy aggressively: Tier 1 means 60% cash target, defensive-only buys (KO/JNJ/WMT/VZ/PG/MRK) at 2–5% sizing. USD/JPY at 159.10 (+0.15%) continues to drift higher — JPY weakness persists, no reversal catalyst visible today.
+**Market read.** VIX at 17.68 sits squarely in Tier 1 — elevated enough to demand 60% cash and defensive discipline, but not yet the capitulation zone where real bargains emerge. The VIX3M at 20.51 prints a modest contango, suggesting the market is pricing residual stress over the next quarter; this is not an all-clear. Equities are grinding higher in low-volatility drift (S&P +0.5%, Dow +0.7%), but Gold +3.6% and USD/JPY steady at 160.18 hint at quiet safe-haven hedging underneath the surface calm. Tier 1 posture: hold cash, only defensives (KO/JNJ/WMT/VZ/PG/MRK) qualify for new 2–5% entries.
 
-**Devil's advocate.** If VIX3M compresses toward spot (20.9 → sub-18) over the next week, we could slip into Tier 0 — which actually locks down buying further and signals the market has priced out all near-term risk, often a setup for a sharp vol event. A complacent melt-up here would be the worst entry point for any new longs.
+**Devil's advocate.** If the VIX continues fading toward the 15 boundary and the S&P follow-through accelerates on institutional FOMO, sitting heavy in cash means underperforming a genuine melt-up — the VIX3M contango could compress faster than the tier model expects, pulling Tier 1 entry candidates like TSM into a momentum breakout that the framework would miss entirely.
 
 ## 🎯 Tier Action
 
@@ -54,16 +54,16 @@ _Tickers tagged in both 🟢 Add and 🔴 Avoid are double-edged: they amplify o
 
 | Asset | Last | Δ |
 |---|---:|---:|
-| VIX | 17.81 | -0.25 (-1.38%) |
-| VIX3M | 20.92 | -0.20 (-0.95%) |
-| S&P 500 | 7,379.24 | +25.63 (+0.35%) |
-| Nasdaq | 25,998.42 | +127.71 (+0.49%) |
-| Dow | 49,424.83 | +60.95 (+0.12%) |
-| USD/JPY | 159.10 | +0.24 (+0.15%) |
-| BTC | 77,137.33 | +386.42 (+0.50%) |
-| Gold | 4,490.00 | -16.30 (-0.36%) |
-| WTI | 101.86 | -5.91 (-5.48%) |
+| VIX | 17.68 | -1.76 (-9.05%) |
+| VIX3M | 20.51 | -0.91 (-4.25%) |
+| S&P 500 | 7,431.46 | +37.16 (+0.50%) |
+| Nasdaq | 25,888.84 | +79.18 (+0.31%) |
+| Dow | 51,202.26 | +353.51 (+0.70%) |
+| USD/JPY | 160.18 | +0.05 (+0.03%) |
+| BTC | 64,287.98 | -133.34 (-0.21%) |
+| Gold | 4,238.80 | +148.50 (+3.63%) |
+| WTI | 84.88 | -2.83 (-3.23%) |
 
 ---
 
-_Generated 2026-05-20 · Asia/Taipei · not investment advice._
+_Generated 2026-06-14 · Asia/Taipei · not investment advice._
