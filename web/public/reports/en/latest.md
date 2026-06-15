@@ -1,14 +1,14 @@
-# 📊 Daily Market — 2026-06-14
+# 📊 Daily Market — 2026-06-15
 
-**VIX 17.68** → 🟡 **Tier 1 · 警戒佈局** 
+**VIX 16.34** → 🟡 **Tier 1 · 警戒佈局** 
 
 Cash target **60%** · buy size **2-5%** · range _VIX 15–18_
 
 ## 📝 Today's Take
 
-**Market read.** VIX at 17.68 sits squarely in Tier 1 — elevated enough to demand 60% cash and defensive discipline, but not yet the capitulation zone where real bargains emerge. The VIX3M at 20.51 prints a modest contango, suggesting the market is pricing residual stress over the next quarter; this is not an all-clear. Equities are grinding higher in low-volatility drift (S&P +0.5%, Dow +0.7%), but Gold +3.6% and USD/JPY steady at 160.18 hint at quiet safe-haven hedging underneath the surface calm. Tier 1 posture: hold cash, only defensives (KO/JNJ/WMT/VZ/PG/MRK) qualify for new 2–5% entries.
+**Market read.** VIX at 16.34 plants us firmly in Tier 1 — defensives-only territory with a 60% cash target. Equities are drifting higher (SPX +1.5%, Nasdaq +2.4%) but the VIX3M at 19.68 signals the market's own 3-month vol expectation sits in Tier 2, flagging latent stress beneath the surface calm. Gold +4% and USD/JPY essentially flat (-0.04%) despite a risk-on tape is a subtle warning that safe-haven demand hasn't fully dissipated — this is not the all-clear.
 
-**Devil's advocate.** If the VIX continues fading toward the 15 boundary and the S&P follow-through accelerates on institutional FOMO, sitting heavy in cash means underperforming a genuine melt-up — the VIX3M contango could compress faster than the tier model expects, pulling Tier 1 entry candidates like TSM into a momentum breakout that the framework would miss entirely.
+**Devil's advocate.** If the VIX3M compresses back toward spot (i.e., the term structure flattens down rather than up), the Tier 1 ceiling lifts and quality growth names become deployable well before the framework formally re-rates — acting too defensively here risks missing a sustained grind higher already visible in SPX and Nasdaq. The Nasdaq's +2.4% single-day move with no VIX spike suggests genuine risk appetite, not a dead-cat bounce.
 
 ## 🎯 Tier Action
 
@@ -54,16 +54,16 @@ _Tickers tagged in both 🟢 Add and 🔴 Avoid are double-edged: they amplify o
 
 | Asset | Last | Δ |
 |---|---:|---:|
-| VIX | 17.68 | -1.76 (-9.05%) |
-| VIX3M | 20.51 | -0.91 (-4.25%) |
-| S&P 500 | 7,431.46 | +37.16 (+0.50%) |
-| Nasdaq | 25,888.84 | +79.18 (+0.31%) |
-| Dow | 51,202.26 | +353.51 (+0.70%) |
-| USD/JPY | 160.18 | +0.05 (+0.03%) |
-| BTC | 64,287.98 | -133.34 (-0.21%) |
-| Gold | 4,238.80 | +148.50 (+3.63%) |
-| WTI | 84.88 | -2.83 (-3.23%) |
+| VIX | 16.34 | -1.34 (-7.58%) |
+| VIX3M | 19.68 | -0.83 (-4.05%) |
+| S&P 500 | 7,541.79 | +110.33 (+1.48%) |
+| Nasdaq | 26,507.14 | +618.30 (+2.39%) |
+| Dow | 51,796.01 | +593.75 (+1.16%) |
+| USD/JPY | 160.06 | -0.07 (-0.04%) |
+| BTC | 66,394.43 | +684.03 (+1.04%) |
+| Gold | 4,383.50 | +168.50 (+4.00%) |
+| WTI | 80.49 | -4.39 (-5.17%) |
 
 ---
 
-_Generated 2026-06-14 · Asia/Taipei · not investment advice._
+_Generated 2026-06-15 · Asia/Taipei · not investment advice._
