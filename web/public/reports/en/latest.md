@@ -1,20 +1,22 @@
-# 📊 Daily Market — 2026-06-15
+# 📊 Daily Market — 2026-10-23
 
-**VIX 16.34** → 🟡 **Tier 1 · 警戒佈局** 
+**VIX 20.12** → 🟠 **Tier 2 · 觀察** 
 
-Cash target **60%** · buy size **2-5%** · range _VIX 15–18_
+Cash target **50%** · buy size **3-5%** · range _VIX 18–24.6_
+
+> _避開財報前 7 天的標的_
 
 ## 📝 Today's Take
 
-**Market read.** VIX at 16.34 plants us firmly in Tier 1 — defensives-only territory with a 60% cash target. Equities are drifting higher (SPX +1.5%, Nasdaq +2.4%) but the VIX3M at 19.68 signals the market's own 3-month vol expectation sits in Tier 2, flagging latent stress beneath the surface calm. Gold +4% and USD/JPY essentially flat (-0.04%) despite a risk-on tape is a subtle warning that safe-haven demand hasn't fully dissipated — this is not the all-clear.
+**Market read.** VIX at 20.12 sits squarely in Tier 2 — elevated enough to warrant caution but not a genuine stress regime. Indices are flat-to-slightly-red (S&P -0.004%, Dow -1%), VIX3M at 21.01 shows no term-structure inversion, and USD/JPY slipping to 156.74 signals mild yen strength. The environment supports small 3-5% entries into quality growth names on the Tier 2 buy list only — no high-conviction loading.
 
-**Devil's advocate.** If the VIX3M compresses back toward spot (i.e., the term structure flattens down rather than up), the Tier 1 ceiling lifts and quality growth names become deployable well before the framework formally re-rates — acting too defensively here risks missing a sustained grind higher already visible in SPX and Nasdaq. The Nasdaq's +2.4% single-day move with no VIX spike suggests genuine risk appetite, not a dead-cat bounce.
+**Devil's advocate.** VIX at 20.12 is barely inside Tier 2 and could slip back into Tier 1 on any positive macro print, which would compress the buy window and push cash targets back to 60% — names added here would immediately face a framework-driven trim trigger.
 
 ## 🎯 Tier Action
 
-**Buy list:** `KO`, `JNJ`, `WMT`, `VZ`, `PG`, `MRK`
+**Buy list:** `GOOGL`, `MSFT`, `AAPL`, `AMZN`, `META`, `TSM`, `AVGO`, `TXN`
 
-## 📡 Universe Scanner — Tier 1 (Cautious positioning)
+## 📡 Universe Scanner — Tier 2 (Watch)
 
 _β normal: regime-conditional beta vs SPX in calm weeks. Crush recovery: 5-day return after VIX falls ≥30%. Spike decay: 5-day return after VIX rises ≥20%._
 
@@ -54,16 +56,16 @@ _Tickers tagged in both 🟢 Add and 🔴 Avoid are double-edged: they amplify o
 
 | Asset | Last | Δ |
 |---|---:|---:|
-| VIX | 16.34 | -1.34 (-7.58%) |
-| VIX3M | 19.68 | -0.83 (-4.05%) |
-| S&P 500 | 7,541.79 | +110.33 (+1.48%) |
-| Nasdaq | 26,507.14 | +618.30 (+2.39%) |
-| Dow | 51,796.01 | +593.75 (+1.16%) |
-| USD/JPY | 160.06 | -0.07 (-0.04%) |
-| BTC | 66,394.43 | +684.03 (+1.04%) |
-| Gold | 4,383.50 | +168.50 (+4.00%) |
-| WTI | 80.49 | -4.39 (-5.17%) |
+| VIX | 20.12 | +1.09 (+5.73%) |
+| VIX3M | 21.01 | +0.89 (+4.42%) |
+| S&P 500 | 7,633.05 | -30.38 (-0.40%) |
+| Nasdaq | 26,005.77 | -3.09 (-0.01%) |
+| Dow | 52,319.08 | -548.90 (-1.04%) |
+| USD/JPY | 156.74 | -1.39 (-0.88%) |
+| BTC | 81,890.81 | +578.92 (+0.71%) |
+| Gold | 4,035.90 | -24.50 (-0.60%) |
+| WTI | 102.57 | +3.10 (+3.12%) |
 
 ---
 
-_Generated 2026-06-15 · Asia/Taipei · not investment advice._
+_Generated 2026-10-23 · Asia/Taipei · not investment advice._

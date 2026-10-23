@@ -1,6 +1,6 @@
 {
   "accounts": {},
-  "date": "2026-06-15",
+  "date": "2026-10-23",
   "holdings": {},
   "regime_universe": {
     "AAPL": {
@@ -866,120 +866,122 @@
   "schema_version": 2,
   "snapshot": {
     "BTC": {
-      "change": 684.03125,
-      "change_pct": 0.010409786978397517,
+      "change": 578.921875,
+      "change_pct": 0.007119768960605201,
       "error": null,
       "label": "BTC",
-      "last": 66394.4296875,
-      "prev_close": 65710.3984375,
+      "last": 81890.8125,
+      "prev_close": 81311.890625,
       "symbol": "BTC-USD"
     },
     "Dow": {
-      "change": 593.75,
-      "change_pct": 0.011596167436146124,
+      "change": -548.90234375,
+      "change_pct": -0.01038251014854735,
       "error": null,
       "label": "Dow",
-      "last": 51796.01171875,
-      "prev_close": 51202.26171875,
+      "last": 52319.078125,
+      "prev_close": 52867.98046875,
       "symbol": "^DJI"
     },
     "Gold": {
-      "change": 168.5,
-      "change_pct": 0.039976275207591935,
+      "change": -24.5,
+      "change_pct": -0.0060338884319887,
       "error": null,
       "label": "Gold",
-      "last": 4383.5,
-      "prev_close": 4215.0,
+      "last": 4035.89990234375,
+      "prev_close": 4060.39990234375,
       "symbol": "GC=F"
     },
     "Nasdaq": {
-      "change": 618.30078125,
-      "change_pct": 0.023882908039978012,
+      "change": -3.091796875,
+      "change_pct": -0.00011887475842065835,
       "error": null,
       "label": "Nasdaq",
-      "last": 26507.140625,
-      "prev_close": 25888.83984375,
+      "last": 26005.767578125,
+      "prev_close": 26008.859375,
       "symbol": "^IXIC"
     },
     "S&P 500": {
-      "change": 110.330078125,
-      "change_pct": 0.014846353032235344,
+      "change": -30.38037109375,
+      "change_pct": -0.003964330645271765,
       "error": null,
       "label": "S&P 500",
-      "last": 7541.7900390625,
-      "prev_close": 7431.4599609375,
+      "last": 7633.0498046875,
+      "prev_close": 7663.43017578125,
       "symbol": "^GSPC"
     },
     "USD/JPY": {
-      "change": -0.066009521484375,
-      "change_pct": -0.0004122245642388044,
+      "change": -1.39300537109375,
+      "change_pct": -0.008809129953193657,
       "error": null,
       "label": "USD/JPY",
-      "last": 160.06399536132812,
-      "prev_close": 160.1300048828125,
+      "last": 156.73899841308594,
+      "prev_close": 158.1320037841797,
       "symbol": "JPY=X"
     },
     "VIX": {
-      "change": -1.3400001525878906,
-      "change_pct": -0.07579186252590779,
+      "change": 1.0900001525878906,
+      "change_pct": 0.05727798808503507,
       "error": null,
       "label": "VIX",
-      "last": 16.34000015258789,
-      "prev_close": 17.68000030517578,
+      "last": 20.1200008392334,
+      "prev_close": 19.030000686645508,
       "symbol": "^VIX"
     },
     "VIX3M": {
-      "change": -0.8299999237060547,
-      "change_pct": -0.040468060187403745,
+      "change": 0.8899993896484375,
+      "change_pct": 0.04423456026467779,
       "error": null,
       "label": "VIX3M",
-      "last": 19.68000030517578,
-      "prev_close": 20.510000228881836,
+      "last": 21.010000228881836,
+      "prev_close": 20.1200008392334,
       "symbol": "^VIX3M"
     },
     "WTI": {
-      "change": -4.3899993896484375,
-      "change_pct": -0.05172006988338657,
+      "change": 3.0999984741210938,
+      "change_pct": 0.03116515970722515,
       "error": null,
       "label": "WTI",
-      "last": 80.48999786376953,
-      "prev_close": 84.87999725341797,
+      "last": 102.56999969482422,
+      "prev_close": 99.47000122070312,
       "symbol": "CL=F"
     }
   },
   "synthesis": {
     "market": {
-      "devils_advocate": "若 VIX3M 向現貨端壓縮（即期限結構向下走平而非向上），Tier 1 上限將抬升，優質成長股在框架正式重新評級之前便可提前部署——過度防禦將面臨錯失 SPX 與 Nasdaq 已然可見之持續上漲的風險。Nasdaq 單日 +2.4% 且 VIX 毫無飆升，顯示這是真實的風險偏好，而非死貓反彈。",
-      "read": "VIX 位於 16.34，將我們牢牢置於 Tier 1——僅限防禦性部位，現金目標 60%。股市持續走高（SPX +1.5%、Nasdaq +2.4%），但 VIX3M 報 19.68，顯示市場自身對未來 3 個月波動率的預期仍處 Tier 2，暗示表面平靜之下潛藏壓力。黃金 +4%，而 USD/JPY 在風險偏好行情中幾乎持平（-0.04%），是一個微妙的警示訊號——避險需求尚未完全消退，此刻並非全面解除警報之時。"
+      "devils_advocate": "VIX 於 20.12 僅勉強進入 Tier 2，任何正面總經數據均可能將其推回 Tier 1，從而壓縮買入窗口並將現金目標重新推升至 60%——在此建立的倉位將立即面臨框架驅動的減倉觸發條件。",
+      "read": "VIX 位於 20.12，正好落在 Tier 2——高到需要謹慎，但尚未進入真正的壓力機制。指數持平略偏紅（S&P -0.004%、Dow -1%），VIX3M 於 21.01 顯示無期限結構倒掛，USD/JPY 滑至 156.74 則示意日圓溫和走強。當前環境僅支持對 Tier 2 買入名單中的優質成長股進行 3-5% 的小倉位建倉——不宜高信心重倉。"
     },
     "model": "claude-sonnet-4-6",
     "positions": [],
     "usage": {
       "cache_read_input_tokens": 0,
-      "input_tokens": 1977,
-      "output_tokens": 832
+      "input_tokens": 2009,
+      "output_tokens": 842
     }
   },
   "tier": {
-    "action": "警戒佈局",
+    "action": "觀察",
     "buy_list": [
-      "KO",
-      "JNJ",
-      "WMT",
-      "VZ",
-      "PG",
-      "MRK"
+      "GOOGL",
+      "MSFT",
+      "AAPL",
+      "AMZN",
+      "META",
+      "TSM",
+      "AVGO",
+      "TXN"
     ],
-    "buy_size_pct": "2-5",
-    "cash_target_pct": 60,
-    "index": 1,
-    "name": "tier_1",
-    "note": null,
+    "buy_size_pct": "3-5",
+    "cash_target_pct": 50,
+    "index": 2,
+    "name": "tier_2",
+    "note": "避開財報前 7 天的標的",
     "sell_list": null,
     "vix_range": [
-      15.0,
-      18.0
+      18.0,
+      24.6
     ]
   },
-  "vix_value": 16.34000015258789
+  "vix_value": 20.1200008392334
 }
