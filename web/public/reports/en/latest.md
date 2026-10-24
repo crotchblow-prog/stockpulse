@@ -1,6 +1,6 @@
-# 📊 Daily Market — 2026-10-23
+# 📊 Daily Market — 2026-10-24
 
-**VIX 20.12** → 🟠 **Tier 2 · 觀察** 
+**VIX 19.45** → 🟠 **Tier 2 · 觀察** 
 
 Cash target **50%** · buy size **3-5%** · range _VIX 18–24.6_
 
@@ -8,9 +8,9 @@ Cash target **50%** · buy size **3-5%** · range _VIX 18–24.6_
 
 ## 📝 Today's Take
 
-**Market read.** VIX at 20.12 sits squarely in Tier 2 — elevated enough to warrant caution but not a genuine stress regime. Indices are flat-to-slightly-red (S&P -0.004%, Dow -1%), VIX3M at 21.01 shows no term-structure inversion, and USD/JPY slipping to 156.74 signals mild yen strength. The environment supports small 3-5% entries into quality growth names on the Tier 2 buy list only — no high-conviction loading.
+**Market read.** VIX at 19.45 parks us firmly in Tier 2 — quality growth small entries are permitted at 3–5% size, with a 50% cash target. The term structure is in contango (VIX3M 20.48 > VIX 19.45), signaling no near-term panic but also no all-clear. Equities are softly red across the board (S&P -0.52%, Dow -1.23%), WTI is ripping +3.82% — an inflationary wrinkle that could keep the Fed hawkish and compress growth multiples. USD/JPY at 156.81 is marginally weaker on the day; Carina should watch for yen strengthening if risk-off deepens.
 
-**Devil's advocate.** VIX at 20.12 is barely inside Tier 2 and could slip back into Tier 1 on any positive macro print, which would compress the buy window and push cash targets back to 60% — names added here would immediately face a framework-driven trim trigger.
+**Devil's advocate.** WTI's 3.8% surge could reignite CPI expectations and force a hawkish Fed reprice — if the 10Y yield spikes in response, the Tier 2 'quality growth entry' thesis collapses fast and we're looking at a rapid VIX re-escalation toward Tier 3 before any new positions mature.
 
 ## 🎯 Tier Action
 
@@ -56,16 +56,16 @@ _Tickers tagged in both 🟢 Add and 🔴 Avoid are double-edged: they amplify o
 
 | Asset | Last | Δ |
 |---|---:|---:|
-| VIX | 20.12 | +1.09 (+5.73%) |
-| VIX3M | 21.01 | +0.89 (+4.42%) |
-| S&P 500 | 7,633.05 | -30.38 (-0.40%) |
-| Nasdaq | 26,005.77 | -3.09 (-0.01%) |
-| Dow | 52,319.08 | -548.90 (-1.04%) |
-| USD/JPY | 156.74 | -1.39 (-0.88%) |
-| BTC | 81,890.81 | +578.92 (+0.71%) |
-| Gold | 4,035.90 | -24.50 (-0.60%) |
-| WTI | 102.57 | +3.10 (+3.12%) |
+| VIX | 19.45 | +0.42 (+2.21%) |
+| VIX3M | 20.48 | +0.36 (+1.79%) |
+| S&P 500 | 7,623.68 | -39.75 (-0.52%) |
+| Nasdaq | 25,955.34 | -53.52 (-0.21%) |
+| Dow | 52,215.16 | -652.82 (-1.23%) |
+| USD/JPY | 156.81 | -1.32 (-0.83%) |
+| BTC | 80,593.89 | -480.30 (-0.59%) |
+| Gold | 4,007.90 | -52.50 (-1.29%) |
+| WTI | 103.27 | +3.80 (+3.82%) |
 
 ---
 
-_Generated 2026-10-23 · Asia/Taipei · not investment advice._
+_Generated 2026-10-24 · Asia/Taipei · not investment advice._
