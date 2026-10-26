@@ -1,5 +1,5 @@
 {
-  "fetched_at": 1792850419.842367,
+  "fetched_at": 1793023215.640811,
   "rows": [
     {
       "date": "2027-01-13",
@@ -13,7 +13,7 @@
       "year": 2026
     },
     {
-      "date": "2026-11-11",
+      "date": "2026-11-05",
       "epsActual": null,
       "epsEstimate": -0.3843,
       "hour": "",
@@ -37,11 +37,11 @@
     {
       "date": "2026-10-27",
       "epsActual": null,
-      "epsEstimate": 0.1688,
+      "epsEstimate": 0.1701,
       "hour": "bmo",
       "quarter": 3,
       "revenueActual": null,
-      "revenueEstimate": 1280509224,
+      "revenueEstimate": 1280811368,
       "symbol": "SOFI",
       "year": 2026
     }

@@ -1,6 +1,6 @@
-# 📊 Daily Market — 2026-10-24
+# 📊 Daily Market — 2026-10-26
 
-**VIX 19.45** → 🟠 **Tier 2 · 觀察** 
+**VIX 18.83** → 🟠 **Tier 2 · 觀察** 
 
 Cash target **50%** · buy size **3-5%** · range _VIX 18–24.6_
 
@@ -8,9 +8,9 @@ Cash target **50%** · buy size **3-5%** · range _VIX 18–24.6_
 
 ## 📝 Today's Take
 
-**Market read.** VIX at 19.45 parks us firmly in Tier 2 — quality growth small entries are permitted at 3–5% size, with a 50% cash target. The term structure is in contango (VIX3M 20.48 > VIX 19.45), signaling no near-term panic but also no all-clear. Equities are softly red across the board (S&P -0.52%, Dow -1.23%), WTI is ripping +3.82% — an inflationary wrinkle that could keep the Fed hawkish and compress growth multiples. USD/JPY at 156.81 is marginally weaker on the day; Carina should watch for yen strengthening if risk-off deepens.
+**Market read.** VIX at 18.83 lands squarely in Tier 2 — elevated enough to stay cautious (50% cash target), but not stressed enough to deploy aggressively. VIX3M at 20.16 shows the term structure is flat-to-inverted near-term, suggesting the market is not pricing meaningful near-term relief. S&P +0.42% and USD/JPY grinding to 157.48 reflect a risk-on drift, but BTC -0.58% and WTI -1.64% are quiet divergences. Quality growth small entries (3-5%) are permissible here, but the earnings calendar on PLTR and SOFI this week demands capital protection over deployment.
 
-**Devil's advocate.** WTI's 3.8% surge could reignite CPI expectations and force a hawkish Fed reprice — if the 10Y yield spikes in response, the Tier 2 'quality growth entry' thesis collapses fast and we're looking at a rapid VIX re-escalation toward Tier 3 before any new positions mature.
+**Devil's advocate.** If VIX collapses through 18 toward Tier 1 on a strong earnings week, the mean-reverters (TSM) could rip and the 50% cash target becomes a drag — the regime read would be stale within 48 hours and under-deployment would be the real risk.
 
 ## 🎯 Tier Action
 
@@ -56,16 +56,16 @@ _Tickers tagged in both 🟢 Add and 🔴 Avoid are double-edged: they amplify o
 
 | Asset | Last | Δ |
 |---|---:|---:|
-| VIX | 19.45 | +0.42 (+2.21%) |
-| VIX3M | 20.48 | +0.36 (+1.79%) |
-| S&P 500 | 7,623.68 | -39.75 (-0.52%) |
-| Nasdaq | 25,955.34 | -53.52 (-0.21%) |
-| Dow | 52,215.16 | -652.82 (-1.23%) |
-| USD/JPY | 156.81 | -1.32 (-0.83%) |
-| BTC | 80,593.89 | -480.30 (-0.59%) |
-| Gold | 4,007.90 | -52.50 (-1.29%) |
-| WTI | 103.27 | +3.80 (+3.82%) |
+| VIX | 18.83 | -0.62 (-3.19%) |
+| VIX3M | 20.16 | -0.32 (-1.56%) |
+| S&P 500 | 7,655.45 | +31.77 (+0.42%) |
+| Nasdaq | 26,016.62 | +61.28 (+0.24%) |
+| Dow | 52,401.27 | +186.11 (+0.36%) |
+| USD/JPY | 157.48 | +0.98 (+0.63%) |
+| BTC | 79,562.12 | -461.89 (-0.58%) |
+| Gold | 4,011.40 | +3.50 (+0.09%) |
+| WTI | 101.58 | -1.69 (-1.64%) |
 
 ---
 
-_Generated 2026-10-24 · Asia/Taipei · not investment advice._
+_Generated 2026-10-26 · Asia/Taipei · not investment advice._
